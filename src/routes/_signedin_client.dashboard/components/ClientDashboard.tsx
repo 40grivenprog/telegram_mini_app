@@ -4,9 +4,16 @@ import './ClientDashboard.css'
 interface ClientDashboardProps {
   user: any
   onBookAppointment: () => void
+  onViewPendingAppointments: () => void
+  onViewUpcomingAppointments: () => void
 }
 
-export default function ClientDashboard({ user, onBookAppointment }: ClientDashboardProps) {
+export default function ClientDashboard({ 
+  user, 
+  onBookAppointment,
+  onViewPendingAppointments,
+  onViewUpcomingAppointments
+}: ClientDashboardProps) {
   return (
     <div className="container">
       <header className="header">
@@ -21,6 +28,18 @@ export default function ClientDashboard({ user, onBookAppointment }: ClientDashb
             onClick={onBookAppointment}
           >
             📅 Book Appointment
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewPendingAppointments}
+          >
+            ⏳ Pending Appointments
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewUpcomingAppointments}
+          >
+            📋 Upcoming Appointments
           </button>
         </div>
       </div>

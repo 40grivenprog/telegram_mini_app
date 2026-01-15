@@ -14,6 +14,7 @@ import SelectProfessionalRoute from './_signedin_client.book.select-professional
 import SelectDateRoute from './_signedin_client.book.select-date.$professionalID/route'
 import SelectTimeRoute from './_signedin_client.book.select-time.$professionalID.$date/route'
 import ConfirmAppointmentRoute from './_signedin_client.book.confirm/route'
+import ClientAppointmentsRoute from './_signedin_client.appointments/route'
 import ProfessionalDashboardRoute from './_signedin_professional.dashboard/route'
 import ProfessionalPendingAppointmentsRoute from './_signedin_professional.pending-appointments/route'
 
@@ -148,6 +149,7 @@ function AppRouterContent() {
       <Route path="/client/book/select-date/:professionalID" element={<SelectDateRoute />} />
       <Route path="/client/book/select-time/:professionalID/:date" element={<SelectTimeRoute />} />
       <Route path="/client/book/confirm" element={<ConfirmAppointmentRoute />} />
+      <Route path="/client/appointments/:status" element={<ClientAppointmentsRoute />} />
       
       {/* Professional routes */}
       <Route path="/professional/dashboard" element={<ProfessionalDashboardRoute />} />

@@ -65,7 +65,6 @@ export default function ProfessionalPendingAppointments({
           <div className="appointments-list">
             {appointments.map((apt, index) => (
               <div key={apt.id} className="appointment-card">
-                <div className="appointment-number">#{index + 1}</div>
                 <div className="appointment-details">
                   {apt.client && (
                     <p className="client-name">

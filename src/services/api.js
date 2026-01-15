@@ -98,9 +98,36 @@ class ApiService {
     return this.request(`/professionals/appointments${query}`)
   }
 
+  // Get client appointments
+  async getClientAppointments(status = '', page = 1, pageSize = 15) {
+    const params = new URLSearchParams()
+    if (status) params.append('status', status)
+    params.append('page', page.toString())
+    params.append('pageSize', pageSize.toString())
+    return this.request(`/clients/appointments?${params.toString()}`)
+  }
+
+  // Cancel client appointment
+  async cancelClientAppointment(appointmentID, cancellationReason) {
+    return this.request(`/clients/appointments/${appointmentID}/cancel`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        cancellation_reason: cancellationReason,
+      }),
+    })
+  }
+
   // Send appointment request notification to professional
   async sendAppointmentRequest(notificationData) {
     return this.request('/notifications/send_appointment_request', {
+      method: 'POST',
+      body: JSON.stringify(notificationData),
+    })
+  }
+
+  // Send appointment cancellation notification to professional
+  async sendAppointmentCancellationNotification(notificationData) {
+    return this.request('/notifications/send_appointment_cancellation_notification', {
       method: 'POST',
       body: JSON.stringify(notificationData),
     })

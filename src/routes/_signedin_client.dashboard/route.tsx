@@ -13,5 +13,20 @@ export default function ClientDashboardRoute() {
     navigate('/client/book/select-professional')
   }
 
-  return <ClientDashboard user={user} onBookAppointment={handleBookAppointment} />
+  const handleViewPendingAppointments = () => {
+    navigate('/client/appointments/pending')
+  }
+
+  const handleViewUpcomingAppointments = () => {
+    navigate('/client/appointments/upcoming')
+  }
+
+  return (
+    <ClientDashboard 
+      user={user} 
+      onBookAppointment={handleBookAppointment}
+      onViewPendingAppointments={handleViewPendingAppointments}
+      onViewUpcomingAppointments={handleViewUpcomingAppointments}
+    />
+  )
 }
