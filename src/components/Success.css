@@ -1,0 +1,26 @@
+.success-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+.success-screen h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--card-bg, #ffffff);
+  border-radius: 12px;
+}
+
+.user-info p {
+  margin: 8px 0;
+  font-size: 16px;
+}

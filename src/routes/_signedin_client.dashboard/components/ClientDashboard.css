@@ -1,0 +1,12 @@
+.dashboard-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.btn-large {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}

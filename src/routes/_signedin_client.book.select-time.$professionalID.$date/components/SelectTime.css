@@ -1,0 +1,34 @@
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.time-slot-button {
+  padding: 16px;
+  border: 2px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  background: var(--card-bg, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.time-slot-button:hover {
+  border-color: var(--button-primary-bg, #3390ec);
+  background: var(--button-primary-bg, #3390ec);
+  color: white;
+}
+
+.no-slots {
+  text-align: center;
+  padding: 40px;
+}
+
+.no-slots p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  opacity: 0.7;
+}

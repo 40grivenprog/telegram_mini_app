@@ -1,0 +1,98 @@
+.loading-screen,
+.error-screen,
+.success-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+.loading {
+  font-size: 18px;
+  text-align: center;
+}
+
+.error-message {
+  background: #ff4444;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.role-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.btn-large {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 2px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  background: var(--card-bg, #ffffff);
+  color: var(--text-color, #000000);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--button-primary-bg, #3390ec);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.form-actions button {
+  flex: 1;
+}
+
+.user-info {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--card-bg, #ffffff);
+  border-radius: 12px;
+}
+
+.user-info p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.success-screen h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
