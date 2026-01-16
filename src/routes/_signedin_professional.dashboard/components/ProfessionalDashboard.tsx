@@ -4,11 +4,17 @@ import './ProfessionalDashboard.css'
 interface ProfessionalDashboardProps {
   user: any
   onViewPendingAppointments: () => void
+  onViewUpcomingAppointments: () => void
+  onSetUnavailable: () => void
+  onViewTimetable: () => void
 }
 
 export default function ProfessionalDashboard({
   user,
-  onViewPendingAppointments
+  onViewPendingAppointments,
+  onViewUpcomingAppointments,
+  onSetUnavailable,
+  onViewTimetable
 }: ProfessionalDashboardProps) {
   return (
     <div className="container">
@@ -19,10 +25,28 @@ export default function ProfessionalDashboard({
       <div className="content">
         <div className="dashboard-actions">
           <button
-            className="btn btn-primary btn-large"
+            className="btn btn-secondary btn-large"
             onClick={onViewPendingAppointments}
           >
             ⏳ Pending Appointments
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewUpcomingAppointments}
+          >
+            📋 Upcoming Appointments
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onSetUnavailable}
+          >
+            🚫 Set Unavailable
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewTimetable}
+          >
+            📅 My Timetable
           </button>
         </div>
       </div>

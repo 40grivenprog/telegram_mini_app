@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
-import { useClientAppointments } from '../hooks/useClientAppointments'
-import { useCancelAppointment } from '../hooks/useCancelAppointment'
-import './ClientAppointments.css'
+import { useProfessionalAppointments } from '../hooks/useProfessionalAppointments'
+import { useConfirmAppointment } from '../hooks/useConfirmAppointment'
+import { useCancelProfessionalAppointment } from '../hooks/useCancelProfessionalAppointment'
+import './ProfessionalAppointments.css'
 
-interface ClientAppointmentsProps {
+interface ProfessionalPendingAppointmentsProps {
   status: 'pending' | 'upcoming' | ''
   onBack: () => void
 }
 
-export default function ClientAppointments({
+export default function ProfessionalPendingAppointments({
   status,
   onBack
-}: ClientAppointmentsProps) {
-  const { appointments, loading, error, refetch, pagination, page, setPage } = useClientAppointments(status == "pending" ? "pending" : "confirmed")
-  const { cancelAppointment, canceling, error: cancelError } = useCancelAppointment()
+}: ProfessionalPendingAppointmentsProps) {
+  const { appointments, loading, error, refetch, pagination, page, setPage } = useProfessionalAppointments(status === 'pending' ? 'pending' : 'confirmed')
+  const { confirmAppointment, confirming, error: confirmError } = useConfirmAppointment()
+  const { cancelAppointment, canceling, error: cancelError } = useCancelProfessionalAppointment()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [selectedAppointmentID, setSelectedAppointmentID] = useState<string | null>(null)
   const [cancellationReason, setCancellationReason] = useState('')
@@ -50,6 +52,19 @@ export default function ClientAppointments({
     if (status === 'pending') return '⏳ Pending Appointments'
     if (status === 'upcoming') return '📅 Upcoming Appointments'
     return '📋 My Appointments'
+  }
+
+  const handleConfirmClick = async (appointmentID: string) => {
+    try {
+      await confirmAppointment(appointmentID)
+      await refetch()
+      const tg = (window as any).Telegram?.WebApp
+      if (tg) {
+        tg.showAlert('Бронирование успешно подтверждено')
+      }
+    } catch {
+      // Error is already handled by the hook
+    }
   }
 
   const handleCancelClick = (appointmentID: string) => {
@@ -105,6 +120,7 @@ export default function ClientAppointments({
       </header>
       <div className="content">
         {error && <div className="error-message">{error}</div>}
+        {confirmError && <div className="error-message">{confirmError}</div>}
         {cancelError && <div className="error-message">{cancelError}</div>}
         
         {appointments.length === 0 ? (
@@ -116,9 +132,9 @@ export default function ClientAppointments({
             {appointments.map((apt, index) => (
               <div key={apt.id} className="appointment-card">
                 <div className="appointment-details">
-                  {apt.professional && (
-                    <p className="professional-name">
-                      <strong>👤 Professional:</strong> {apt.professional.first_name} {apt.professional.last_name}
+                  {apt.client && (
+                    <p className="client-name">
+                      <strong>👤 Client:</strong> {apt.client.first_name} {apt.client.last_name}
                     </p>
                   )}
                   <p className="appointment-date">
@@ -133,6 +149,15 @@ export default function ClientAppointments({
                     </p>
                   )}
                   <div className="appointment-actions">
+                    {status === 'pending' && (
+                      <button
+                        className="btn btn-primary btn-small"
+                        onClick={() => handleConfirmClick(apt.id)}
+                        disabled={confirming || canceling}
+                      >
+                        ✅ Confirm
+                      </button>
+                    )}
                     <button
                       className="btn btn-danger btn-small"
                       onClick={() => handleCancelClick(apt.id)}
@@ -144,30 +169,6 @@ export default function ClientAppointments({
                 </div>
               </div>
             ))}
-          </div>
-        )}
-
-        {pagination && (pagination.has_next_page || pagination.page > 1 || appointments.length >= pagination.page_size) && (
-          <div className="pagination">
-            <div className="pagination-controls">
-              <button
-                className="btn btn-secondary btn-small"
-                onClick={() => setPage(page - 1)}
-                disabled={loading || page <= 1}
-              >
-                ← Previous
-              </button>
-              <span className="pagination-info">
-                Page {pagination.page}
-              </span>
-              <button
-                className="btn btn-secondary btn-small"
-                onClick={() => setPage(page + 1)}
-                disabled={loading || !pagination.has_next_page}
-              >
-                Next →
-              </button>
-            </div>
           </div>
         )}
 
@@ -201,6 +202,30 @@ export default function ClientAppointments({
                   {canceling ? 'Canceling...' : 'Confirm Cancel'}
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {pagination && (pagination.has_next_page || pagination.page > 1 || appointments.length >= pagination.page_size) && (
+          <div className="pagination">
+            <div className="pagination-controls">
+              <button
+                className="btn btn-secondary btn-small"
+                onClick={() => setPage(page - 1)}
+                disabled={loading || page <= 1}
+              >
+                ← Previous
+              </button>
+              <span className="pagination-info">
+                Page {pagination.page}
+              </span>
+              <button
+                className="btn btn-secondary btn-small"
+                onClick={() => setPage(page + 1)}
+                disabled={loading || !pagination.has_next_page}
+              >
+                Next →
+              </button>
             </div>
           </div>
         )}

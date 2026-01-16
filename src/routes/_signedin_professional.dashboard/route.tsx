@@ -10,13 +10,29 @@ export default function ProfessionalDashboardRoute() {
   if (!user) return null
 
   const handleViewPendingAppointments = () => {
-    navigate('/professional/pending-appointments')
+    navigate('/professional/appointments/pending')
+  }
+
+  const handleViewUpcomingAppointments = () => {
+    navigate('/professional/appointments/upcoming')
+  }
+
+  const handleSetUnavailable = () => {
+    navigate('/professional/set-unavailable/select-date')
+  }
+
+  const handleViewTimetable = () => {
+    const today = new Date().toISOString().split('T')[0]
+    navigate(`/professional/timetable/${today}`)
   }
 
   return (
     <ProfessionalDashboard
       user={user}
       onViewPendingAppointments={handleViewPendingAppointments}
+      onViewUpcomingAppointments={handleViewUpcomingAppointments}
+      onSetUnavailable={handleSetUnavailable}
+      onViewTimetable={handleViewTimetable}
     />
   )
 }

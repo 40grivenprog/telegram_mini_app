@@ -14,7 +14,7 @@ import SelectDateRoute from './select_date/route'
 import SelectTimeRoute from './select_time/route'
 import ConfirmAppointmentRoute from './confirm_appointment/route'
 import ProfessionalDashboardRoute from './professional_dashboard/route'
-import ProfessionalPendingAppointmentsRoute from './professional_pending_appointments/route'
+import ProfessionalAppointmentsRoute from './professional_pending_appointments/route'
 import '../App.css'
 
 declare global {
@@ -281,7 +281,7 @@ export default function Route() {
   if (route === Routes.PROFESSIONAL_PENDING_APPOINTMENTS) {
     if (!user) return null
     return (
-      <ProfessionalPendingAppointmentsRoute
+      <ProfessionalAppointmentsRoute
         professionalID={user.id}
         onBack={() => setRoute(Routes.PROFESSIONAL_DASHBOARD)}
       />

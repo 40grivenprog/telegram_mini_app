@@ -1,0 +1,78 @@
+.timetable-empty {
+  text-align: center;
+  padding: 40px;
+}
+
+.timetable-empty p {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+.timetable-appointments {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.timetable-slot {
+  background: var(--card-bg, #f5f5f5);
+  border: 2px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.timetable-slot:hover {
+  border-color: var(--button-primary-bg, #3390ec);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.slot-number {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-color, #333);
+}
+
+.slot-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slot-time {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.slot-description {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.timetable-navigation {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.timetable-navigation button {
+  flex: 1;
+  min-width: 120px;
+}
+
+.timetable-navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -93,9 +93,12 @@ class ApiService {
   }
 
   // Get professional appointments
-  async getProfessionalAppointments(status = '') {
-    const query = status ? `?status=${status}` : ''
-    return this.request(`/professionals/appointments${query}`)
+  async getProfessionalAppointments(status = '', page = 1, pageSize = 15) {
+    const params = new URLSearchParams()
+    if (status) params.append('status', status)
+    params.append('page', page.toString())
+    params.append('pageSize', pageSize.toString())
+    return this.request(`/professionals/appointments?${params.toString()}`)
   }
 
   // Get client appointments
@@ -117,20 +120,35 @@ class ApiService {
     })
   }
 
-  // Send appointment request notification to professional
-  async sendAppointmentRequest(notificationData) {
-    return this.request('/notifications/send_appointment_request', {
-      method: 'POST',
-      body: JSON.stringify(notificationData),
+
+  // Confirm professional appointment
+  async confirmProfessionalAppointment(appointmentID) {
+    return this.request(`/professionals/appointments/${appointmentID}/confirm`, {
+      method: 'PATCH',
     })
   }
 
-  // Send appointment cancellation notification to professional
-  async sendAppointmentCancellationNotification(notificationData) {
-    return this.request('/notifications/send_appointment_cancellation_notification', {
-      method: 'POST',
-      body: JSON.stringify(notificationData),
+  // Cancel professional appointment
+  async cancelProfessionalAppointment(appointmentID, cancellationReason) {
+    return this.request(`/professionals/appointments/${appointmentID}/cancel`, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        cancellation_reason: cancellationReason,
+      }),
     })
+  }
+
+  // Create unavailable appointment
+  async createUnavailableAppointment(professionalID, appointmentData) {
+    return this.request(`/professionals/${professionalID}/unavailable_appointments`, {
+      method: 'POST',
+      body: JSON.stringify(appointmentData),
+    })
+  }
+
+  // Get professional timetable
+  async getProfessionalTimetable(professionalID, date) {
+    return this.request(`/professionals/${professionalID}/timetable?date=${date}`)
   }
 }
 

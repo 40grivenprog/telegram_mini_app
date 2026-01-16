@@ -1,13 +1,13 @@
 import { useState, useCallback } from 'react'
 import { apiService } from '../../../services/api'
 
-interface UseCancelAppointmentResult {
+interface UseCancelProfessionalAppointmentResult {
   cancelAppointment: (appointmentID: string, cancellationReason: string) => Promise<void>
   canceling: boolean
   error: string | null
 }
 
-export function useCancelAppointment(): UseCancelAppointmentResult {
+export function useCancelProfessionalAppointment(): UseCancelProfessionalAppointmentResult {
   const [canceling, setCanceling] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -16,7 +16,7 @@ export function useCancelAppointment(): UseCancelAppointmentResult {
     setError(null)
 
     try {
-      await apiService.cancelClientAppointment(appointmentID, cancellationReason)
+      await apiService.cancelProfessionalAppointment(appointmentID, cancellationReason)
 
       const tg = (window as any).Telegram?.WebApp
       if (tg) {

@@ -16,7 +16,11 @@ import SelectTimeRoute from './_signedin_client.book.select-time.$professionalID
 import ConfirmAppointmentRoute from './_signedin_client.book.confirm/route'
 import ClientAppointmentsRoute from './_signedin_client.appointments/route'
 import ProfessionalDashboardRoute from './_signedin_professional.dashboard/route'
-import ProfessionalPendingAppointmentsRoute from './_signedin_professional.pending-appointments/route'
+import ProfessionalAppointmentsRoute from './_signedin_professional.appointments/route'
+import SelectUnavailableDateRoute from './_signedin_professional.set-unavailable.select-date/route'
+import SelectUnavailableTimeRoute from './_signedin_professional.set-unavailable.select-time.$date/route'
+import UnavailableDescriptionRoute from './_signedin_professional.set-unavailable.description/route'
+import TimetableRoute from './_signedin_professional.timetable.$date/route'
 
 declare global {
   interface Window {
@@ -153,7 +157,11 @@ function AppRouterContent() {
       
       {/* Professional routes */}
       <Route path="/professional/dashboard" element={<ProfessionalDashboardRoute />} />
-      <Route path="/professional/pending-appointments" element={<ProfessionalPendingAppointmentsRoute />} />
+      <Route path="/professional/appointments/:status" element={<ProfessionalAppointmentsRoute />} />
+      <Route path="/professional/set-unavailable/select-date" element={<SelectUnavailableDateRoute />} />
+      <Route path="/professional/set-unavailable/select-time/:date" element={<SelectUnavailableTimeRoute />} />
+      <Route path="/professional/set-unavailable/description" element={<UnavailableDescriptionRoute />} />
+      <Route path="/professional/timetable/:date" element={<TimetableRoute />} />
       
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/loading" replace />} />
