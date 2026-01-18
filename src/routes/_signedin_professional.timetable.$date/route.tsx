@@ -20,6 +20,7 @@ export default function TimetableRoute() {
 
   return (
     <Timetable
+      key={date}
       professionalID={user.id}
       date={date}
       onBack={handleBack}

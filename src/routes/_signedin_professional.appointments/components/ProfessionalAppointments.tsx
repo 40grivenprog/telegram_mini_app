@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useProfessionalAppointments } from '../hooks/useProfessionalAppointments'
 import { useConfirmAppointment } from '../hooks/useConfirmAppointment'
-import { useCancelProfessionalAppointment } from '../hooks/useCancelProfessionalAppointment'
+import { useCancelProfessionalAppointment } from '../../../hooks/professionals/useCancelProfessionalAppointment'
 import './ProfessionalAppointments.css'
 
 interface ProfessionalPendingAppointmentsProps {

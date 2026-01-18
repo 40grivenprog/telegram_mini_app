@@ -21,6 +21,8 @@ import SelectUnavailableDateRoute from './_signedin_professional.set-unavailable
 import SelectUnavailableTimeRoute from './_signedin_professional.set-unavailable.select-time.$date/route'
 import UnavailableDescriptionRoute from './_signedin_professional.set-unavailable.description/route'
 import TimetableRoute from './_signedin_professional.timetable.$date/route'
+import SelectClientRoute from './_signedin_professional.previous-appointments.select-client/route'
+import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments.$clientID.$month/route'
 
 declare global {
   interface Window {
@@ -162,6 +164,8 @@ function AppRouterContent() {
       <Route path="/professional/set-unavailable/select-time/:date" element={<SelectUnavailableTimeRoute />} />
       <Route path="/professional/set-unavailable/description" element={<UnavailableDescriptionRoute />} />
       <Route path="/professional/timetable/:date" element={<TimetableRoute />} />
+      <Route path="/professional/previous-appointments/select-client" element={<SelectClientRoute />} />
+      <Route path="/professional/previous-appointments/:clientID/:month" element={<PreviousAppointmentsRoute />} />
       
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/loading" replace />} />

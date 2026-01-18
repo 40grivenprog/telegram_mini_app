@@ -7,6 +7,7 @@ interface ProfessionalDashboardProps {
   onViewUpcomingAppointments: () => void
   onSetUnavailable: () => void
   onViewTimetable: () => void
+  onViewPreviousAppointments: () => void
 }
 
 export default function ProfessionalDashboard({
@@ -14,13 +15,13 @@ export default function ProfessionalDashboard({
   onViewPendingAppointments,
   onViewUpcomingAppointments,
   onSetUnavailable,
-  onViewTimetable
+  onViewTimetable,
+  onViewPreviousAppointments
 }: ProfessionalDashboardProps) {
   return (
     <div className="container">
       <header className="header">
         <h1>👋 Welcome back, {user?.first_name}!</h1>
-        <p className="subtitle">You are registered as a {user?.role}.</p>
       </header>
       <div className="content">
         <div className="dashboard-actions">
@@ -47,6 +48,12 @@ export default function ProfessionalDashboard({
             onClick={onViewTimetable}
           >
             📅 My Timetable
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewPreviousAppointments}
+          >
+            📜 Previous Appointments
           </button>
         </div>
       </div>

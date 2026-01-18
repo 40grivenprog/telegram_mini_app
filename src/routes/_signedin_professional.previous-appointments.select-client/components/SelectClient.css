@@ -1,0 +1,38 @@
+.clients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.client-button {
+  padding: 16px;
+  border: 2px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  background: var(--card-bg, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.client-button:hover {
+  border-color: var(--button-primary-bg, #3390ec);
+  background: var(--button-primary-bg, #3390ec);
+  color: white;
+}
+
+.client-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  opacity: 0.7;
+}

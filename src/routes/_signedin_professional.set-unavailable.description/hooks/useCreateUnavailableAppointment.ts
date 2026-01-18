@@ -26,7 +26,7 @@ export function useCreateUnavailableAppointment(): UseCreateUnavailableAppointme
     setError(null)
 
     try {
-      await apiService.createUnavailableAppointment(data.professional_id, {
+      await apiService.createUnavailableAppointment({
         start_at: data.start_at,
         end_at: data.end_at,
         description: data.description,

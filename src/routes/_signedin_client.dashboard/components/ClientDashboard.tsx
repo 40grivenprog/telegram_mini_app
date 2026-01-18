@@ -18,8 +18,6 @@ export default function ClientDashboard({
     <div className="container">
       <header className="header">
         <h1>👋 Welcome back, {user?.first_name}!</h1>
-        <p className="subtitle">You are registered as a {user?.role}.</p>
-        <p className="subtitle">What would you like to do?</p>
       </header>
       <div className="content">
         <div className="dashboard-actions">

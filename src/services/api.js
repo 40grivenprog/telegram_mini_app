@@ -139,16 +139,31 @@ class ApiService {
   }
 
   // Create unavailable appointment
-  async createUnavailableAppointment(professionalID, appointmentData) {
-    return this.request(`/professionals/${professionalID}/unavailable_appointments`, {
+  async createUnavailableAppointment(appointmentData) {
+    return this.request(`/professionals/unavailable_appointments`, {
       method: 'POST',
       body: JSON.stringify(appointmentData),
     })
   }
 
   // Get professional timetable
-  async getProfessionalTimetable(professionalID, date) {
-    return this.request(`/professionals/${professionalID}/timetable?date=${date}`)
+  async getProfessionalTimetable(date) {
+    return this.request(`/professionals/timetable?date=${date}`)
+  }
+
+  // Get professional clients
+  async getProfessionalClients(professionalID) {
+    return this.request(`/professionals/${professionalID}/clients`)
+  }
+
+  // Get previous appointments by client
+  async getPreviousAppointmentsByClient(professionalID, clientID, month) {
+    const params = new URLSearchParams()
+    params.append('client_id', clientID)
+    if (month) {
+      params.append('month', month) // Format: YYYY-MM
+    }
+    return this.request(`/professionals/${professionalID}/previous_appointments?${params.toString()}`)
   }
 }
 

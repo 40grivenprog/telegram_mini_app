@@ -26,6 +26,10 @@ export default function ProfessionalDashboardRoute() {
     navigate(`/professional/timetable/${today}`)
   }
 
+  const handleViewPreviousAppointments = () => {
+    navigate('/professional/previous-appointments/select-client')
+  }
+
   return (
     <ProfessionalDashboard
       user={user}
@@ -33,6 +37,7 @@ export default function ProfessionalDashboardRoute() {
       onViewUpcomingAppointments={handleViewUpcomingAppointments}
       onSetUnavailable={handleSetUnavailable}
       onViewTimetable={handleViewTimetable}
+      onViewPreviousAppointments={handleViewPreviousAppointments}
     />
   )
 }
