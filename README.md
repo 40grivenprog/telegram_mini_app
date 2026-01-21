@@ -1,34 +1,34 @@
-# Telegram Mini App для Booking System
+# Telegram Mini App for Booking System
 
-React приложение для системы бронирования, интегрированное с booking_api.
+React application for the booking system, integrated with booking_api.
 
-## Архитектура
+## Architecture
 
-1. **Пользователь открывает бота** → `/start`
-2. **Бот показывает кнопку** для открытия Mini App
-3. **Mini App открывается** и получает `chat_id` из Telegram WebApp API
-4. **Проверка регистрации** через `GET /api/users/{chat_id}`
-5. **Если не зарегистрирован** → выбор роли (Client/Professional)
-6. **Регистрация/Вход**:
-   - Client: First Name, Last Name, Phone (опционально)
+1. **User opens the bot** → `/start`
+2. **Bot shows a button** to open the Mini App
+3. **Mini App opens** and receives `chat_id` from Telegram WebApp API
+4. **Registration check** via `GET /api/users/{chat_id}`
+5. **If not registered** → role selection (Client/Professional)
+6. **Registration/Login**:
+   - Client: First Name, Last Name, Phone (optional)
    - Professional: Username, Password
-7. **После успешной регистрации** → "Hello World"
+7. **After successful registration** → "Hello World"
 
-## Установка
+## Installation
 
 ```bash
 npm install
 ```
 
-## Настройка
+## Configuration
 
-Создайте файл `.env`:
+Create a `.env` file:
 
 ```env
 VITE_API_BASE_URL=http://localhost:8080/api
 ```
 
-## Запуск
+## Running
 
 ```bash
 # Development
@@ -41,17 +41,17 @@ npm run build
 npm run preview
 ```
 
-## Интеграция с ботом
+## Bot Integration
 
-Чтобы добавить кнопку для открытия Mini App в бота, нужно изменить handler в `booking_client`:
+To add a button to open the Mini App in the bot, you need to modify the handler in `booking_client`:
 
-### Вариант 1: Кнопка в сообщении приветствия
+### Option 1: Button in welcome message
 
-В `booking_client/internal/handlers/handler.go`, в функции `handleStart`, добавьте кнопку Web App:
+In `booking_client/internal/handlers/handler.go`, in the `handleStart` function, add a Web App button:
 
 ```go
-// После отправки welcomeText с выбором роли, добавьте кнопку Web App
-webAppButton := tgbotapi.NewWebAppButton("Открыть приложение", tgbotapi.WebAppInfo{
+// After sending welcomeText with role selection, add Web App button
+webAppButton := tgbotapi.NewWebAppButton("Open App", tgbotapi.WebAppInfo{
     URL: "https://your-ngrok-url.ngrok-free.dev",
 })
 
@@ -66,81 +66,116 @@ keyboard := tgbotapi.NewInlineKeyboardMarkup(
 )
 ```
 
-### Вариант 2: Кнопка в меню команд
+### Option 2: Button in command menu
 
-В `booking_client/cmd/bot/main.go`, после инициализации бота:
+In `booking_client/cmd/bot/main.go`, after bot initialization:
 
 ```go
 // Set menu button
-menuButton := tgbotapi.NewMenuButtonWebApp("Открыть приложение", tgbotapi.WebAppInfo{
+menuButton := tgbotapi.NewMenuButtonWebApp("Open App", tgbotapi.WebAppInfo{
     URL: "https://your-ngrok-url.ngrok-free.dev",
 })
 bot.GetAPI().Request(tgbotapi.NewSetChatMenuButton(chatID, menuButton))
 ```
 
-### Вариант 3: Кнопка в dashboard
+### Option 3: Button in dashboard
 
-В `booking_client/internal/handlers/client/client_handler.go`, в функции `ShowDashboard`:
+In `booking_client/internal/handlers/client/client_handler.go`, in the `ShowDashboard` function:
 
 ```go
-webAppButton := tgbotapi.NewWebAppButton("📱 Открыть приложение", tgbotapi.WebAppInfo{
-    URL: cfg.MiniAppURL, // Добавьте в config
+webAppButton := tgbotapi.NewWebAppButton("📱 Open App", tgbotapi.WebAppInfo{
+    URL: cfg.MiniAppURL, // Add to config
 })
 
 keyboard := tgbotapi.NewInlineKeyboardMarkup(
-    // ... существующие кнопки ...
+    // ... existing buttons ...
     tgbotapi.NewInlineKeyboardRow(webAppButton),
 )
 ```
 
 ## API Endpoints
 
-Приложение использует следующие endpoints:
+The application uses the following endpoints:
 
-- `GET /api/users/{chat_id}` - проверка существования пользователя
-- `POST /api/clients/register` - регистрация клиента
-- `POST /api/professionals/sign_in` - вход для профессионала
+- `GET /api/users/{chat_id}` - check if user exists
+- `POST /api/clients/register` - register a client
+- `POST /api/professionals/sign_in` - sign in for professional
 
-## Структура проекта
+## Project Structure
 
 ```
 src/
-├── App.jsx              # Главный компонент с логикой выбора роли и регистрации
-├── App.css              # Стили компонента
+├── App.jsx              # Main component with role selection and registration logic
+├── App.css              # Component styles
 ├── services/
-│   └── api.js           # API сервис для работы с booking_api
-└── main.jsx             # Точка входа
+│   └── api.js           # API service for working with booking_api
+└── main.jsx             # Entry point
 ```
 
-## Особенности
+## Features
 
-- ✅ Автоматическое получение `chat_id` из Telegram
-- ✅ Проверка регистрации пользователя
-- ✅ Выбор роли (Client/Professional)
-- ✅ Форма регистрации для клиента
-- ✅ Форма входа для профессионала
-- ✅ Поддержка тем Telegram (light/dark)
-- ✅ Адаптивный дизайн
+- ✅ Automatic `chat_id` retrieval from Telegram
+- ✅ User registration check
+- ✅ Role selection (Client/Professional)
+- ✅ Registration form for client
+- ✅ Sign-in form for professional
+- ✅ Telegram theme support (light/dark)
+- ✅ Responsive design
 
-## Разработка с ngrok
+## Development with ngrok
 
-1. Запустите dev server:
+1. Start the dev server:
    ```bash
    npm run dev
    ```
 
-2. Запустите ngrok:
+2. Start ngrok:
    ```bash
    ngrok http 8000
    ```
 
-3. Используйте ngrok URL в настройках бота (BotFather → /newapp)
+3. Use the ngrok URL in bot settings (BotFather → /newapp)
 
-4. Убедитесь, что в `vite.config.js` добавлен ваш ngrok домен в `allowedHosts`
+4. Make sure your ngrok domain is added to `allowedHosts` in `vite.config.js`
 
-## Следующие шаги
+---
 
-После успешной регистрации можно добавить:
-- Dashboard для клиента (бронирования, просмотр записей)
-- Dashboard для профессионала (управление расписанием, подтверждение бронирований)
-- Интеграцию с уведомлениями через бота
+## 🚀 Deployment to Firebase Hosting
+
+For deployment to Firebase Hosting, see [DEPLOY.md](./DEPLOY.md)
+
+**Quick deployment:**
+
+```bash
+# 1. Install Firebase CLI (once)
+npm install -g firebase-tools
+
+# 2. Login to Firebase
+firebase login
+
+# 3. Initialize project (once)
+firebase init hosting
+# Select: dist/, single-page app: Yes
+
+# 4. Build and deploy
+npm run deploy
+# or
+npm run build && firebase deploy --only hosting
+```
+
+After deployment, you'll get a URL like `https://YOUR-PROJECT.web.app` - use it in BotFather → `/newapp`
+
+**Firebase Hosting advantages:**
+- ✅ Free tier (sufficient for 500+ users)
+- ✅ Automatic HTTPS and CDN
+- ✅ Simple one-command deployment
+- ✅ Versioning and rollback
+
+---
+
+## Next Steps
+
+After successful registration, you can add:
+- Client dashboard (bookings, view appointments)
+- Professional dashboard (schedule management, booking confirmations)
+- Integration with bot notifications

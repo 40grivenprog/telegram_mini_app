@@ -1,6 +1,6 @@
 // API service for booking API integration
 // Используем относительный путь - Vite прокси перенаправит на booking_api
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`
 
 class ApiService {
   constructor() {
