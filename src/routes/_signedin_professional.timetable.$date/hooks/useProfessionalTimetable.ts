@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface TimetableAppointment {
   id: string
@@ -37,7 +38,7 @@ export function useProfessionalTimetable(professionalID: string, date: string): 
       const data = await apiService.getProfessionalTimetable(date) as GetProfessionalTimetableResponse
       setTimetable(data)
     } catch (err: any) {
-      setError(err.message || 'Не удалось загрузить расписание')
+      setError(err.message || i18n.t('error.loadTimetableFailed'))
       setTimetable(null)
     } finally {
       setLoading(false)

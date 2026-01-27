@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { apiService } from '../../../services/api'
 import './ClientRegistration.css'
 
@@ -9,6 +10,7 @@ interface ClientRegistrationProps {
 }
 
 export default function ClientRegistration({ chatID, onSuccess, onCancel }: ClientRegistrationProps) {
+  const { t } = useTranslation()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -19,7 +21,7 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
     e.preventDefault()
     
     if (!firstName.trim() || !lastName.trim()) {
-      setError('Пожалуйста, заполните все обязательные поля')
+      setError(t('client.registration.error.requiredFields'))
       return
     }
 
@@ -37,7 +39,7 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
       const response = await apiService.registerClient(clientData)
       onSuccess(response)
     } catch (err) {
-      setError('Ошибка при регистрации. Попробуйте снова.')
+      setError(t('client.registration.error.registrationFailed'))
     } finally {
       setLoading(false)
     }
@@ -46,46 +48,46 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
   return (
     <div className="container">
       <header className="header">
-        <h1>Регистрация клиента</h1>
+        <h1>{t('client.registration.title')}</h1>
       </header>
       <div className="content">
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit} className="registration-form">
           <div className="form-group">
-            <label>Имя *</label>
+            <label>{t('client.registration.firstName')} *</label>
             <input
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              placeholder="Введите ваше имя"
+              placeholder={t('client.registration.firstName')}
               disabled={loading}
             />
           </div>
           <div className="form-group">
-            <label>Фамилия *</label>
+            <label>{t('client.registration.lastName')} *</label>
             <input
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
-              placeholder="Введите вашу фамилию"
+              placeholder={t('client.registration.lastName')}
               disabled={loading}
             />
           </div>
           <div className="form-group">
-            <label>Телефон (необязательно)</label>
+            <label>{t('client.registration.phone')}</label>
             <input
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="+7 (999) 123-45-67"
+              placeholder={t('client.registration.phone')}
               disabled={loading}
             />
           </div>
           <div className="form-actions">
             <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Регистрация...' : 'Зарегистрироваться'}
+              {loading ? t('client.registration.registering') : t('client.registration.register')}
             </button>
             <button
               type="button"
@@ -93,7 +95,7 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
               onClick={onCancel}
               disabled={loading}
             >
-              Назад
+              {t('common.back')}
             </button>
           </div>
         </form>

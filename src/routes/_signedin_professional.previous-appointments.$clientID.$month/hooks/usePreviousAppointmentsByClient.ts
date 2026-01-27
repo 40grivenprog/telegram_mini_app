@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface PreviousAppointment {
   id: string
@@ -40,7 +41,7 @@ export function usePreviousAppointmentsByClient(
       const data = await apiService.getPreviousAppointmentsByClient(professionalID, clientID, month) as GetPreviousAppointmentsByClientResponse
       setAppointments(data.appointments || [])
     } catch (err: any) {
-      setError(err.message || 'Не удалось загрузить предыдущие бронирования')
+      setError(err.message || i18n.t('error.loadAppointmentsFailed'))
       setAppointments([])
     } finally {
       setLoading(false)

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
 import UnavailableDescription from './components/UnavailableDescription'
@@ -10,6 +11,7 @@ interface UnavailableDescriptionState {
 }
 
 export default function UnavailableDescriptionRoute() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const { user } = useUser()
@@ -27,7 +29,7 @@ export default function UnavailableDescriptionRoute() {
     navigate('/professional/dashboard', { replace: true })
     const tg = window.Telegram?.WebApp
     if (tg) {
-      tg.showAlert('Недоступный период успешно создан! ✅')
+      tg.showAlert(t('common.unavailableCreated'))
     }
   }
 

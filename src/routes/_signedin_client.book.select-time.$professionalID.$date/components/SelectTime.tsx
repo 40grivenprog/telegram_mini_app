@@ -1,5 +1,7 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProfessionalAvailability } from '../hooks/useProfessionalAvailability'
+import { formatDate, formatTime } from '../../../utils/i18n'
 import './SelectTime.css'
 
 interface SelectTimeProps {
@@ -10,22 +12,14 @@ interface SelectTimeProps {
 }
 
 export default function SelectTime({ professionalID, date, onSelect, onCancel }: SelectTimeProps) {
+  const { t } = useTranslation()
   const { availableSlots, loading, error, refetch } = useProfessionalAvailability(professionalID, date)
-
-  const formatTime = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
 
   if (loading) {
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка доступного времени...</div>
+          <div className="loading">{t('client.book.selectTime.loading')}</div>
         </div>
       </div>
     )
@@ -37,7 +31,7 @@ export default function SelectTime({ professionalID, date, onSelect, onCancel }:
         <div className="error-screen">
           <div className="error-message">{error}</div>
           <button className="btn btn-primary" onClick={refetch}>
-            Попробовать снова
+            {t('common.tryAgain')}
           </button>
         </div>
       </div>
@@ -47,17 +41,17 @@ export default function SelectTime({ professionalID, date, onSelect, onCancel }:
   return (
     <div className="container">
       <header className="header">
-        <h1>Выберите время</h1>
+        <h1>{t('client.book.selectTime.title')}</h1>
         <p className="subtitle">
-          Дата: {new Date(date).toLocaleDateString('ru-RU')}
+          {t('client.book.selectTime.dateLabel')}: {formatDate(date)}
         </p>
       </header>
       <div className="content">
         {availableSlots.length === 0 ? (
           <div className="no-slots">
-            <p>Нет доступного времени на эту дату</p>
+            <p>{t('client.book.selectTime.noSlots')}</p>
             <button className="btn btn-secondary" onClick={onCancel}>
-              Назад
+              {t('common.back')}
             </button>
           </div>
         ) : (
@@ -74,7 +68,7 @@ export default function SelectTime({ professionalID, date, onSelect, onCancel }:
               ))}
             </div>
             <button className="btn btn-secondary" onClick={onCancel}>
-              Отмена
+              {t('common.cancel')}
             </button>
           </>
         )}

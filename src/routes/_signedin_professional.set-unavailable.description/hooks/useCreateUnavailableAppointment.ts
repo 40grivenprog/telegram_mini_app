@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface CreateUnavailableAppointmentRequest {
   professional_id: string
@@ -39,7 +40,7 @@ export function useCreateUnavailableAppointment(): UseCreateUnavailableAppointme
 
       onSuccess?.()
     } catch (err: any) {
-      setError(err.message || 'Не удалось создать недоступный период')
+      setError(err.message || i18n.t('error.createUnavailableFailed'))
       throw err
     } finally {
       setCreating(false)

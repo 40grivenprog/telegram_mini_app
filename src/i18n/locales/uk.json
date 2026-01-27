@@ -1,0 +1,208 @@
+{
+  "common": {
+    "confirm": "Підтвердити",
+    "cancel": "Скасувати",
+    "back": "Назад",
+    "save": "Зберегти",
+    "delete": "Видалити",
+    "edit": "Редагувати",
+    "loading": "Завантаження...",
+    "error": "Помилка",
+    "success": "Успішно",
+    "date": "Дата",
+    "time": "Час",
+    "professional": "Професіонал",
+    "client": "Клієнт",
+    "appointment": "Запис",
+    "appointments": "Записи",
+    "create": "Створити",
+    "creating": "Створення...",
+    "close": "Закрити",
+    "tryAgain": "Спробувати ще раз",
+    "previous": "← Назад",
+    "next": "Вперед →",
+    "page": "Сторінка",
+    "backToDashboard": "← Назад до панелі",
+    "backToClientSelection": "← Назад до вибору клієнта",
+    "currentMonth": "Поточний місяць",
+    "previousMonth": "← Попередній місяць",
+    "nextMonth": "Наступний місяць →",
+    "previousDay": "⬅️ Попередній день",
+    "nextDay": "Наступний день ➡️",
+    "description": "Опис",
+    "canceling": "Скасування...",
+    "confirmCancel": "Підтвердити скасування",
+    "cancelAppointment": "Скасувати запис",
+    "cancelReasonPrompt": "Вкажіть причину скасування:",
+    "cancelReasonPlaceholder": "Введіть причину скасування...",
+    "cancelReasonRequired": "Будь ласка, вкажіть причину скасування",
+    "appointmentCancelled": "Запис успішно скасовано",
+    "appointmentConfirmed": "Запис успішно підтверджено",
+    "appointmentCreated": "Бронювання успішно створено!",
+    "unavailableCreated": "Період недоступності успішно створено!",
+    "noAppointments": "Записів не знайдено",
+    "noClients": "Клієнтів не знайдено",
+    "roles": {
+      "client": "Клієнт",
+      "professional": "Професіонал"
+    }
+  },
+  "roleSelection": {
+    "title": "Виберіть вашу роль",
+    "subtitle": "Будь ласка, оберіть як ви хочете продовжити:",
+    "client": "Я клієнт",
+    "professional": "Я професіонал"
+  },
+  "client": {
+    "registration": {
+      "title": "Реєстрація клієнта",
+      "firstName": "Ім'я",
+      "lastName": "Прізвище",
+      "phone": "Номер телефону",
+      "register": "Зареєструватися",
+      "registering": "Реєстрація...",
+      "cancel": "Скасувати",
+      "error": {
+        "requiredFields": "Будь ласка, заповніть всі обов'язкові поля",
+        "registrationFailed": "Помилка при реєстрації. Спробуйте ще раз."
+      }
+    },
+    "dashboard": {
+      "title": "Панель клієнта",
+      "welcome": "З поверненням, {{name}}!",
+      "bookAppointment": "Записатися",
+      "pendingAppointments": "Очікуючі записи",
+      "upcomingAppointments": "Майбутні записи",
+      "myAppointments": "Мої записи"
+    },
+    "book": {
+      "selectProfessional": {
+        "title": "Виберіть професіонала",
+        "loading": "Завантаження професіоналів...",
+        "noProfessionals": "Немає доступних професіоналів",
+        "tryAgain": "Спробувати ще раз",
+        "page": "Сторінка",
+        "previous": "← Назад",
+        "next": "Вперед →"
+      },
+      "selectDate": {
+        "title": "Виберіть дату"
+      },
+      "selectTime": {
+        "title": "Виберіть час",
+        "loading": "Завантаження доступного часу...",
+        "noSlots": "Немає доступного часу на цю дату",
+        "dateLabel": "Дата",
+        "date": "Дата"
+      },
+      "confirm": {
+        "title": "Підтвердження бронювання",
+        "professional": "Професіонал",
+        "date": "Дата",
+        "time": "Час"
+      }
+    },
+    "appointments": {
+      "title": "Мої записи",
+      "pending": "Очікуючі записи",
+      "upcoming": "Майбутні записи",
+      "noAppointments": "Немає записів",
+      "cancel": "Скасувати запис"
+    }
+  },
+  "professional": {
+    "signin": {
+      "title": "Вхід для професіонала",
+      "username": "Ім'я користувача",
+      "email": "Email",
+      "password": "Пароль",
+      "signin": "Увійти",
+      "signingIn": "Вхід...",
+      "cancel": "Скасувати",
+      "error": {
+        "requiredFields": "Будь ласка, заповніть всі поля",
+        "signinFailed": "Помилка входу. Перевірте логін і пароль."
+      }
+    },
+    "dashboard": {
+      "title": "Панель професіонала",
+      "welcome": "З поверненням, {{name}}!",
+      "pendingAppointments": "Очікуючі записи",
+      "upcomingAppointments": "Майбутні записи",
+      "myAppointments": "Мої записи",
+      "setUnavailable": "Встановити недоступність",
+      "timetable": "Розклад",
+      "previousAppointments": "Минулі записи"
+    },
+    "appointments": {
+      "title": "Мої записи",
+      "pending": "Очікуючі записи",
+      "upcoming": "Майбутні записи",
+      "noAppointments": "Немає записів"
+    },
+    "setUnavailable": {
+      "selectDate": {
+        "title": "Виберіть дату"
+      },
+      "selectTime": {
+        "titleStart": "Виберіть початковий час",
+        "titleEnd": "Виберіть кінцевий час",
+        "loading": "Завантаження доступного часу...",
+        "noSlots": "Немає доступного часу на цю дату",
+        "noEndTimes": "Немає доступного часу для вибору кінцевого часу",
+        "backToStart": "Назад до вибору початкового часу",
+        "dateLabel": "Дата",
+        "startTimeLabel": "Початковий час"
+      },
+      "description": {
+        "title": "Введіть опис",
+        "date": "Дата",
+        "time": "Час",
+        "description": "Опис періоду недоступності",
+        "descriptionPlaceholder": "Наприклад: 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Будь ласка, введіть опис"
+      }
+    },
+    "timetable": {
+      "title": "Розклад",
+      "loading": "Завантаження розкладу...",
+      "empty": "На цей день немає запланованих активностей ({{date}}).",
+      "slot": "Слот #{{number}}",
+      "cancelSlot": "Скасувати слот #{{number}}"
+    },
+    "previousAppointments": {
+      "selectClient": {
+        "title": "Виберіть клієнта",
+        "subtitle": "Виберіть клієнта, щоб переглянути його попередні записи:",
+        "loading": "Завантаження клієнтів..."
+      },
+      "byClient": {
+        "title": "Минулі записи",
+        "month": "Місяць",
+        "noAppointments": "Немає записів для цього клієнта",
+        "emptyMonth": "Немає записів за цей місяць.",
+        "clientLabel": "Клієнт: {{name}}"
+      }
+    }
+  },
+  "success": {
+    "title": "Успішно!",
+    "message": "Операцію виконано успішно",
+    "welcome": "Ласкаво просимо, {{name}}!",
+    "role": "Роль: {{role}}"
+  },
+  "error": {
+    "title": "Помилка",
+    "userCheckError": "Помилка при перевірці користувача",
+    "generic": "Сталася помилка",
+    "loadAppointmentsFailed": "Не вдалося завантажити записи",
+    "loadProfessionalsFailed": "Не вдалося завантажити список професіоналів",
+    "loadTimetableFailed": "Не вдалося завантажити розклад",
+    "loadClientsFailed": "Не вдалося завантажити клієнтів",
+    "loadAvailabilityFailed": "Не вдалося завантажити доступний час",
+    "createAppointmentFailed": "Не вдалося створити бронювання",
+    "cancelAppointmentFailed": "Не вдалося скасувати бронювання",
+    "confirmAppointmentFailed": "Не вдалося підтвердити бронювання",
+    "createUnavailableFailed": "Не вдалося створити період недоступності"
+  }
+}

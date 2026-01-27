@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface ProfessionalClient {
   id: string
@@ -35,7 +36,7 @@ export function useProfessionalClients(professionalID: string): UseProfessionalC
       const data = await apiService.getProfessionalClients(professionalID) as GetProfessionalClientsResponse
       setClients(data.clients || [])
     } catch (err: any) {
-      setError(err.message || 'Не удалось загрузить список клиентов')
+      setError(err.message || i18n.t('error.loadClientsFailed'))
       setClients([])
     } finally {
       setLoading(false)

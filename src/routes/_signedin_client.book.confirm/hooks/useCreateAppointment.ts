@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface CreateAppointmentRequest {
   professional_id: string
@@ -34,7 +35,7 @@ export function useCreateAppointment(): UseCreateAppointmentResult {
 
       onSuccess?.()
     } catch (err: any) {
-      setError(err.message || 'Не удалось создать бронирование')
+      setError(err.message || i18n.t('error.createAppointmentFailed'))
       throw err
     } finally {
       setCreating(false)

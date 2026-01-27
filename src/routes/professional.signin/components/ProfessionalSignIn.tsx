@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { apiService } from '../../../services/api'
 import './ProfessionalSignIn.css'
 
@@ -9,6 +10,7 @@ interface ProfessionalSignInProps {
 }
 
 export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: ProfessionalSignInProps) {
+  const { t } = useTranslation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -18,7 +20,7 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
     e.preventDefault()
     
     if (!username.trim() || !password.trim()) {
-      setError('Пожалуйста, заполните все поля')
+      setError(t('professional.signin.error.requiredFields'))
       return
     }
 
@@ -35,7 +37,7 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
       const response = await apiService.signInProfessional(professionalData)
       onSuccess(response.user)
     } catch (err) {
-      setError('Ошибка при входе. Проверьте логин и пароль.')
+      setError(t('professional.signin.error.signinFailed'))
     } finally {
       setLoading(false)
     }
@@ -44,36 +46,36 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
   return (
     <div className="container">
       <header className="header">
-        <h1>Вход для профессионала</h1>
+        <h1>{t('professional.signin.title')}</h1>
       </header>
       <div className="content">
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit} className="registration-form">
           <div className="form-group">
-            <label>Имя пользователя *</label>
+            <label>{t('professional.signin.username')} *</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              placeholder="Введите имя пользователя"
+              placeholder={t('professional.signin.username')}
               disabled={loading}
             />
           </div>
           <div className="form-group">
-            <label>Пароль *</label>
+            <label>{t('professional.signin.password')} *</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Введите пароль"
+              placeholder={t('professional.signin.password')}
               disabled={loading}
             />
           </div>
           <div className="form-actions">
             <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? 'Вход...' : 'Войти'}
+              {loading ? t('professional.signin.signingIn') : t('professional.signin.signin')}
             </button>
             <button
               type="button"
@@ -81,7 +83,7 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
               onClick={onCancel}
               disabled={loading}
             >
-              Назад
+              {t('common.back')}
             </button>
           </div>
         </form>

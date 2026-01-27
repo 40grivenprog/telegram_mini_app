@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { useTelegram } from '../hooks/useTelegram'
 import { apiService } from '../services/api'
@@ -46,6 +47,7 @@ declare global {
 }
 
 function AppRouterContent() {
+  const { t } = useTranslation()
   const { chatID, initialized } = useTelegram()
   const { user, setUser } = useUser()
   const navigate = useNavigate()
@@ -100,7 +102,7 @@ function AppRouterContent() {
         if (err.message?.includes('404') || err.message?.includes('not found')) {
           navigate('/role-selection', { replace: true })
         } else {
-          setError('Ошибка при проверке пользователя')
+          setError(t('error.userCheckError'))
           navigate('/error', { replace: true })
         }
       } finally {

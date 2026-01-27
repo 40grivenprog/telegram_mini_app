@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import './ProfessionalDashboard.css'
 
 interface ProfessionalDashboardProps {
@@ -18,10 +19,12 @@ export default function ProfessionalDashboard({
   onViewTimetable,
   onViewPreviousAppointments
 }: ProfessionalDashboardProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="container">
       <header className="header">
-        <h1>👋 Welcome back, {user?.first_name}!</h1>
+        <h1>👋 {t('professional.dashboard.welcome', { name: user?.first_name || '' })}</h1>
       </header>
       <div className="content">
         <div className="dashboard-actions">
@@ -29,31 +32,31 @@ export default function ProfessionalDashboard({
             className="btn btn-secondary btn-large"
             onClick={onViewPendingAppointments}
           >
-            ⏳ Pending Appointments
+            ⏳ {t('professional.dashboard.pendingAppointments')}
           </button>
           <button
             className="btn btn-secondary btn-large"
             onClick={onViewUpcomingAppointments}
           >
-            📋 Upcoming Appointments
+            📋 {t('professional.dashboard.upcomingAppointments')}
           </button>
           <button
             className="btn btn-secondary btn-large"
             onClick={onSetUnavailable}
           >
-            🚫 Set Unavailable
+            🚫 {t('professional.dashboard.setUnavailable')}
           </button>
           <button
             className="btn btn-secondary btn-large"
             onClick={onViewTimetable}
           >
-            📅 My Timetable
+            📅 {t('professional.dashboard.timetable')}
           </button>
           <button
             className="btn btn-secondary btn-large"
             onClick={onViewPreviousAppointments}
           >
-            📜 Previous Appointments
+            📜 {t('professional.dashboard.previousAppointments')}
           </button>
         </div>
       </div>

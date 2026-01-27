@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 interface UseCancelAppointmentResult {
   cancelAppointment: (appointmentID: string, cancellationReason: string) => Promise<void>
@@ -23,7 +24,7 @@ export function useCancelAppointment(): UseCancelAppointmentResult {
         tg.HapticFeedback.notificationOccurred('success')
       }
     } catch (err: any) {
-      setError(err.message || 'Не удалось отменить бронирование')
+      setError(err.message || i18n.t('error.cancelAppointmentFailed'))
       throw err
     } finally {
       setCanceling(false)

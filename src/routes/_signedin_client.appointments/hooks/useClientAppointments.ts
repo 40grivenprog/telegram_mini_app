@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface ClientAppointmentProfessional {
   first_name: string
@@ -56,7 +57,7 @@ export function useClientAppointments(status: string = '', pageSize: number = 15
       setAppointments(data.appointments || [])
       setPagination(data.pagination)
     } catch (err: any) {
-      setError(err.message || 'Не удалось загрузить бронирования')
+      setError(err.message || i18n.t('error.loadAppointmentsFailed'))
       setAppointments([])
       setPagination(null)
     } finally {

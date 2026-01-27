@@ -1,0 +1,204 @@
+{
+  "common": {
+    "confirm": "Подтвердить",
+    "cancel": "Отмена",
+    "back": "Назад",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "date": "Дата",
+    "time": "Время",
+    "professional": "Профессионал",
+    "client": "Клиент",
+    "appointment": "Запись",
+    "appointments": "Записи",
+    "create": "Создать",
+    "creating": "Создание...",
+    "close": "Закрыть",
+    "tryAgain": "Попробовать снова",
+    "previous": "← Назад",
+    "next": "Вперед →",
+    "page": "Страница",
+    "backToDashboard": "← Назад в панель",
+    "backToClientSelection": "← Назад к выбору клиента",
+    "currentMonth": "Текущий месяц",
+    "previousMonth": "← Предыдущий месяц",
+    "nextMonth": "Следующий месяц →",
+    "previousDay": "⬅️ Предыдущий день",
+    "nextDay": "Следующий день ➡️",
+    "description": "Описание",
+    "canceling": "Отмена...",
+    "confirmCancel": "Подтвердить отмену",
+    "cancelAppointment": "Отменить запись",
+    "cancelReasonPrompt": "Укажите причину отмены:",
+    "cancelReasonPlaceholder": "Введите причину отмены...",
+    "cancelReasonRequired": "Пожалуйста, укажите причину отмены",
+    "appointmentCancelled": "Запись успешно отменена",
+    "appointmentConfirmed": "Запись успешно подтверждена",
+    "appointmentCreated": "Бронирование успешно создано!",
+    "unavailableCreated": "Недоступный период успешно создан!",
+    "noAppointments": "Записей не найдено",
+    "noClients": "Клиентов не найдено",
+    "roles": {
+      "client": "Клиент",
+      "professional": "Профессионал"
+    }
+  },
+  "roleSelection": {
+    "title": "Выберите вашу роль",
+    "subtitle": "Пожалуйста, выберите как вы хотите продолжить:",
+    "client": "Я клиент",
+    "professional": "Я профессионал"
+  },
+  "client": {
+    "registration": {
+      "title": "Регистрация клиента",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "phone": "Номер телефона",
+      "register": "Зарегистрироваться",
+      "registering": "Регистрация...",
+      "cancel": "Отмена"
+    },
+    "dashboard": {
+      "title": "Панель клиента",
+      "welcome": "С возвращением, {{name}}!",
+      "bookAppointment": "Записаться",
+      "pendingAppointments": "Ожидающие записи",
+      "upcomingAppointments": "Предстоящие записи",
+      "myAppointments": "Мои записи"
+    },
+    "book": {
+      "selectProfessional": {
+        "title": "Выберите профессионала",
+        "loading": "Загрузка профессионалов...",
+        "noProfessionals": "Нет доступных профессионалов",
+        "tryAgain": "Попробовать снова",
+        "page": "Страница",
+        "previous": "← Назад",
+        "next": "Вперед →"
+      },
+      "selectDate": {
+        "title": "Выберите дату"
+      },
+      "selectTime": {
+        "title": "Выберите время",
+        "loading": "Загрузка доступного времени...",
+        "noSlots": "Нет доступного времени на эту дату",
+        "dateLabel": "Дата",
+        "date": "Дата"
+      },
+      "confirm": {
+        "title": "Подтверждение бронирования",
+        "professional": "Профессионал",
+        "date": "Дата",
+        "time": "Время"
+      }
+    },
+    "appointments": {
+      "title": "Мои записи",
+      "pending": "Ожидающие записи",
+      "upcoming": "Предстоящие записи",
+      "noAppointments": "Нет записей",
+      "cancel": "Отменить запись"
+    }
+  },
+  "professional": {
+    "signin": {
+      "title": "Вход для профессионала",
+      "username": "Имя пользователя",
+      "email": "Email",
+      "password": "Пароль",
+      "signin": "Войти",
+      "signingIn": "Вход...",
+      "cancel": "Отмена",
+      "error": {
+        "requiredFields": "Пожалуйста, заполните все поля",
+        "signinFailed": "Ошибка при входе. Проверьте логин и пароль."
+      }
+    },
+    "dashboard": {
+      "title": "Панель профессионала",
+      "welcome": "С возвращением, {{name}}!",
+      "pendingAppointments": "Ожидающие записи",
+      "upcomingAppointments": "Предстоящие записи",
+      "myAppointments": "Мои записи",
+      "setUnavailable": "Установить недоступность",
+      "timetable": "Расписание",
+      "previousAppointments": "Прошедшие записи"
+    },
+    "appointments": {
+      "title": "Мои записи",
+      "pending": "Ожидающие записи",
+      "upcoming": "Предстоящие записи",
+      "noAppointments": "Нет записей"
+    },
+    "setUnavailable": {
+      "selectDate": {
+        "title": "Выберите дату"
+      },
+      "selectTime": {
+        "titleStart": "Выберите начальное время",
+        "titleEnd": "Выберите конечное время",
+        "loading": "Загрузка доступного времени...",
+        "noSlots": "Нет доступного времени на эту дату",
+        "noEndTimes": "Нет доступного времени для выбора конечного времени",
+        "backToStart": "Назад к выбору начального времени",
+        "dateLabel": "Дата",
+        "startTimeLabel": "Начальное время"
+      },
+      "description": {
+        "title": "Введите описание",
+        "date": "Дата",
+        "time": "Время",
+        "description": "Описание недоступного периода",
+        "descriptionPlaceholder": "Например: 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Пожалуйста, введите описание"
+      }
+    },
+    "timetable": {
+      "title": "Расписание",
+      "loading": "Загрузка расписания...",
+      "empty": "На этот день нет запланированных активностей ({{date}}).",
+      "slot": "Слот #{{number}}",
+      "cancelSlot": "Отменить слот #{{number}}"
+    },
+    "previousAppointments": {
+      "selectClient": {
+        "title": "Выберите клиента",
+        "subtitle": "Выберите клиента, чтобы посмотреть его прошлые записи:",
+        "loading": "Загрузка клиентов..."
+      },
+      "byClient": {
+        "title": "Прошедшие записи",
+        "month": "Месяц",
+        "noAppointments": "Нет записей для этого клиента",
+        "emptyMonth": "Нет записей за этот месяц.",
+        "clientLabel": "Клиент: {{name}}"
+      }
+    }
+  },
+  "success": {
+    "title": "Успешно!",
+    "message": "Операция выполнена успешно",
+    "welcome": "Добро пожаловать, {{name}}!",
+    "role": "Роль: {{role}}"
+  },
+  "error": {
+    "title": "Ошибка",
+    "userCheckError": "Ошибка при проверке пользователя",
+    "generic": "Произошла ошибка",
+    "loadAppointmentsFailed": "Не удалось загрузить записи",
+    "loadProfessionalsFailed": "Не удалось загрузить список профессионалов",
+    "loadTimetableFailed": "Не удалось загрузить расписание",
+    "loadClientsFailed": "Не удалось загрузить клиентов",
+    "loadAvailabilityFailed": "Не удалось загрузить доступное время",
+    "createAppointmentFailed": "Не удалось создать бронирование",
+    "cancelAppointmentFailed": "Не удалось отменить бронирование",
+    "confirmAppointmentFailed": "Не удалось подтвердить бронирование",
+    "createUnavailableFailed": "Не удалось создать недоступный период"
+  }
+}

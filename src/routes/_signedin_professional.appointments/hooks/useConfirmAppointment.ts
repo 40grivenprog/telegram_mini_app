@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 interface UseConfirmAppointmentResult {
   confirmAppointment: (appointmentID: string) => Promise<void>
@@ -23,7 +24,7 @@ export function useConfirmAppointment(): UseConfirmAppointmentResult {
         tg.HapticFeedback.notificationOccurred('success')
       }
     } catch (err: any) {
-      setError(err.message || 'Не удалось подтвердить бронирование')
+      setError(err.message || i18n.t('error.confirmAppointmentFailed'))
       throw err
     } finally {
       setConfirming(false)

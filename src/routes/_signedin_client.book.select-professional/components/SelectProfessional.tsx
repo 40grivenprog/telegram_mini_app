@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProfessionals } from '../hooks/useProfessionals'
 import './SelectProfessional.css'
 
@@ -9,13 +10,14 @@ interface SelectProfessionalProps {
 }
 
 export default function SelectProfessional({ clientID, onSelect, onCancel }: SelectProfessionalProps) {
+  const { t } = useTranslation()
   const { professionals, loading, error, pagination, page, setPage, refetch } = useProfessionals(15)
 
   if (loading) {
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка профессионалов...</div>
+          <div className="loading">{t('client.book.selectProfessional.loading')}</div>
         </div>
       </div>
     )
@@ -27,7 +29,7 @@ export default function SelectProfessional({ clientID, onSelect, onCancel }: Sel
         <div className="error-screen">
           <div className="error-message">{error}</div>
           <button className="btn btn-primary" onClick={refetch}>
-            Попробовать снова
+            {t('client.book.selectProfessional.tryAgain')}
           </button>
         </div>
       </div>
@@ -37,14 +39,14 @@ export default function SelectProfessional({ clientID, onSelect, onCancel }: Sel
   return (
     <div className="container">
       <header className="header">
-        <h1>Выберите профессионала</h1>
+        <h1>{t('client.book.selectProfessional.title')}</h1>
       </header>
       <div className="content">
         {professionals.length === 0 ? (
           <div className="no-professionals">
-            <p>Нет доступных профессионалов</p>
+            <p>{t('client.book.selectProfessional.noProfessionals')}</p>
             <button className="btn btn-secondary" onClick={onCancel}>
-              Назад
+              {t('common.back')}
             </button>
           </div>
         ) : (
@@ -69,22 +71,22 @@ export default function SelectProfessional({ clientID, onSelect, onCancel }: Sel
                   disabled={page === 1}
                   onClick={() => setPage(page - 1)}
                 >
-                  ← Назад
+                  {t('client.book.selectProfessional.previous')}
                 </button>
                 <span className="page-info">
-                  Страница {pagination.page}
+                  {t('client.book.selectProfessional.page')} {pagination.page}
                 </span>
                 <button
                   className="btn btn-secondary"
                   disabled={!pagination.has_next_page}
                   onClick={() => setPage(page + 1)}
                 >
-                  Вперед →
+                  {t('client.book.selectProfessional.next')}
                 </button>
               </div>
             )}
             <button className="btn btn-secondary" onClick={onCancel}>
-              Отмена
+              {t('common.cancel')}
             </button>
           </>
         )}

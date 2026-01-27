@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProfessionalAvailability } from '../hooks/useProfessionalAvailability'
+import { formatDate, formatTime } from '../../../utils/i18n'
 import './SelectUnavailableTime.css'
 
 interface SelectUnavailableTimeProps {
@@ -15,18 +17,10 @@ export default function SelectUnavailableTime({
   onSelect,
   onCancel,
 }: SelectUnavailableTimeProps) {
+  const { t } = useTranslation()
   // Load availability once - optimization!
   const { availableSlots, loading, error, refetch } = useProfessionalAvailability(professionalID, date)
   const [selectedStartTime, setSelectedStartTime] = useState<string | null>(null)
-
-  const formatTime = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
 
   const parseTime = (timeStr: string): number => {
     try {
@@ -72,7 +66,7 @@ export default function SelectUnavailableTime({
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка доступного времени...</div>
+          <div className="loading">{t('professional.setUnavailable.selectTime.loading')}</div>
         </div>
       </div>
     )
@@ -84,7 +78,7 @@ export default function SelectUnavailableTime({
         <div className="error-screen">
           <div className="error-message">{error}</div>
           <button className="btn btn-primary" onClick={refetch}>
-            Попробовать снова
+            {t('common.tryAgain')}
           </button>
         </div>
       </div>
@@ -96,13 +90,13 @@ export default function SelectUnavailableTime({
   return (
     <div className="container">
       <header className="header">
-        <h1>{selectedStartTime ? 'Выберите конечное время' : 'Выберите начальное время'}</h1>
+        <h1>{selectedStartTime ? t('professional.setUnavailable.selectTime.titleEnd') : t('professional.setUnavailable.selectTime.titleStart')}</h1>
         <p className="subtitle">
-          Дата: {new Date(date).toLocaleDateString('ru-RU')}
+          {t('professional.setUnavailable.selectTime.dateLabel')}: {formatDate(date)}
           {selectedStartTime && (
             <>
               <br />
-              Начальное время: {formatTime(selectedStartTime)}
+              {t('professional.setUnavailable.selectTime.startTimeLabel')}: {formatTime(selectedStartTime)}
             </>
           )}
         </p>
@@ -113,9 +107,9 @@ export default function SelectUnavailableTime({
           <>
             {availableSlots.length === 0 ? (
               <div className="no-slots">
-                <p>Нет доступного времени на эту дату</p>
+                <p>{t('professional.setUnavailable.selectTime.noSlots')}</p>
                 <button className="btn btn-secondary" onClick={onCancel}>
-                  Назад
+                  {t('common.back')}
                 </button>
               </div>
             ) : (
@@ -132,7 +126,7 @@ export default function SelectUnavailableTime({
                   ))}
                 </div>
                 <button className="btn btn-secondary" onClick={onCancel}>
-                  Отмена
+                  {t('common.cancel')}
                 </button>
               </>
             )}
@@ -142,9 +136,9 @@ export default function SelectUnavailableTime({
           <>
             {availableEndTimes.length === 0 ? (
               <div className="no-slots">
-                <p>Нет доступного времени для выбора конечного времени</p>
+                <p>{t('professional.setUnavailable.selectTime.noEndTimes')}</p>
                 <button className="btn btn-secondary" onClick={handleBackToStart}>
-                  Назад к выбору начального времени
+                  {t('professional.setUnavailable.selectTime.backToStart')}
                 </button>
               </div>
             ) : (
@@ -161,7 +155,7 @@ export default function SelectUnavailableTime({
                   ))}
                 </div>
                 <button className="btn btn-secondary" onClick={handleBackToStart}>
-                  Назад к выбору начального времени
+                  {t('professional.setUnavailable.selectTime.backToStart')}
                 </button>
               </>
             )}

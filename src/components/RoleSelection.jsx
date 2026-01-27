@@ -1,11 +1,13 @@
+import { useTranslation } from 'react-i18next'
 import './RoleSelection.css'
 
 function RoleSelection({ onSelectRole }) {
+  const { t } = useTranslation()
+  
   return (
     <div className="container">
       <header className="header">
-        <h1>👋 Welcome to the Booking Bot!</h1>
-        <p className="subtitle">Please choose how you want to continue:</p>
+        <h1>👋 {t('roleSelection.title')}</h1>
       </header>
       <div className="content">
         <div className="role-selection">
@@ -13,13 +15,13 @@ function RoleSelection({ onSelectRole }) {
             className="btn btn-primary btn-large"
             onClick={() => onSelectRole('client')}
           >
-            👤 Client
+            👤 {t('roleSelection.client')}
           </button>
           <button
             className="btn btn-secondary btn-large"
             onClick={() => onSelectRole('professional')}
           >
-            👨‍💼 Professional
+            👨‍💼 {t('roleSelection.professional')}
           </button>
         </div>
       </div>

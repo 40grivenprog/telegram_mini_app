@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface GetProfessionalsResponseItem {
   id: string
@@ -43,7 +44,7 @@ export function useProfessionals(pageSize: number = 15): UseProfessionalsResult 
       setProfessionals(data.professionals || [])
       setPagination(data.pagination)
     } catch (err) {
-      setError('Не удалось загрузить список профессионалов')
+      setError(i18n.t('error.loadProfessionalsFailed'))
       setProfessionals([])
       setPagination(null)
     } finally {

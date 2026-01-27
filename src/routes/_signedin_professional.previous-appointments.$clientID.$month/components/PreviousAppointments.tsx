@@ -1,5 +1,7 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { usePreviousAppointmentsByClient } from '../hooks/usePreviousAppointmentsByClient'
+import { formatDate, formatTime } from '../../../utils/i18n'
 import './PreviousAppointments.css'
 
 interface PreviousAppointmentsProps {
@@ -19,35 +21,13 @@ export default function PreviousAppointments({
   onBack,
   onMonthChange,
 }: PreviousAppointmentsProps) {
+  const { t } = useTranslation()
   const { appointments, loading, error, refetch } = usePreviousAppointmentsByClient(professionalID, clientID, month)
-
-  const formatTime = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
-
-  const formatDate = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      return date.toLocaleDateString('ru-RU', { 
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    } catch {
-      return timeStr
-    }
-  }
-
   const formatMonth = (monthStr: string) => {
     try {
-      const [year, month] = monthStr.split('-')
-      const date = new Date(parseInt(year), parseInt(month) - 1, 1)
-      return date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long' })
+      const [year, monthValue] = monthStr.split('-')
+      const dateObj = new Date(parseInt(year), parseInt(monthValue) - 1, 1)
+      return formatDate(dateObj, { year: 'numeric', month: 'long' })
     } catch {
       return monthStr
     }
@@ -81,7 +61,7 @@ export default function PreviousAppointments({
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка предыдущих бронирований...</div>
+          <div className="loading">{t('common.loading')}</div>
         </div>
       </div>
     )
@@ -93,7 +73,7 @@ export default function PreviousAppointments({
         <div className="error-screen">
           <div className="error-message">{error}</div>
           <button className="btn btn-primary" onClick={refetch}>
-            Попробовать снова
+            {t('common.tryAgain')}
           </button>
         </div>
       </div>
@@ -103,9 +83,9 @@ export default function PreviousAppointments({
   return (
     <div className="container">
       <header className="header">
-        <h1>📜 Previous Appointments</h1>
+        <h1>📜 {t('professional.previousAppointments.byClient.title')}</h1>
         <p className="subtitle">
-          {clientName && `Client: ${clientName}`}
+          {clientName && t('professional.previousAppointments.byClient.clientLabel', { name: clientName })}
           <br />
           {formatMonth(month)}
         </p>
@@ -113,14 +93,14 @@ export default function PreviousAppointments({
       <div className="content">
         {appointments.length === 0 ? (
           <div className="empty-state">
-            <p>No appointments found for this month.</p>
+            <p>{t('professional.previousAppointments.byClient.emptyMonth')}</p>
           </div>
         ) : (
           <div className="appointments-list">
             {appointments.map((apt) => (
               <div key={apt.id} className="appointment-card">
                 <div className="appointment-details">
-                  <p className="appointment-date">📅 {formatDate(apt.start_time)}</p>
+                  <p className="appointment-date">📅 {formatDate(apt.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                   <p className="appointment-time">
                     🕐 {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                   </p>
@@ -139,7 +119,7 @@ export default function PreviousAppointments({
             onClick={handlePrevMonth}
             disabled={loading}
           >
-            ← Previous Month
+            {t('common.previousMonth')}
           </button>
           {!isCurrentMonth && (
             <button
@@ -147,7 +127,7 @@ export default function PreviousAppointments({
               onClick={handleCurrentMonth}
               disabled={loading}
             >
-              Current Month
+              {t('common.currentMonth')}
             </button>
           )}
           <button
@@ -155,13 +135,13 @@ export default function PreviousAppointments({
             onClick={handleNextMonth}
             disabled={loading}
           >
-            Next Month →
+            {t('common.nextMonth')}
           </button>
         </div>
 
         <div className="actions">
           <button className="btn btn-secondary" onClick={onBack}>
-            ← Back to Client Selection
+            {t('common.backToClientSelection')}
           </button>
         </div>
       </div>

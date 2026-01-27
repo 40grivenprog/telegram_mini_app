@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { generateAvailableDates } from '../../../utils/date'
+import { formatDate } from '../../../utils/i18n'
 import './SelectDate.css'
 
 interface SelectDateProps {
@@ -9,6 +11,7 @@ interface SelectDateProps {
 }
 
 export default function SelectDate({ professionalID, onSelect, onCancel }: SelectDateProps) {
+  const { t } = useTranslation()
   const [currentMonth, setCurrentMonth] = useState(new Date())
 
   const handlePrevMonth = () => {
@@ -27,16 +30,16 @@ export default function SelectDate({ professionalID, onSelect, onCancel }: Selec
   return (
     <div className="container">
       <header className="header">
-        <h1>Выберите дату</h1>
+        <h1>{t('client.book.selectDate.title')}</h1>
         <p className="subtitle">
-          {currentMonth.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' })}
+          {formatDate(currentMonth, { month: 'long', year: 'numeric' })}
         </p>
       </header>
       <div className="content">
         <div className="dates-grid">
           {dates.map((date) => {
             const dateObj = new Date(date)
-            const dayOfWeek = dateObj.toLocaleDateString('ru-RU', { weekday: 'short' })
+            const dayOfWeek = formatDate(dateObj, { weekday: 'short' })
             const day = dateObj.getDate()
             
             return (
@@ -57,17 +60,17 @@ export default function SelectDate({ professionalID, onSelect, onCancel }: Selec
             disabled={isCurrentMonth}
             onClick={handlePrevMonth}
           >
-            ← Предыдущий месяц
+            {t('common.previousMonth')}
           </button>
           <button
             className="btn btn-secondary"
             onClick={handleNextMonth}
           >
-            Следующий месяц →
+            {t('common.nextMonth')}
           </button>
         </div>
         <button className="btn btn-secondary" onClick={onCancel}>
-          Отмена
+          {t('common.cancel')}
         </button>
       </div>
     </div>

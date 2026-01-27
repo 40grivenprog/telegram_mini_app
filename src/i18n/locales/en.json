@@ -1,0 +1,208 @@
+{
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "back": "Back",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "date": "Date",
+    "time": "Time",
+    "professional": "Professional",
+    "client": "Client",
+    "appointment": "Appointment",
+    "appointments": "Appointments",
+    "create": "Create",
+    "creating": "Creating...",
+    "close": "Close",
+    "tryAgain": "Try again",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "backToDashboard": "Back to Dashboard",
+    "backToClientSelection": "Back to Client Selection",
+    "currentMonth": "Current Month",
+    "previousMonth": "Previous Month",
+    "nextMonth": "Next Month",
+    "previousDay": "Previous Day",
+    "nextDay": "Next Day",
+    "description": "Description",
+    "canceling": "Canceling...",
+    "confirmCancel": "Confirm Cancel",
+    "cancelAppointment": "Cancel Appointment",
+    "cancelReasonPrompt": "Please provide a reason for cancellation:",
+    "cancelReasonPlaceholder": "Enter cancellation reason...",
+    "cancelReasonRequired": "Please provide a cancellation reason",
+    "appointmentCancelled": "Appointment canceled successfully",
+    "appointmentConfirmed": "Appointment confirmed successfully",
+    "appointmentCreated": "Appointment created successfully!",
+    "unavailableCreated": "Unavailable period created successfully!",
+    "noAppointments": "No appointments found",
+    "noClients": "No clients found",
+    "roles": {
+      "client": "Client",
+      "professional": "Professional"
+    }
+  },
+  "roleSelection": {
+    "title": "Choose your role",
+    "subtitle": "Please choose how you want to continue:",
+    "client": "I'm a client",
+    "professional": "I'm a professional"
+  },
+  "client": {
+    "registration": {
+      "title": "Client Registration",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phone": "Phone Number",
+      "register": "Register",
+      "registering": "Registering...",
+      "cancel": "Cancel",
+      "error": {
+        "requiredFields": "Please fill in all required fields",
+        "registrationFailed": "Registration error. Please try again."
+      }
+    },
+    "dashboard": {
+      "title": "Client Dashboard",
+      "welcome": "Welcome back, {{name}}!",
+      "bookAppointment": "Book Appointment",
+      "pendingAppointments": "Pending Appointments",
+      "upcomingAppointments": "Upcoming Appointments",
+      "myAppointments": "My Appointments"
+    },
+    "book": {
+      "selectProfessional": {
+        "title": "Select Professional",
+        "loading": "Loading professionals...",
+        "noProfessionals": "No available professionals",
+        "tryAgain": "Try again",
+        "page": "Page",
+        "previous": "← Previous",
+        "next": "Next →"
+      },
+      "selectDate": {
+        "title": "Select Date"
+      },
+      "selectTime": {
+        "title": "Select Time",
+        "loading": "Loading available time...",
+        "noSlots": "No available time slots for this date",
+        "dateLabel": "Date",
+        "date": "Date"
+      },
+      "confirm": {
+        "title": "Confirm Booking",
+        "professional": "Professional",
+        "date": "Date",
+        "time": "Time"
+      }
+    },
+    "appointments": {
+      "title": "My Appointments",
+      "pending": "Pending Appointments",
+      "upcoming": "Upcoming Appointments",
+      "noAppointments": "No appointments",
+      "cancel": "Cancel Appointment"
+    }
+  },
+  "professional": {
+    "signin": {
+      "title": "Professional Sign In",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "signin": "Sign In",
+      "signingIn": "Signing in...",
+      "cancel": "Cancel",
+      "error": {
+        "requiredFields": "Please fill in all fields",
+        "signinFailed": "Sign in failed. Check your username and password."
+      }
+    },
+    "dashboard": {
+      "title": "Professional Dashboard",
+      "welcome": "Welcome back, {{name}}!",
+      "pendingAppointments": "Pending Appointments",
+      "upcomingAppointments": "Upcoming Appointments",
+      "myAppointments": "My Appointments",
+      "setUnavailable": "Set Unavailable",
+      "timetable": "Timetable",
+      "previousAppointments": "Previous Appointments"
+    },
+    "appointments": {
+      "title": "My Appointments",
+      "pending": "Pending Appointments",
+      "upcoming": "Upcoming Appointments",
+      "noAppointments": "No appointments"
+    },
+    "setUnavailable": {
+      "selectDate": {
+        "title": "Select Date"
+      },
+      "selectTime": {
+        "titleStart": "Select start time",
+        "titleEnd": "Select end time",
+        "loading": "Loading available time...",
+        "noSlots": "No available time slots for this date",
+        "noEndTimes": "No available time slots for end time",
+        "backToStart": "Back to start time selection",
+        "dateLabel": "Date",
+        "startTimeLabel": "Start time"
+      },
+      "description": {
+        "title": "Enter description",
+        "date": "Date",
+        "time": "Time",
+        "description": "Unavailable period description",
+        "descriptionPlaceholder": "e.g., 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Please enter description"
+      }
+    },
+    "timetable": {
+      "title": "My Timetable",
+      "loading": "Loading timetable...",
+      "empty": "No activities scheduled for this day ({{date}}).",
+      "slot": "Slot #{{number}}",
+      "cancelSlot": "Cancel Slot #{{number}}"
+    },
+    "previousAppointments": {
+      "selectClient": {
+        "title": "Select a client",
+        "subtitle": "Select a client to view their previous appointments:",
+        "loading": "Loading clients..."
+      },
+      "byClient": {
+        "title": "Previous Appointments",
+        "month": "Month",
+        "noAppointments": "No appointments for this client",
+        "emptyMonth": "No appointments found for this month.",
+        "clientLabel": "Client: {{name}}"
+      }
+    }
+  },
+  "success": {
+    "title": "Success!",
+    "message": "Operation completed successfully",
+    "welcome": "Welcome, {{name}}!",
+    "role": "Role: {{role}}"
+  },
+  "error": {
+    "title": "Error",
+    "userCheckError": "Error checking user",
+    "generic": "An error occurred",
+    "loadAppointmentsFailed": "Failed to load appointments",
+    "loadProfessionalsFailed": "Failed to load professionals",
+    "loadTimetableFailed": "Failed to load timetable",
+    "loadClientsFailed": "Failed to load clients",
+    "loadAvailabilityFailed": "Failed to load availability",
+    "createAppointmentFailed": "Failed to create appointment",
+    "cancelAppointmentFailed": "Failed to cancel appointment",
+    "confirmAppointmentFailed": "Failed to confirm appointment",
+    "createUnavailableFailed": "Failed to create unavailable period"
+  }
+}

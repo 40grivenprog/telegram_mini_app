@@ -1,6 +1,9 @@
 // API service for booking API integration
 // Используем относительный путь - Vite прокси перенаправит на booking_api
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`
+// If VITE_API_BASE_URL is set, use it; otherwise use relative path for Vite proxy
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL 
+  ? `${import.meta.env.VITE_API_BASE_URL}/api`
+  : '/api' // Use relative path to leverage Vite proxy
 
 class ApiService {
   constructor() {
@@ -41,6 +44,13 @@ class ApiService {
         return null
       }
 
+      // Check if response has content before trying to parse JSON
+      const contentType = response.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text()
+        throw new Error(`Expected JSON but got ${contentType}. Response: ${text.substring(0, 200)}`)
+      }
+
       const data = await response.json()
 
       if (!response.ok) {
@@ -49,6 +59,59 @@ class ApiService {
 
       return data
     } catch (error) {
+      // Improve error logging
+      const errorMessage = error.message || String(error)
+      
+      // Check for network/CORS errors
+      if (
+        error instanceof TypeError || 
+        errorMessage.includes('fetch') || 
+        errorMessage.includes('Load failed') ||
+        errorMessage.includes('Failed to fetch') ||
+        errorMessage.includes('NetworkError') ||
+        errorMessage.includes('Network request failed')
+      ) {
+        // Network error or CORS issue
+        const apiBaseInfo = {
+          VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'not set',
+          baseURL: this.baseURL,
+          constructedURL: url,
+          usingProxy: !import.meta.env.VITE_API_BASE_URL
+        }
+        
+        console.error('Network/CORS error detected:', {
+          url,
+          error: errorMessage,
+          errorType: error.constructor.name,
+          apiConfig: apiBaseInfo,
+          stack: error.stack
+        })
+        
+        // Provide helpful error message
+        const proxyHint = apiBaseInfo.usingProxy 
+          ? '\nNote: Using Vite proxy (relative path). Make sure Vite dev server is running on port 8000.'
+          : '\nNote: Using direct API URL. Make sure the API server is running and accessible.'
+        
+        const helpfulMessage = `Cannot connect to API at ${url}. ` +
+          `Possible causes:\n` +
+          `1. Server is not running (check http://localhost:8080/health)\n` +
+          `2. CORS is not configured correctly (server needs restart after CORS changes)\n` +
+          `3. Network connectivity issue\n` +
+          `4. Vite proxy not working (if using relative paths)${proxyHint}\n\n` +
+          `API Config: ${JSON.stringify(apiBaseInfo, null, 2)}\n` +
+          `Original error: ${errorMessage}`
+        
+        throw new Error(helpfulMessage)
+      }
+      
+      // Re-throw with better context for other errors
+      console.error('API request failed:', {
+        url,
+        method: options.method || 'GET',
+        error: errorMessage,
+        errorType: error.constructor.name,
+        stack: error.stack
+      })
       throw error
     }
   }

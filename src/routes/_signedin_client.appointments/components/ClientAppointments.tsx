@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useClientAppointments } from '../hooks/useClientAppointments'
 import { useCancelAppointment } from '../hooks/useCancelAppointment'
+import { formatDate, formatTime } from '../../../utils/i18n'
 import './ClientAppointments.css'
 
 interface ClientAppointmentsProps {
@@ -12,44 +14,17 @@ export default function ClientAppointments({
   status,
   onBack
 }: ClientAppointmentsProps) {
+  const { t } = useTranslation()
   const { appointments, loading, error, refetch, pagination, page, setPage } = useClientAppointments(status == "pending" ? "pending" : "confirmed")
   const { cancelAppointment, canceling, error: cancelError } = useCancelAppointment()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [selectedAppointmentID, setSelectedAppointmentID] = useState<string | null>(null)
   const [cancellationReason, setCancellationReason] = useState('')
 
-  const formatTime = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      if (isNaN(date.getTime())) {
-        return timeStr
-      }
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
-
-  const formatDate = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      if (isNaN(date.getTime())) {
-        return timeStr
-      }
-      return date.toLocaleDateString('ru-RU', { 
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    } catch {
-      return timeStr
-    }
-  }
-
   const getTitle = () => {
-    if (status === 'pending') return '⏳ Pending Appointments'
-    if (status === 'upcoming') return '📅 Upcoming Appointments'
-    return '📋 My Appointments'
+    if (status === 'pending') return `⏳ ${t('client.appointments.pending')}`
+    if (status === 'upcoming') return `📅 ${t('client.appointments.upcoming')}`
+    return `📋 ${t('client.appointments.title')}`
   }
 
   const handleCancelClick = (appointmentID: string) => {
@@ -62,7 +37,7 @@ export default function ClientAppointments({
     if (!selectedAppointmentID || !cancellationReason.trim()) {
       const tg = (window as any).Telegram?.WebApp
       if (tg) {
-        tg.showAlert('Пожалуйста, укажите причину отмены')
+        tg.showAlert(t('common.cancelReasonRequired'))
       }
       return
     }
@@ -75,7 +50,7 @@ export default function ClientAppointments({
       await refetch()
       const tg = (window as any).Telegram?.WebApp
       if (tg) {
-        tg.showAlert('Бронирование успешно отменено')
+        tg.showAlert(t('common.appointmentCancelled'))
       }
     } catch {
       // Error is already handled by the hook
@@ -92,7 +67,7 @@ export default function ClientAppointments({
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка...</div>
+          <div className="loading">{t('common.loading')}</div>
         </div>
       </div>
     )
@@ -109,7 +84,7 @@ export default function ClientAppointments({
         
         {appointments.length === 0 ? (
           <div className="empty-state">
-            <p>No appointments found</p>
+            <p>{t('common.noAppointments')}</p>
           </div>
         ) : (
           <div className="appointments-list">
@@ -118,18 +93,18 @@ export default function ClientAppointments({
                 <div className="appointment-details">
                   {apt.professional && (
                     <p className="professional-name">
-                      <strong>👤 Professional:</strong> {apt.professional.first_name} {apt.professional.last_name}
+                      <strong>👤 {t('common.professional')}:</strong> {apt.professional.first_name} {apt.professional.last_name}
                     </p>
                   )}
                   <p className="appointment-date">
-                    <strong>📅 Date:</strong> {formatDate(apt.start_time)}
+                    <strong>📅 {t('common.date')}:</strong> {formatDate(apt.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
                   </p>
                   <p className="appointment-time">
-                    <strong>🕐 Time:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
+                    <strong>🕐 {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                   </p>
                   {apt.description && (
                     <p className="appointment-description">
-                      <strong>📝 Description:</strong> {apt.description}
+                      <strong>📝 {t('common.description')}:</strong> {apt.description}
                     </p>
                   )}
                   <div className="appointment-actions">
@@ -138,7 +113,7 @@ export default function ClientAppointments({
                       onClick={() => handleCancelClick(apt.id)}
                       disabled={canceling}
                     >
-                      ❌ Cancel
+                      ❌ {t('client.appointments.cancel')}
                     </button>
                   </div>
                 </div>
@@ -155,17 +130,17 @@ export default function ClientAppointments({
                 onClick={() => setPage(page - 1)}
                 disabled={loading || page <= 1}
               >
-                ← Previous
+                {t('common.previous')}
               </button>
               <span className="pagination-info">
-                Page {pagination.page}
+                {t('common.page')} {pagination.page}
               </span>
               <button
                 className="btn btn-secondary btn-small"
                 onClick={() => setPage(page + 1)}
                 disabled={loading || !pagination.has_next_page}
               >
-                Next →
+                {t('common.next')}
               </button>
             </div>
           </div>
@@ -174,13 +149,13 @@ export default function ClientAppointments({
         {cancelModalOpen && (
           <div className="modal-overlay" onClick={handleCancelClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h2>Cancel Appointment</h2>
-              <p className="modal-subtitle">Please provide a reason for cancellation:</p>
+              <h2>{t('common.cancelAppointment')}</h2>
+              <p className="modal-subtitle">{t('common.cancelReasonPrompt')}</p>
               <textarea
                 className="modal-textarea"
                 value={cancellationReason}
                 onChange={(e) => setCancellationReason(e.target.value)}
-                placeholder="Enter cancellation reason..."
+                placeholder={t('common.cancelReasonPlaceholder')}
                 rows={4}
                 disabled={canceling}
               />
@@ -191,14 +166,14 @@ export default function ClientAppointments({
                   onClick={handleCancelClose}
                   disabled={canceling}
                 >
-                  Back
+                  {t('common.back')}
                 </button>
                 <button
                   className="btn btn-danger"
                   onClick={handleCancelConfirm}
                   disabled={canceling || !cancellationReason.trim()}
                 >
-                  {canceling ? 'Canceling...' : 'Confirm Cancel'}
+                  {canceling ? t('common.canceling') : t('common.confirmCancel')}
                 </button>
               </div>
             </div>
@@ -210,7 +185,7 @@ export default function ClientAppointments({
             className="btn btn-secondary"
             onClick={onBack}
           >
-            ← Back to Dashboard
+            {t('common.backToDashboard')}
           </button>
         </div>
       </div>

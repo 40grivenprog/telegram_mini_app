@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useCreateUnavailableAppointment } from '../hooks/useCreateUnavailableAppointment'
+import { formatDate, formatTime } from '../../../utils/i18n'
 import './UnavailableDescription.css'
 
 interface UnavailableDescriptionProps {
@@ -19,17 +21,9 @@ export default function UnavailableDescription({
   onConfirm,
   onCancel,
 }: UnavailableDescriptionProps) {
+  const { t } = useTranslation()
   const [description, setDescription] = useState('')
   const { createUnavailableAppointment, creating, error } = useCreateUnavailableAppointment()
-
-  const formatTime = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,7 +31,7 @@ export default function UnavailableDescription({
     if (!description.trim()) {
       const tg = window.Telegram?.WebApp
       if (tg) {
-        tg.showAlert('Пожалуйста, введите описание')
+        tg.showAlert(t('professional.setUnavailable.description.descriptionRequired'))
       }
       return
     }
@@ -57,26 +51,26 @@ export default function UnavailableDescription({
   return (
     <div className="container">
       <header className="header">
-        <h1>Введите описание</h1>
+        <h1>{t('professional.setUnavailable.description.title')}</h1>
       </header>
       <div className="content">
         {error && <div className="error-message">{error}</div>}
         
         <div className="unavailable-summary">
-          <p><strong>📅 Дата:</strong> {new Date(date).toLocaleDateString('ru-RU')}</p>
-          <p><strong>🕐 Время:</strong> {formatTime(startTime)} - {formatTime(endTime)}</p>
+          <p><strong>📅 {t('professional.setUnavailable.description.date')}:</strong> {formatDate(date)}</p>
+          <p><strong>🕐 {t('professional.setUnavailable.description.time')}:</strong> {formatTime(startTime)} - {formatTime(endTime)}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="description-form">
           <label htmlFor="description" className="form-label">
-            Описание недоступного периода
+            {t('professional.setUnavailable.description.description')}
           </label>
           <textarea
             id="description"
             className="description-textarea"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Например: 'Lunch time', 'Personal break', 'Out of office'..."
+            placeholder={t('professional.setUnavailable.description.descriptionPlaceholder')}
             rows={4}
             disabled={creating}
             required
@@ -88,7 +82,7 @@ export default function UnavailableDescription({
               className="btn btn-primary"
               disabled={creating || !description.trim()}
             >
-              {creating ? 'Создание...' : 'Создать'}
+              {creating ? t('common.creating') : t('common.create')}
             </button>
             <button
               type="button"
@@ -96,7 +90,7 @@ export default function UnavailableDescription({
               onClick={onCancel}
               disabled={creating}
             >
-              Назад
+              {t('common.back')}
             </button>
           </div>
         </form>

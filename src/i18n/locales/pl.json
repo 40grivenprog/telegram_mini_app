@@ -1,0 +1,208 @@
+{
+  "common": {
+    "confirm": "Potwierdź",
+    "cancel": "Anuluj",
+    "back": "Wstecz",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "success": "Sukces",
+    "date": "Data",
+    "time": "Czas",
+    "professional": "Profesjonalista",
+    "client": "Klient",
+    "appointment": "Wizyta",
+    "appointments": "Wizyty",
+    "create": "Utwórz",
+    "creating": "Tworzenie...",
+    "close": "Zamknij",
+    "tryAgain": "Spróbuj ponownie",
+    "previous": "← Poprzednia",
+    "next": "Następna →",
+    "page": "Strona",
+    "backToDashboard": "← Wróć do panelu",
+    "backToClientSelection": "← Wróć do wyboru klienta",
+    "currentMonth": "Bieżący miesiąc",
+    "previousMonth": "← Poprzedni miesiąc",
+    "nextMonth": "Następny miesiąc →",
+    "previousDay": "⬅️ Poprzedni dzień",
+    "nextDay": "Następny dzień ➡️",
+    "description": "Opis",
+    "canceling": "Anulowanie...",
+    "confirmCancel": "Potwierdź anulowanie",
+    "cancelAppointment": "Anuluj wizytę",
+    "cancelReasonPrompt": "Podaj powód anulowania:",
+    "cancelReasonPlaceholder": "Wpisz powód anulowania...",
+    "cancelReasonRequired": "Podaj powód anulowania",
+    "appointmentCancelled": "Wizyta została anulowana",
+    "appointmentConfirmed": "Wizyta została potwierdzona",
+    "appointmentCreated": "Wizyta została utworzona!",
+    "unavailableCreated": "Okres niedostępności został utworzony!",
+    "noAppointments": "Brak wizyt",
+    "noClients": "Brak klientów",
+    "roles": {
+      "client": "Klient",
+      "professional": "Profesjonalista"
+    }
+  },
+  "roleSelection": {
+    "title": "Wybierz swoją rolę",
+    "subtitle": "Wybierz, jak chcesz kontynuować:",
+    "client": "Jestem klientem",
+    "professional": "Jestem profesjonalistą"
+  },
+  "client": {
+    "registration": {
+      "title": "Rejestracja klienta",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "phone": "Numer telefonu",
+      "register": "Zarejestruj się",
+      "registering": "Rejestracja...",
+      "cancel": "Anuluj",
+      "error": {
+        "requiredFields": "Proszę wypełnić wszystkie wymagane pola",
+        "registrationFailed": "Błąd rejestracji. Spróbuj ponownie."
+      }
+    },
+    "dashboard": {
+      "title": "Panel klienta",
+      "welcome": "Witaj ponownie, {{name}}!",
+      "bookAppointment": "Umów wizytę",
+      "pendingAppointments": "Oczekujące wizyty",
+      "upcomingAppointments": "Nadchodzące wizyty",
+      "myAppointments": "Moje wizyty"
+    },
+    "book": {
+      "selectProfessional": {
+        "title": "Wybierz profesjonalistę",
+        "loading": "Ładowanie profesjonalistów...",
+        "noProfessionals": "Brak dostępnych profesjonalistów",
+        "tryAgain": "Spróbuj ponownie",
+        "page": "Strona",
+        "previous": "← Poprzednia",
+        "next": "Następna →"
+      },
+      "selectDate": {
+        "title": "Wybierz datę"
+      },
+      "selectTime": {
+        "title": "Wybierz czas",
+        "loading": "Ładowanie dostępnego czasu...",
+        "noSlots": "Brak dostępnych terminów na ten dzień",
+        "dateLabel": "Data",
+        "date": "Data"
+      },
+      "confirm": {
+        "title": "Potwierdzenie rezerwacji",
+        "professional": "Profesjonalista",
+        "date": "Data",
+        "time": "Czas"
+      }
+    },
+    "appointments": {
+      "title": "Moje wizyty",
+      "pending": "Oczekujące wizyty",
+      "upcoming": "Nadchodzące wizyty",
+      "noAppointments": "Brak wizyt",
+      "cancel": "Anuluj wizytę"
+    }
+  },
+  "professional": {
+    "signin": {
+      "title": "Logowanie profesjonalisty",
+      "username": "Nazwa użytkownika",
+      "email": "Email",
+      "password": "Hasło",
+      "signin": "Zaloguj się",
+      "signingIn": "Logowanie...",
+      "cancel": "Anuluj",
+      "error": {
+        "requiredFields": "Proszę wypełnić wszystkie поля",
+        "signinFailed": "Błąd logowania. Sprawdź nazwę użytkownika i hasło."
+      }
+    },
+    "dashboard": {
+      "title": "Panel profesjonalisty",
+      "welcome": "Witaj ponownie, {{name}}!",
+      "pendingAppointments": "Oczekujące wizyty",
+      "upcomingAppointments": "Nadchodzące wizyty",
+      "myAppointments": "Moje wizyty",
+      "setUnavailable": "Ustaw niedostępność",
+      "timetable": "Harmonogram",
+      "previousAppointments": "Poprzednie wizyty"
+    },
+    "appointments": {
+      "title": "Moje wizyty",
+      "pending": "Oczekujące wizyty",
+      "upcoming": "Nadchodzące wizyty",
+      "noAppointments": "Brak wizyt"
+    },
+    "setUnavailable": {
+      "selectDate": {
+        "title": "Wybierz datę"
+      },
+      "selectTime": {
+        "titleStart": "Wybierz godzinę rozpoczęcia",
+        "titleEnd": "Wybierz godzinę zakończenia",
+        "loading": "Ładowanie dostępnego czasu...",
+        "noSlots": "Brak dostępnych terminów na ten dzień",
+        "noEndTimes": "Brak dostępnych godzin zakończenia",
+        "backToStart": "Wróć do wyboru godziny rozpoczęcia",
+        "dateLabel": "Data",
+        "startTimeLabel": "Godzina rozpoczęcia"
+      },
+      "description": {
+        "title": "Wprowadź opis",
+        "date": "Data",
+        "time": "Czas",
+        "description": "Opis okresu niedostępności",
+        "descriptionPlaceholder": "Np. 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Proszę wprowadzić opis"
+      }
+    },
+    "timetable": {
+      "title": "Harmonogram",
+      "loading": "Ładowanie harmonogramu...",
+      "empty": "Brak zaplanowanych aktywności na ten dzień ({{date}}).",
+      "slot": "Slot #{{number}}",
+      "cancelSlot": "Anuluj slot #{{number}}"
+    },
+    "previousAppointments": {
+      "selectClient": {
+        "title": "Wybierz klienta",
+        "subtitle": "Wybierz klienta, aby zobaczyć jego poprzednie wizyty:",
+        "loading": "Ładowanie klientów..."
+      },
+      "byClient": {
+        "title": "Poprzednie wizyty",
+        "month": "Miesiąc",
+        "noAppointments": "Brak wizyt dla tego klienta",
+        "emptyMonth": "Brak wizyt w tym miesiącu.",
+        "clientLabel": "Klient: {{name}}"
+      }
+    }
+  },
+  "success": {
+    "title": "Sukces!",
+    "message": "Operacja zakończona pomyślnie",
+    "welcome": "Witaj, {{name}}!",
+    "role": "Rola: {{role}}"
+  },
+  "error": {
+    "title": "Błąd",
+    "userCheckError": "Błąd podczas sprawdzania użytkownika",
+    "generic": "Wystąpił błąd",
+    "loadAppointmentsFailed": "Nie udało się załadować wizyt",
+    "loadProfessionalsFailed": "Nie udało się załadować listy profesjonalistów",
+    "loadTimetableFailed": "Nie udało się załadować harmonogramu",
+    "loadClientsFailed": "Nie udało się załadować klientów",
+    "loadAvailabilityFailed": "Nie udało się załadować dostępnych terminów",
+    "createAppointmentFailed": "Nie udało się utworzyć wizyty",
+    "cancelAppointmentFailed": "Nie udało się anulować wizyty",
+    "confirmAppointmentFailed": "Nie udało się potwierdzić wizyty",
+    "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności"
+  }
+}

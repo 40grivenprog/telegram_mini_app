@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProfessionalClients } from '../hooks/useProfessionalClients'
 import './SelectClient.css'
 
@@ -9,13 +10,14 @@ interface SelectClientProps {
 }
 
 export default function SelectClient({ professionalID, onSelect, onCancel }: SelectClientProps) {
+  const { t } = useTranslation()
   const { clients, loading, error, refetch } = useProfessionalClients(professionalID)
 
   if (loading) {
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка клиентов...</div>
+          <div className="loading">{t('professional.previousAppointments.selectClient.loading')}</div>
         </div>
       </div>
     )
@@ -27,7 +29,7 @@ export default function SelectClient({ professionalID, onSelect, onCancel }: Sel
         <div className="error-screen">
           <div className="error-message">{error}</div>
           <button className="btn btn-primary" onClick={refetch}>
-            Попробовать снова
+            {t('common.tryAgain')}
           </button>
         </div>
       </div>
@@ -37,13 +39,13 @@ export default function SelectClient({ professionalID, onSelect, onCancel }: Sel
   return (
     <div className="container">
       <header className="header">
-        <h1>👥 Select a client</h1>
-        <p className="subtitle">Select a client to view their previous appointments:</p>
+        <h1>👥 {t('professional.previousAppointments.selectClient.title')}</h1>
+        <p className="subtitle">{t('professional.previousAppointments.selectClient.subtitle')}</p>
       </header>
       <div className="content">
         {clients.length === 0 ? (
           <div className="empty-state">
-            <p>No clients found</p>
+            <p>{t('common.noClients')}</p>
           </div>
         ) : (
           <div className="clients-list">
@@ -62,7 +64,7 @@ export default function SelectClient({ professionalID, onSelect, onCancel }: Sel
         )}
         <div className="actions">
           <button className="btn btn-secondary" onClick={onCancel}>
-            ← Back to Dashboard
+            {t('common.backToDashboard')}
           </button>
         </div>
       </div>

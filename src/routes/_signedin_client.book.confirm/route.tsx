@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
 import ConfirmAppointment from './components/ConfirmAppointment'
@@ -13,6 +14,7 @@ interface ConfirmAppointmentState {
 
 
 export default function ConfirmAppointmentRoute() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const { user } = useUser()
@@ -28,7 +30,7 @@ export default function ConfirmAppointmentRoute() {
     navigate('/client/dashboard', { replace: true })
     const tg = window.Telegram?.WebApp
     if (tg) {
-      tg.showAlert('Бронирование успешно создано! ✅')
+      tg.showAlert(t('common.appointmentCreated'))
     }
   }
 

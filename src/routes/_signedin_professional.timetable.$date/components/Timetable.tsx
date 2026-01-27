@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useProfessionalTimetable } from '../hooks/useProfessionalTimetable'
 import { useCancelProfessionalAppointment } from '../../../hooks/professionals/useCancelProfessionalAppointment'
+import { formatDate, formatTime } from '../../../utils/i18n'
 import './Timetable.css'
 
 interface TimetableProps {
@@ -16,34 +18,12 @@ export default function Timetable({
   onBack,
   onDateChange,
 }: TimetableProps) {
+  const { t } = useTranslation()
   const { timetable, loading, error, refetch } = useProfessionalTimetable(professionalID, date)
   const { cancelAppointment, canceling, error: cancelError } = useCancelProfessionalAppointment()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [selectedAppointmentID, setSelectedAppointmentID] = useState<string | null>(null)
   const [cancellationReason, setCancellationReason] = useState('')
-
-  const formatTime = (timeStr: string) => {
-    try {
-      const date = new Date(timeStr)
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
-
-  const formatDate = (dateStr: string) => {
-    try {
-      const date = new Date(dateStr + 'T00:00:00')
-      return date.toLocaleDateString('ru-RU', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      })
-    } catch {
-      return dateStr
-    }
-  }
 
   const handlePrevDay = () => {
     const [year, monthNum, dayNum] = date.split('-').map(Number)
@@ -74,7 +54,7 @@ export default function Timetable({
     if (!selectedAppointmentID || !cancellationReason.trim()) {
       const tg = (window as any).Telegram?.WebApp
       if (tg) {
-        tg.showAlert('Пожалуйста, укажите причину отмены')
+        tg.showAlert(t('common.cancelReasonRequired'))
       }
       return
     }
@@ -87,7 +67,7 @@ export default function Timetable({
       await refetch()
       const tg = (window as any).Telegram?.WebApp
       if (tg) {
-        tg.showAlert('Бронирование успешно отменено')
+        tg.showAlert(t('common.appointmentCancelled'))
       }
     } catch {
       // Error is already handled by the hook
@@ -104,7 +84,7 @@ export default function Timetable({
     return (
       <div className="container">
         <div className="loading-screen">
-          <div className="loading">Загрузка расписания...</div>
+          <div className="loading">{t('professional.timetable.loading')}</div>
         </div>
       </div>
     )
@@ -116,7 +96,7 @@ export default function Timetable({
         <div className="error-screen">
           <div className="error-message">{error}</div>
           <button className="btn btn-primary" onClick={refetch}>
-            Попробовать снова
+            {t('common.tryAgain')}
           </button>
         </div>
       </div>
@@ -126,8 +106,8 @@ export default function Timetable({
   return (
     <div className="container">
       <header className="header">
-        <h1>📅 My Timetable</h1>
-        <p className="subtitle">{formatDate(date)}</p>
+        <h1>📅 {t('professional.timetable.title')}</h1>
+        <p className="subtitle">{formatDate(date, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </header>
       <div className="content">
         {error && <div className="error-message">{error}</div>}
@@ -135,14 +115,14 @@ export default function Timetable({
         
         {!timetable || timetable.appointments.length === 0 ? (
           <div className="timetable-empty">
-            <p>📋 No activities scheduled for this day({formatDate(date)}).</p>
+            <p>📋 {t('professional.timetable.empty', { date: formatDate(date, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) })}</p>
           </div>
         ) : (
           <div className="timetable-appointments">
             {timetable.appointments.map((apt, index) => (
               <div key={apt.id} className="timetable-slot">
                 <div className="slot-header">
-                  <span className="slot-number">📅 Slot #{index + 1}</span>
+                  <span className="slot-number">📅 {t('professional.timetable.slot', { number: index + 1 })}</span>
                 </div>
                 <div className="slot-details">
                   <p className="slot-time">
@@ -158,7 +138,7 @@ export default function Timetable({
                     onClick={() => handleCancelClick(apt.id)}
                     disabled={canceling}
                   >
-                    ❌ Cancel Slot #{index + 1}
+                    ❌ {t('professional.timetable.cancelSlot', { number: index + 1 })}
                   </button>
                 </div>
               </div>
@@ -173,7 +153,7 @@ export default function Timetable({
               onClick={handlePrevDay}
               disabled={loading || canceling}
             >
-              ⬅️ Previous Day
+              {t('common.previousDay')}
             </button>
           )}
           <button
@@ -181,26 +161,26 @@ export default function Timetable({
             onClick={handleNextDay}
             disabled={loading || canceling}
           >
-            Next Day ➡️
+            {t('common.nextDay')}
           </button>
         </div>
 
         <div className="actions">
           <button className="btn btn-secondary" onClick={onBack} disabled={canceling}>
-            ← Back to Dashboard
+            {t('common.backToDashboard')}
           </button>
         </div>
 
         {cancelModalOpen && (
           <div className="modal-overlay" onClick={handleCancelClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h2>Cancel Appointment</h2>
-              <p className="modal-subtitle">Please provide a reason for cancellation:</p>
+              <h2>{t('common.cancelAppointment')}</h2>
+              <p className="modal-subtitle">{t('common.cancelReasonPrompt')}</p>
               <textarea
                 className="modal-textarea"
                 value={cancellationReason}
                 onChange={(e) => setCancellationReason(e.target.value)}
-                placeholder="Enter cancellation reason..."
+                placeholder={t('common.cancelReasonPlaceholder')}
                 rows={4}
                 disabled={canceling}
               />
@@ -211,14 +191,14 @@ export default function Timetable({
                   onClick={handleCancelClose}
                   disabled={canceling}
                 >
-                  Back
+                  {t('common.back')}
                 </button>
                 <button
                   className="btn btn-danger"
                   onClick={handleCancelConfirm}
                   disabled={canceling || !cancellationReason.trim()}
                 >
-                  {canceling ? 'Canceling...' : 'Confirm Cancel'}
+                  {canceling ? t('common.canceling') : t('common.confirmCancel')}
                 </button>
               </div>
             </div>

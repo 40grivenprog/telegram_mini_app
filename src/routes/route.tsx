@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useTelegram } from '../hooks/useTelegram'
 import { apiService } from '../services/api'
 import { Routes, type Route } from '../constants'
@@ -37,6 +38,7 @@ declare global {
 }
 
 export default function Route() {
+  const { t } = useTranslation()
   const { chatID, initialized } = useTelegram()
   console.log("chatID", chatID)
   const [route, setRoute] = useState<Route>(Routes.LOADING)
@@ -72,7 +74,7 @@ export default function Route() {
           setRoute(Routes.ROLE_SELECTION)
         }
       } catch (err) {
-        setError('Ошибка при проверке пользователя')
+        setError(t('error.userCheckError'))
         setRoute(Routes.ERROR)
       }
     }
@@ -257,7 +259,7 @@ export default function Route() {
           // Show success and return to dashboard
           const tg = window.Telegram?.WebApp
           if (tg) {
-            tg.showAlert('Бронирование успешно создано! ✅')
+            tg.showAlert(t('common.appointmentCreated'))
           }
           setRoute(Routes.CLIENT_DASHBOARD)
         }}

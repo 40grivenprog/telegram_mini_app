@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
+import i18n from '../../../i18n/config.js'
 
 export interface TimeSlot {
   start_time: string
@@ -37,7 +38,7 @@ export function useProfessionalAvailability(professionalID: string, date: string
       const available = data.slots?.filter((slot) => slot.available) || []
       setAvailableSlots(available)
     } catch (err) {
-      setError('Не удалось загрузить доступное время')
+      setError(i18n.t('error.loadAvailabilityFailed'))
       setAvailableSlots([])
     } finally {
       setLoading(false)

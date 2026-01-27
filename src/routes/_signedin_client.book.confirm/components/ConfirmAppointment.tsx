@@ -1,5 +1,7 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useCreateAppointment } from '../hooks/useCreateAppointment'
+import { formatTime, formatDate } from '../../../utils/i18n'
 import './ConfirmAppointment.css'
 
 interface ConfirmAppointmentProps {
@@ -23,6 +25,7 @@ export default function ConfirmAppointment({
   onConfirm,
   onCancel
 }: ConfirmAppointmentProps) {
+  const { t } = useTranslation()
   const { createAppointment, creating, error } = useCreateAppointment()
 
   const handleConfirm = async () => {
@@ -37,30 +40,17 @@ export default function ConfirmAppointment({
     }
   }
 
-  const formatTime = (timeStr: string) => {
-    try {
-      // Parse RFC3339 format
-      const date = new Date(timeStr)
-      if (isNaN(date.getTime())) {
-        return timeStr
-      }
-      return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-    } catch {
-      return timeStr
-    }
-  }
-
   return (
     <div className="container">
       <header className="header">
-        <h1>Подтверждение бронирования</h1>
+        <h1>{t('client.book.confirm.title')}</h1>
       </header>
       <div className="content">
         {error && <div className="error-message">{error}</div>}
         <div className="booking-summary">
-          <p><strong>Профессионал:</strong> {professionalName}</p>
-          <p><strong>Дата:</strong> {new Date(date).toLocaleDateString('ru-RU')}</p>
-          <p><strong>Время:</strong> {formatTime(startTime)} - {formatTime(endTime)}</p>
+          <p><strong>{t('common.professional')}:</strong> {professionalName}</p>
+          <p><strong>{t('common.date')}:</strong> {formatDate(date)}</p>
+          <p><strong>{t('common.time')}:</strong> {formatTime(startTime)} - {formatTime(endTime)}</p>
         </div>
         <div className="confirm-actions">
           <button
@@ -68,14 +58,14 @@ export default function ConfirmAppointment({
             onClick={handleConfirm}
             disabled={creating}
           >
-            {creating ? 'Создание...' : 'Подтвердить'}
+            {creating ? t('common.creating') : t('common.confirm')}
           </button>
           <button
             className="btn btn-secondary"
             onClick={onCancel}
             disabled={creating}
           >
-            Назад
+            {t('common.back')}
           </button>
         </div>
       </div>
