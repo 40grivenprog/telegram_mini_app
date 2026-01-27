@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import LanguageSelector from '../../../components/LanguageSelector'
 import './RoleSelection.css'
 
 interface RoleSelectionProps {
@@ -11,6 +12,7 @@ export default function RoleSelection({ onSelectRole }: RoleSelectionProps) {
 
   return (
     <div className="container">
+      <LanguageSelector />
       <header className="header">
         <h1>👋 {t('roleSelection.title')}</h1>
         <p className="subtitle">{t('roleSelection.subtitle')}</p>

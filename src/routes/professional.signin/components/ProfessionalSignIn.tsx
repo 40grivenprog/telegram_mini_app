@@ -10,7 +10,7 @@ interface ProfessionalSignInProps {
 }
 
 export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: ProfessionalSignInProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -32,6 +32,7 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
         username: username.trim(),
         password: password.trim(),
         chat_id: chatID,
+        locale: i18n.language || 'en',
       }
 
       const response = await apiService.signInProfessional(professionalData)

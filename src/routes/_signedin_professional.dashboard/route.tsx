@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
+import { apiService } from '../../services/api'
 import ProfessionalDashboard from './components/ProfessionalDashboard'
 
 export default function ProfessionalDashboardRoute() {
@@ -30,6 +31,10 @@ export default function ProfessionalDashboardRoute() {
     navigate('/professional/previous-appointments/select-client')
   }
 
+  const handleLocaleChange = async (locale: string) => {
+    await apiService.updateProfessionalLocale(locale)
+  }
+
   return (
     <ProfessionalDashboard
       user={user}
@@ -38,6 +43,7 @@ export default function ProfessionalDashboardRoute() {
       onSetUnavailable={handleSetUnavailable}
       onViewTimetable={handleViewTimetable}
       onViewPreviousAppointments={handleViewPreviousAppointments}
+      onLocaleChange={handleLocaleChange}
     />
   )
 }

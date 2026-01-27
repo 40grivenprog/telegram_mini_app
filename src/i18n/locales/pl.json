@@ -45,7 +45,8 @@
     "roles": {
       "client": "Klient",
       "professional": "Profesjonalista"
-    }
+    },
+    "language": "Język"
   },
   "roleSelection": {
     "title": "Wybierz swoją rolę",

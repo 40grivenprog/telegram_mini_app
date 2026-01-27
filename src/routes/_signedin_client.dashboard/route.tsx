@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
+import { apiService } from '../../services/api'
 import ClientDashboard from './components/ClientDashboard'
 
 export default function ClientDashboardRoute() {
@@ -21,12 +22,17 @@ export default function ClientDashboardRoute() {
     navigate('/client/appointments/upcoming')
   }
 
+  const handleLocaleChange = async (locale: string) => {
+    await apiService.updateClientLocale(locale)
+  }
+
   return (
     <ClientDashboard 
       user={user} 
       onBookAppointment={handleBookAppointment}
       onViewPendingAppointments={handleViewPendingAppointments}
       onViewUpcomingAppointments={handleViewUpcomingAppointments}
+      onLocaleChange={handleLocaleChange}
     />
   )
 }

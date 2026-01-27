@@ -47,7 +47,7 @@ declare global {
 }
 
 function AppRouterContent() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { chatID, initialized } = useTelegram()
   const { user, setUser } = useUser()
   const navigate = useNavigate()
@@ -79,12 +79,16 @@ function AppRouterContent() {
       setIsLoading(true)
       setError(null)
       try {
-        const userData = await apiService.getUserByChatID(chatID)
+        const userData = await apiService.getUserByChatID(chatID, i18n.language || 'en')
         if (userData && userData.user) {
           setUser(userData.user)
           // Set token in API service for authenticated requests
           if (userData.user.token) {
             apiService.setToken(userData.user.token)
+          }
+          // Update i18n language if locale is provided in user data
+          if (userData.user.locale && userData.user.locale !== i18n.language) {
+            i18n.changeLanguage(userData.user.locale)
           }
           // Redirect based on role
           if (userData.user.role === 'client') {

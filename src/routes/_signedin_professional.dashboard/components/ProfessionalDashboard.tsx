@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import LanguageSelector from '../../../components/LanguageSelector'
 import './ProfessionalDashboard.css'
 
 interface ProfessionalDashboardProps {
@@ -9,6 +10,7 @@ interface ProfessionalDashboardProps {
   onSetUnavailable: () => void
   onViewTimetable: () => void
   onViewPreviousAppointments: () => void
+  onLocaleChange?: (locale: string) => Promise<void>
 }
 
 export default function ProfessionalDashboard({
@@ -17,12 +19,14 @@ export default function ProfessionalDashboard({
   onViewUpcomingAppointments,
   onSetUnavailable,
   onViewTimetable,
-  onViewPreviousAppointments
+  onViewPreviousAppointments,
+  onLocaleChange
 }: ProfessionalDashboardProps) {
   const { t } = useTranslation()
 
   return (
     <div className="container">
+      <LanguageSelector onLocaleChange={onLocaleChange} />
       <header className="header">
         <h1>👋 {t('professional.dashboard.welcome', { name: user?.first_name || '' })}</h1>
       </header>

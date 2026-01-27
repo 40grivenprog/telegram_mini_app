@@ -11,51 +11,38 @@ import plTranslations from './locales/pl.json'
 // Supported languages
 const supportedLanguages = ['en', 'ru', 'uk', 'pl']
 
-// Function to detect language from Telegram WebApp
-const detectTelegramLanguage = () => {
-  if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-    const languageCode = window.Telegram.WebApp.initDataUnsafe?.user?.language_code
-    console.log('languageCode', languageCode)
-    
-    if (languageCode) {
-      // Map Telegram language codes to our supported languages
-      const langMap = {
-        'ru': 'ru',
-        'uk': 'uk',
-        'pl': 'pl',
-        'en': 'en',
-        // Handle language variants
-        'ru-RU': 'ru',
-        'uk-UA': 'uk',
-        'pl-PL': 'pl',
-        'en-US': 'en',
-        'en-GB': 'en',
-      }
-      
-      // Check exact match first
-      if (langMap[languageCode]) {
-        return langMap[languageCode]
-      }
-      
-      // Check first two characters (e.g., 'ru' from 'ru-RU')
-      const langPrefix = languageCode.split('-')[0].toLowerCase()
-      if (langMap[langPrefix]) {
-        return langMap[langPrefix]
+// Function to detect initial language
+// Priority: localStorage (user's manual selection) > browser language > default
+const detectInitialLanguage = () => {
+  // Priority 1: Check localStorage for saved user preference
+  if (typeof window !== 'undefined') {
+    const savedLang = localStorage.getItem('i18nextLng')
+    if (savedLang) {
+      const langPrefix = savedLang.split('-')[0].toLowerCase()
+      const supportedLangs = ['en', 'ru', 'uk', 'pl']
+      if (supportedLangs.includes(langPrefix)) {
+        return langPrefix
       }
     }
   }
   
-  // Fallback to browser language or default
-  const browserLang = navigator.language || navigator.userLanguage || 'en'
-  const browserLangPrefix = browserLang.split('-')[0].toLowerCase()
-  const supportedLangs = ['en', 'ru', 'uk', 'pl']
-  
-  if (supportedLangs.includes(browserLangPrefix)) {
-    return browserLangPrefix
+  // Priority 2: Fallback to browser language
+  if (typeof window !== 'undefined') {
+    const browserLang = navigator.language || navigator.userLanguage || 'en'
+    const browserLangPrefix = browserLang.split('-')[0].toLowerCase()
+    const supportedLangs = ['en', 'ru', 'uk', 'pl']
+    
+    if (supportedLangs.includes(browserLangPrefix)) {
+      return browserLangPrefix
+    }
   }
   
+  // Default to English
   return 'en'
 }
+
+// Get initial language
+const initialLang = detectInitialLanguage()
 
 i18n
   .use(LanguageDetector)
@@ -67,7 +54,7 @@ i18n
       uk: { translation: ukTranslations },
       pl: { translation: plTranslations },
     },
-    lng: detectTelegramLanguage(),
+    lng: initialLang, // Set initial language
     fallbackLng: 'en',
     supportedLngs: supportedLanguages,
     
@@ -76,17 +63,19 @@ i18n
     },
     
     detection: {
-      // Custom detection order
-      order: ['custom', 'navigator', 'htmlTag'],
+      // Prioritize localStorage (user's manual selection via language selector)
+      order: ['localStorage', 'navigator'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
+      // Only check supported languages
+      checkWhitelist: true,
     },
   })
 
-// Override language detection with Telegram language
-const telegramLang = detectTelegramLanguage()
-if (telegramLang && supportedLanguages.includes(telegramLang)) {
-  i18n.changeLanguage(telegramLang)
+// Set initial language if not already saved
+// User can change it via language selector, which will save to localStorage
+if (!localStorage.getItem('i18nextLng') && initialLang && supportedLanguages.includes(initialLang)) {
+  i18n.changeLanguage(initialLang)
 }
 
 export default i18n

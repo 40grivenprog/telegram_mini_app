@@ -10,7 +10,7 @@ interface ClientRegistrationProps {
 }
 
 export default function ClientRegistration({ chatID, onSuccess, onCancel }: ClientRegistrationProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
@@ -34,6 +34,7 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
         last_name: lastName.trim(),
         chat_id: chatID,
         phone_number: phoneNumber.trim() || null,
+        locale: i18n.language || 'en',
       }
 
       const response = await apiService.registerClient(clientData)

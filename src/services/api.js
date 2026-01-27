@@ -117,8 +117,8 @@ class ApiService {
   }
 
   // Check if user exists by chat_id
-  async getUserByChatID(chatID) {
-    return this.request(`/users/${chatID}`)
+  async getUserByChatID(chatID, locale = 'en') {
+    return this.request(`/users/${chatID}?locale=${locale}`)
   }
 
   // Register client
@@ -227,6 +227,22 @@ class ApiService {
       params.append('month', month) // Format: YYYY-MM
     }
     return this.request(`/professionals/${professionalID}/previous_appointments?${params.toString()}`)
+  }
+
+  // Update client locale
+  async updateClientLocale(locale) {
+    return this.request('/clients/update_locale', {
+      method: 'PATCH',
+      body: JSON.stringify({ locale }),
+    })
+  }
+
+  // Update professional locale
+  async updateProfessionalLocale(locale) {
+    return this.request('/professionals/update_locale', {
+      method: 'PATCH',
+      body: JSON.stringify({ locale }),
+    })
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import LanguageSelector from '../../../components/LanguageSelector'
 import './ClientDashboard.css'
 
 interface ClientDashboardProps {
@@ -7,18 +8,21 @@ interface ClientDashboardProps {
   onBookAppointment: () => void
   onViewPendingAppointments: () => void
   onViewUpcomingAppointments: () => void
+  onLocaleChange?: (locale: string) => Promise<void>
 }
 
 export default function ClientDashboard({ 
   user, 
   onBookAppointment,
   onViewPendingAppointments,
-  onViewUpcomingAppointments
+  onViewUpcomingAppointments,
+  onLocaleChange
 }: ClientDashboardProps) {
   const { t } = useTranslation()
   
   return (
     <div className="container">
+      <LanguageSelector onLocaleChange={onLocaleChange} />
       <header className="header">
         <h1>👋 {t('client.dashboard.welcome', { name: user?.first_name || '' })}</h1>
       </header>

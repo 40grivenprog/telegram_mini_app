@@ -38,7 +38,7 @@ declare global {
 }
 
 export default function Route() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { chatID, initialized } = useTelegram()
   console.log("chatID", chatID)
   const [route, setRoute] = useState<Route>(Routes.LOADING)
@@ -59,7 +59,7 @@ export default function Route() {
 
     const fetchUser = async () => {
       try {
-        const userData = await apiService.getUserByChatID(chatID)
+        const userData = await apiService.getUserByChatID(chatID, i18n.language || 'en')
         if (userData && userData.user) {
           setUser(userData.user)
           // If client, go to dashboard, if professional go to professional dashboard
