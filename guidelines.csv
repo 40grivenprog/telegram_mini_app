@@ -1,0 +1,59 @@
+category	rule_id	title	description	example	severity	applies_to
+general	G-001	Readability first	Code must be easy to read before being clever. Prefer clarity over brevity.	Use descriptive variable names instead of short ones.	required	all
+general	G-002	Small functions	Functions should do one thing and be under ~50 lines.	Split long handlers into helpers.	required	all
+general	G-003	No dead code	Remove commented-out or unused code before merging.	Delete unused imports and functions.	required	all
+general	G-004	Type safety	Use TypeScript types for all new code. Avoid 'any' type unless absolutely necessary.	Use `interface` or `type` instead of `any`.	required	frontend
+general	G-005	Consistent formatting	Follow existing code formatting patterns in the project.	Use same indentation and spacing as surrounding code.	recommended	all
+naming	N-001	Consistent naming	Use consistent naming conventions across the codebase.	camelCase for variables	 PascalCase for components/types.	required	all
+naming	N-002	No abbreviations	Avoid unclear abbreviations unless widely accepted.	Use `appointmentID` instead of `apptId`.	recommended	all
+naming	N-003	Descriptive names	Variable and function names should clearly describe their purpose.	`getUserAppointments` instead of `getData`.	required	all
+naming	N-004	File naming	Follow project file naming conventions: PascalCase for components	 camelCase for hooks/utils.	`ClientDashboard.tsx` for components	 `useCreateAppointment.ts` for hooks.	required	frontend
+errors	E-001	Explicit error handling	Errors must be handled explicitly	 not ignored.	Always use try/catch blocks and show user-friendly messages.	required	all
+errors	E-002	Actionable errors	Error messages should explain what failed and why.	"Failed to load appointments. Please try again." instead of "Error".	required	all
+errors	E-003	User feedback	Always provide user feedback for errors using Telegram WebApp alerts or UI messages.	Use `tg.showAlert()` for critical errors.	required	frontend
+errors	E-004	Loading states	Show loading indicators during async operations.	Display spinner or loading text while fetching data.	required	frontend
+api	A-001	Validate inputs	All external inputs must be validated before processing.	Validate request payloads and user inputs.	required	all
+api	A-002	Error handling	Handle API errors gracefully with proper error messages.	Catch API errors and show user-friendly messages.	required	frontend
+api	A-003	API service pattern	All API calls must go through the centralized apiService.	Use `apiService.methodName()` instead of direct fetch calls.	required	frontend
+api	A-004	Request validation	Validate all API request parameters before sending.	Check required fields and data types before API calls.	required	frontend
+state	S-001	State location	Keep state as close to where it's used as possible.	Use local state for component-specific data.	required	frontend
+state	S-002	Context usage	Use React Context for global state only. Avoid prop drilling.	Use UserContext for user data shared across routes.	required	frontend
+state	S-003	State updates	Never mutate state directly. Always use setState or state updater functions.	Use `setState(newValue)` not `state.value = newValue`.	required	frontend
+state	S-004	Derived state	Avoid storing derived state. Calculate it when needed.	Calculate `fullName` from `firstName` and `lastName` instead of storing it.	recommended	frontend
+components	C-001	Component structure	Follow the standard component structure: imports	 types	 component	 export.	Organize imports	 then interfaces	 then component code.	required	frontend
+components	C-002	Props interface	Always define TypeScript interfaces for component props.	`interface ComponentProps { id: string; title: string; }`	required	frontend
+components	C-003	Component size	Keep components focused and under ~200 lines. Split large components.	Extract sub-components or use composition.	recommended	frontend
+components	C-004	Reusability	Extract reusable logic into custom hooks or utility functions.	Create `useCreateAppointment` hook for appointment creation logic.	required	frontend
+components	C-005	One CSS per component	Each component should have its own CSS file.	`Component.tsx` and `Component.css` in the same directory.	required	frontend
+hooks	H-001	Hook naming	All custom hooks must start with 'use' prefix.	`useCreateAppointment`	 `useProfessionalAvailability`.	required	frontend
+hooks	H-002	Hook dependencies	Always include all dependencies in useEffect and useCallback dependency arrays.	Include all used variables in dependency array.	required	frontend
+hooks	H-003	Data fetching	Use enabled flags to control when data is fetched.	`useEffect(() => { if (enabled) loadData() }	 [enabled])`	required	frontend
+hooks	H-004	Error handling	All hooks that make API calls must handle errors.	Set error state and provide error messages.	required	frontend
+i18n	I-001	No hardcoded strings	All user-facing text must use i18n translation keys.	Use `t('client.dashboard.title')` instead of "Dashboard".	required	frontend
+i18n	I-002	Translation keys	Use nested objects for translation key organization.	`client.dashboard.welcome` instead of `clientDashboardWelcome`.	required	frontend
+i18n	I-003	All languages	Add translations for all supported languages: en	 ru	 uk	 pl.	Update all locale files when adding new keys.	required	frontend
+i18n	I-004	Interpolation	Use interpolation for dynamic values in translations.	`t('welcome'	 { name: user.firstName })`.	required	frontend
+routing	R-001	Route structure	Follow TanStack Router conventions with _ prefix for layout routes.	`_signedin_client.dashboard` for client dashboard route.	required	frontend
+routing	R-002	Route organization	Keep route-related files together: route.tsx	 components/	 hooks/.	Organize files by route in the routes/ directory.	required	frontend
+routing	R-003	Navigation	Use React Router's navigate for programmatic navigation.	`navigate('/client/dashboard')` instead of window.location.	required	frontend
+styling	ST-001	CSS variables	Use CSS variables for theming and consistent styling.	`var(--primary-color	 #007bff)` instead of hardcoded colors.	required	frontend
+styling	ST-002	Responsive design	Ensure components work on mobile devices (Telegram Mini App context).	Test on mobile viewport sizes.	required	frontend
+styling	ST-003	Semantic classes	Use semantic class names that describe purpose	 not appearance.	`.appointment-card` instead of `.blue-box`.	required	frontend
+styling	ST-004	Consistent spacing	Use consistent spacing and padding throughout the app.	Follow existing spacing patterns in the codebase.	recommended	frontend
+performance	P-001	Optimize re-renders	Use React.memo	 useMemo	 and useCallback to prevent unnecessary re-renders.	Memoize expensive computations and callbacks.	recommended	frontend
+performance	P-002	Lazy loading	Use lazy loading for routes and heavy components.	`React.lazy()` for route components.	recommended	frontend
+performance	P-003	Data fetching	Only fetch data when needed. Use enabled flags in hooks.	Don't fetch data on component mount if it's not immediately needed.	required	frontend
+performance	P-004	Pagination	Implement pagination for large datasets.	Use page and pageSize parameters for API calls.	required	frontend
+testing	T-001	Tests required	New logic must include tests where applicable.	Add unit tests for utility functions and hooks.	recommended	frontend
+testing	T-002	Readable tests	Test names should describe behavior	 not implementation.	`testShouldHandleInvalidInput()` instead of `test1()`.	recommended	frontend
+testing	T-003	Test coverage	Aim for meaningful test coverage	 especially for critical paths.	Test error handling and edge cases.	recommended	frontend
+reviews	R-001	Small PRs	Keep pull requests small and focused on a single feature or fix.	Prefer multiple small PRs over one large PR.	recommended	all
+reviews	R-002	Clear descriptions	PRs must include a clear description of changes and intent.	Explain why the change is needed	 not just what changed.	required	all
+reviews	R-003	Self review	Review your own code before requesting review.	Check for typos	 unused code	 and obvious issues.	required	all
+security	SE-001	No secrets in code	Never commit secrets	 API keys	 or credentials to the repository.	Use environment variables or secret manager.	required	all
+security	SE-002	Input sanitization	Sanitize all user input to prevent injection attacks.	Validate and sanitize inputs before processing.	required	all
+security	SE-003	API security	Validate all API responses and handle errors securely.	Don't trust external API responses without validation.	required	frontend
+telegram	T-001	WebApp API	Use Telegram WebApp API for native features when available.	Use `window.Telegram.WebApp` for alerts and haptics.	required	frontend
+telegram	T-002	Theme support	Support Telegram's light/dark theme using CSS variables.	Use theme-aware CSS variables for colors.	required	frontend
+telegram	T-003	User feedback	Use Telegram WebApp alerts for important user feedback.	`tg.showAlert()` for success/error messages.	required	frontend
+telegram	T-004	Haptic feedback	Use haptic feedback for user interactions when appropriate.	`tg.HapticFeedback.notificationOccurred('success')`.	recommended	frontend

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector from '../../../components/LanguageSelector'
 import './ClientDashboard.css'
@@ -23,6 +23,21 @@ export default function ClientDashboard({
   onLocaleChange
 }: ClientDashboardProps) {
   const { t } = useTranslation()
+  const unusedVar = "this should be removed"
+  console.log("Debug: user data", user)
+  
+  // Missing error handling
+  const handleClick = () => {
+    // Hardcoded string instead of i18n
+    alert("Button clicked!")
+    onBookAppointment()
+  }
+  
+  // useEffect with missing dependencies
+  useEffect(() => {
+    console.log("Component mounted")
+    // Missing cleanup function
+  }, []) // Should include user in dependencies if used
   
   return (
     <div className="container">
@@ -34,9 +49,9 @@ export default function ClientDashboard({
         <div className="dashboard-actions">
           <button
             className="btn btn-primary btn-large"
-            onClick={onBookAppointment}
+            onClick={handleClick}
           >
-            📅 {t('client.dashboard.bookAppointment')}
+            📅 Book Appointment
           </button>
           <button
             className="btn btn-secondary btn-large"

@@ -52,18 +52,22 @@ export function useClientAppointments(status: string = '', pageSize: number = 15
   const loadAppointments = useCallback(async () => {
     setLoading(true)
     setError(null)
+    const debugInfo = { status, page, pageSize } // unused variable
+    console.log("Loading appointments", debugInfo)
     try {
-      const data = await apiService.getClientAppointments(status, page, pageSize) as GetClientAppointmentsResponse
-      setAppointments(data.appointments || [])
+      const data = await apiService.getClientAppointments(status, page, pageSize) as any // using 'any' type
+      // Missing null check
+      setAppointments(data.appointments)
       setPagination(data.pagination)
     } catch (err: any) {
-      setError(err.message || i18n.t('error.loadAppointmentsFailed'))
+      // Error message not user-friendly
+      setError("Error occurred")
       setAppointments([])
       setPagination(null)
     } finally {
       setLoading(false)
     }
-  }, [status, page, pageSize])
+  }, [status, page]) // Missing pageSize in dependencies
 
   useEffect(() => {
     loadAppointments()
