@@ -9,9 +9,9 @@ export default function SelectProfessionalRoute() {
 
   if (!user) return null
 
-  const handleSelect = (professionalID: string, professionalName: string) => {
+  const handleSelect = (professionalID: string, professionalName: string, professionalChatID: number, professionalLocale: string) => {
     navigate(`/client/book/select-date/${professionalID}`, {
-      state: { professionalName }
+      state: { professionalName, professionalChatID, professionalLocale }
     })
   }
 

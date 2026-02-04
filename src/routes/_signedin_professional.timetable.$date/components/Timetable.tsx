@@ -44,6 +44,40 @@ export default function Timetable({
   const today = new Date().toISOString().split('T')[0]
   const isToday = date === today
 
+  const renderAppointmentType = (type: string) => {
+    if (type === 'personal') {
+      return t('professional.appointments.types.personal')
+    } else if (type === 'split') {
+      return t('professional.appointments.types.split')
+    } else if (type === 'group') {
+      return t('professional.appointments.types.group')
+    }
+    return type
+  }
+
+  const renderClientInfo = (apt: any) => {
+    if (apt.type === 'personal') {
+      return apt.clients && apt.clients.length > 0 ? (
+        <p className="slot-client">
+          <strong>👤 {t('common.client')}:</strong> {apt.clients[0]}
+        </p>
+      ) : null
+    } else if (apt.type === 'split') {
+      return apt.clients && apt.clients.length > 0 ? (
+        <p className="slot-client">
+          <strong>👥 {t('common.clients')}:</strong> {apt.clients.join(', ')}
+        </p>
+      ) : null
+    } else if (apt.type === 'group') {
+      return apt.clients ? (
+        <p className="slot-client">
+          <strong>👥 {t('common.clients')}:</strong> {apt.clients.length} {t('professional.appointments.clientsCount')}
+        </p>
+      ) : null
+    }
+    return null
+  }
+
   const handleCancelClick = (appointmentID: string) => {
     setSelectedAppointmentID(appointmentID)
     setCancellationReason('')
@@ -125,6 +159,10 @@ export default function Timetable({
                   <span className="slot-number">📅 {t('professional.timetable.slot', { number: index + 1 })}</span>
                 </div>
                 <div className="slot-details">
+                  <p className="slot-type">
+                    <strong>🏋️ {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
+                  </p>
+                  {renderClientInfo(apt)}
                   <p className="slot-time">
                     🕐 {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                   </p>

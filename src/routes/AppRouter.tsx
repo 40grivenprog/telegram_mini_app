@@ -11,8 +11,7 @@ import ClientRegistrationRoute from './client.registration/route'
 import ProfessionalSignInRoute from './professional.signin/route'
 import SuccessRoute from './success/route'
 import ClientDashboardRoute from './_signedin_client.dashboard/route'
-import AllProfessionalsRoute from './_signedin_client.professionals.all/route'
-import MySubscriptionsRoute from './_signedin_client.professionals.subscriptions/route'
+import ProfessionalsRoute from './_signedin_client.professionals/route'
 import SelectProfessionalRoute from './_signedin_client.book.select-professional/route'
 import SelectDateRoute from './_signedin_client.book.select-date.$professionalID/route'
 import SelectTimeRoute from './_signedin_client.book.select-time.$professionalID.$date/route'
@@ -23,6 +22,9 @@ import ProfessionalAppointmentsRoute from './_signedin_professional.appointments
 import SelectUnavailableDateRoute from './_signedin_professional.set-unavailable.select-date/route'
 import SelectUnavailableTimeRoute from './_signedin_professional.set-unavailable.select-time.$date/route'
 import UnavailableDescriptionRoute from './_signedin_professional.set-unavailable.description/route'
+import SelectGroupVisitDateRoute from './_signedin_professional.create-group-visit.select-date/route'
+import SelectGroupVisitTimeRoute from './_signedin_professional.create-group-visit.select-time.$date/route'
+import GroupVisitDescriptionRoute from './_signedin_professional.create-group-visit.description/route'
 import TimetableRoute from './_signedin_professional.timetable.$date/route'
 import SelectClientRoute from './_signedin_professional.previous-appointments.select-client/route'
 import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments.$clientID.$month/route'
@@ -159,20 +161,22 @@ function AppRouterContent() {
       
       {/* Client routes */}
       <Route path="/client/dashboard" element={<ClientDashboardRoute />} />
-      <Route path="/client/professionals/all" element={<AllProfessionalsRoute />} />
-      <Route path="/client/professionals/subscriptions" element={<MySubscriptionsRoute />} />
+      <Route path="/client/professionals" element={<ProfessionalsRoute />} />
       <Route path="/client/book/select-professional" element={<SelectProfessionalRoute />} />
       <Route path="/client/book/select-date/:professionalID" element={<SelectDateRoute />} />
       <Route path="/client/book/select-time/:professionalID/:date" element={<SelectTimeRoute />} />
       <Route path="/client/book/confirm" element={<ConfirmAppointmentRoute />} />
-      <Route path="/client/appointments/:status" element={<ClientAppointmentsRoute />} />
+      <Route path="/client/appointments" element={<ClientAppointmentsRoute />} />
       
       {/* Professional routes */}
       <Route path="/professional/dashboard" element={<ProfessionalDashboardRoute />} />
-      <Route path="/professional/appointments/:status" element={<ProfessionalAppointmentsRoute />} />
+      <Route path="/professional/appointments" element={<ProfessionalAppointmentsRoute />} />
       <Route path="/professional/set-unavailable/select-date" element={<SelectUnavailableDateRoute />} />
       <Route path="/professional/set-unavailable/select-time/:date" element={<SelectUnavailableTimeRoute />} />
       <Route path="/professional/set-unavailable/description" element={<UnavailableDescriptionRoute />} />
+      <Route path="/professional/create-group-visit/select-date" element={<SelectGroupVisitDateRoute />} />
+      <Route path="/professional/create-group-visit/select-time/:date" element={<SelectGroupVisitTimeRoute />} />
+      <Route path="/professional/create-group-visit/description" element={<GroupVisitDescriptionRoute />} />
       <Route path="/professional/timetable/:date" element={<TimetableRoute />} />
       <Route path="/professional/previous-appointments/select-client" element={<SelectClientRoute />} />
       <Route path="/professional/previous-appointments/:clientID/:month" element={<PreviousAppointmentsRoute />} />

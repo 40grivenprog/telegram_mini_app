@@ -14,20 +14,12 @@ export default function ClientDashboardRoute() {
     navigate('/client/book/select-professional')
   }
 
-  const handleViewPendingAppointments = () => {
-    navigate('/client/appointments/pending')
+  const handleViewAppointments = () => {
+    navigate('/client/appointments')
   }
 
-  const handleViewUpcomingAppointments = () => {
-    navigate('/client/appointments/upcoming')
-  }
-
-  const handleViewAllProfessionals = () => {
-    navigate('/client/professionals/all')
-  }
-
-  const handleViewMySubscriptions = () => {
-    navigate('/client/professionals/subscriptions')
+  const handleViewProfessionals = () => {
+    navigate('/client/professionals')
   }
 
   const handleLocaleChange = async (locale: string) => {
@@ -38,10 +30,8 @@ export default function ClientDashboardRoute() {
     <ClientDashboard 
       user={user} 
       onBookAppointment={handleBookAppointment}
-      onViewPendingAppointments={handleViewPendingAppointments}
-      onViewUpcomingAppointments={handleViewUpcomingAppointments}
-      onViewAllProfessionals={handleViewAllProfessionals}
-      onViewMySubscriptions={handleViewMySubscriptions}
+      onViewAppointments={handleViewAppointments}
+      onViewProfessionals={handleViewProfessionals}
       onLocaleChange={handleLocaleChange}
     />
   )

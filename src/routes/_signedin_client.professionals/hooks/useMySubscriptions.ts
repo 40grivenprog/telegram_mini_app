@@ -43,15 +43,16 @@ interface UseMySubscriptionsResult {
   refetch: () => void
 }
 
-export function useMySubscriptions(pageSize: number = 15): UseMySubscriptionsResult {
+export function useMySubscriptions(pageSize: number = 15, enabled: boolean = false): UseMySubscriptionsResult {
   const [professionals, setProfessionals] = useState<SubscribedProfessional[]>([])
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState<PaginationResponse | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [unsubscribingIds, setUnsubscribingIds] = useState<Set<string>>(new Set())
 
   const loadSubscriptions = useCallback(async () => {
+    if (!enabled) return
     setLoading(true)
     setError(null)
     try {
@@ -65,7 +66,7 @@ export function useMySubscriptions(pageSize: number = 15): UseMySubscriptionsRes
     } finally {
       setLoading(false)
     }
-  }, [page, pageSize])
+  }, [page, pageSize, enabled])
 
   const handleUnsubscribe = useCallback(async (professionalID: string) => {
     setUnsubscribingIds(prev => new Set(prev).add(professionalID))
@@ -93,8 +94,10 @@ export function useMySubscriptions(pageSize: number = 15): UseMySubscriptionsRes
   }, [loadSubscriptions])
 
   useEffect(() => {
-    loadSubscriptions()
-  }, [loadSubscriptions])
+    if (enabled) {
+      loadSubscriptions()
+    }
+  }, [loadSubscriptions, enabled])
 
   return {
     professionals,

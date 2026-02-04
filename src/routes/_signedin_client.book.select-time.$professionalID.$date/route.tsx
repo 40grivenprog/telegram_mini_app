@@ -9,13 +9,22 @@ export default function SelectTimeRoute() {
 
   if (!professionalID || !date) return null
 
-  const professionalName = (location.state as { professionalName?: string } | null)?.professionalName || ''
+  const state = location.state as { professionalName?: string; professionalChatID?: number; professionalLocale?: string } | null
+  const professionalName = state?.professionalName || ''
+  const professionalChatID = state?.professionalChatID
+  const professionalLocale = state?.professionalLocale || ''
 
   const handleSelect = (startTime: string, endTime: string) => {
+    if (!professionalChatID || !professionalLocale) {
+      console.error('Missing professional chat_id or locale')
+      return
+    }
     navigate('/client/book/confirm', {
       state: {
         professionalID,
         professionalName,
+        professionalChatID,
+        professionalLocale,
         date,
         startTime,
         endTime

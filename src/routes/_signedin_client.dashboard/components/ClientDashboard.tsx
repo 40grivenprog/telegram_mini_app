@@ -6,20 +6,16 @@ import './ClientDashboard.css'
 interface ClientDashboardProps {
   user: any
   onBookAppointment: () => void
-  onViewPendingAppointments: () => void
-  onViewUpcomingAppointments: () => void
-  onViewAllProfessionals: () => void
-  onViewMySubscriptions: () => void
+  onViewAppointments: () => void
+  onViewProfessionals: () => void
   onLocaleChange?: (locale: string) => Promise<void>
 }
 
 export default function ClientDashboard({ 
   user, 
   onBookAppointment,
-  onViewPendingAppointments,
-  onViewUpcomingAppointments,
-  onViewAllProfessionals,
-  onViewMySubscriptions,
+  onViewAppointments,
+  onViewProfessionals,
   onLocaleChange
 }: ClientDashboardProps) {
   const { t } = useTranslation()
@@ -40,27 +36,15 @@ export default function ClientDashboard({
           </button>
           <button
             className="btn btn-secondary btn-large"
-            onClick={onViewAllProfessionals}
+            onClick={onViewProfessionals}
           >
-            👥 {t('client.dashboard.allProfessionals')}
+            👥 {t('client.dashboard.professionals')}
           </button>
           <button
             className="btn btn-secondary btn-large"
-            onClick={onViewMySubscriptions}
+            onClick={onViewAppointments}
           >
-            ⭐ {t('client.dashboard.mySubscriptions')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewPendingAppointments}
-          >
-            ⏳ {t('client.dashboard.pendingAppointments')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewUpcomingAppointments}
-          >
-            📋 {t('client.dashboard.upcomingAppointments')}
+            📋 {t('client.dashboard.appointments')}
           </button>
         </div>
       </div>

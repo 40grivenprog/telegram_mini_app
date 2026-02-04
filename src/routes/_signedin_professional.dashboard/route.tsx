@@ -10,12 +10,8 @@ export default function ProfessionalDashboardRoute() {
 
   if (!user) return null
 
-  const handleViewPendingAppointments = () => {
-    navigate('/professional/appointments/pending')
-  }
-
-  const handleViewUpcomingAppointments = () => {
-    navigate('/professional/appointments/upcoming')
+  const handleViewAppointments = () => {
+    navigate('/professional/appointments')
   }
 
   const handleSetUnavailable = () => {
@@ -31,6 +27,10 @@ export default function ProfessionalDashboardRoute() {
     navigate('/professional/previous-appointments/select-client')
   }
 
+  const handleCreateGroupVisit = () => {
+    navigate('/professional/create-group-visit/select-date')
+  }
+
   const handleLocaleChange = async (locale: string) => {
     await apiService.updateProfessionalLocale(locale)
   }
@@ -38,11 +38,11 @@ export default function ProfessionalDashboardRoute() {
   return (
     <ProfessionalDashboard
       user={user}
-      onViewPendingAppointments={handleViewPendingAppointments}
-      onViewUpcomingAppointments={handleViewUpcomingAppointments}
+      onViewAppointments={handleViewAppointments}
       onSetUnavailable={handleSetUnavailable}
       onViewTimetable={handleViewTimetable}
       onViewPreviousAppointments={handleViewPreviousAppointments}
+      onCreateGroupVisit={handleCreateGroupVisit}
       onLocaleChange={handleLocaleChange}
     />
   )

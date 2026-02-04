@@ -175,8 +175,8 @@ class ApiService {
 
   // Cancel client appointment
   async cancelClientAppointment(appointmentID, cancellationReason) {
-    return this.request(`/clients/appointments/${appointmentID}/cancel`, {
-      method: 'PATCH',
+    return this.request(`/clients/appointments/${appointmentID}`, {
+      method: 'DELETE',
       body: JSON.stringify({
         cancellation_reason: cancellationReason,
       }),
@@ -204,6 +204,14 @@ class ApiService {
   // Create unavailable appointment
   async createUnavailableAppointment(appointmentData) {
     return this.request(`/professionals/unavailable_appointments`, {
+      method: 'POST',
+      body: JSON.stringify(appointmentData),
+    })
+  }
+
+  // Create group visit appointment
+  async createGroupVisitAppointment(appointmentData) {
+    return this.request(`/professionals/group_visit_appointments`, {
       method: 'POST',
       body: JSON.stringify(appointmentData),
     })

@@ -5,7 +5,7 @@ import './SelectProfessional.css'
 
 interface SelectProfessionalProps {
   clientID: string
-  onSelect: (professionalID: string, professionalName: string) => void
+  onSelect: (professionalID: string, professionalName: string, professionalChatID: number, professionalLocale: string) => void
   onCancel: () => void
 }
 
@@ -52,17 +52,22 @@ export default function SelectProfessional({ clientID, onSelect, onCancel }: Sel
         ) : (
           <>
             <div className="professionals-list">
-              {professionals.map((prof) => (
-                <div
-                  key={prof.id}
-                  className="professional-card"
-                  onClick={() => onSelect(prof.id, `${prof.first_name} ${prof.last_name}`)}
-                >
-                  <div className="professional-name">
-                    ⭐ 👨‍💼 {prof.first_name} {prof.last_name}
+              {professionals.map((prof) => {
+                if (!prof.chat_id || !prof.locale) {
+                  return null
+                }
+                return (
+                  <div
+                    key={prof.id}
+                    className="professional-card"
+                    onClick={() => onSelect(prof.id, `${prof.first_name} ${prof.last_name}`, prof.chat_id!, prof.locale)}
+                  >
+                    <div className="professional-name">
+                      ⭐ 👨‍💼 {prof.first_name} {prof.last_name}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
             <button className="btn btn-secondary" onClick={onCancel}>
               {t('common.cancel')}

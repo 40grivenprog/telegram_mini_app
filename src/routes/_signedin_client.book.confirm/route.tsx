@@ -7,6 +7,8 @@ import ConfirmAppointment from './components/ConfirmAppointment'
 interface ConfirmAppointmentState {
   professionalID: string
   professionalName: string
+  professionalChatID: number
+  professionalLocale: string
   date: string
   startTime: string
   endTime: string
@@ -43,6 +45,8 @@ export default function ConfirmAppointmentRoute() {
       clientID={user.id}
       professionalID={state.professionalID}
       professionalName={state.professionalName}
+      professionalChatID={state.professionalChatID}
+      professionalLocale={state.professionalLocale}
       date={state.date}
       startTime={state.startTime}
       endTime={state.endTime}

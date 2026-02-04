@@ -13,6 +13,7 @@
     "time": "Time",
     "professional": "Professional",
     "client": "Client",
+    "clients": "Clients",
     "appointment": "Appointment",
     "appointments": "Appointments",
     "create": "Create",
@@ -40,6 +41,7 @@
     "appointmentConfirmed": "Appointment confirmed successfully",
     "appointmentCreated": "Appointment created successfully!",
     "unavailableCreated": "Unavailable period created successfully!",
+    "groupVisitCreated": "Group visit created successfully!",
     "noAppointments": "No appointments found",
     "noClients": "No clients found",
     "roles": {
@@ -72,13 +74,18 @@
       "title": "Client Dashboard",
       "welcome": "Welcome back, {{name}}!",
       "bookAppointment": "Book Appointment",
-      "allProfessionals": "All Professionals",
-      "mySubscriptions": "My Subscriptions",
+      "professionals": "Professionals",
+      "appointments": "Appointments",
       "pendingAppointments": "Pending Appointments",
       "upcomingAppointments": "Upcoming Appointments",
       "myAppointments": "My Appointments"
     },
     "professionals": {
+      "title": "Professionals",
+      "tabs": {
+        "all": "All Professionals",
+        "subscriptions": "My Subscriptions"
+      },
       "all": {
         "title": "All Professionals",
         "loading": "Loading professionals...",
@@ -127,9 +134,18 @@
     "appointments": {
       "title": "My Appointments",
       "pending": "Pending Appointments",
+      "confirmed": "Confirmed Appointments",
       "upcoming": "Upcoming Appointments",
       "noAppointments": "No appointments",
-      "cancel": "Cancel Appointment"
+      "cancel": "Cancel Appointment",
+      "pendingTab": {
+        "loading": "Loading pending appointments...",
+        "noAppointments": "No pending appointments"
+      },
+      "confirmedTab": {
+        "loading": "Loading confirmed appointments...",
+        "noAppointments": "No confirmed appointments"
+      }
     }
   },
   "professional": {
@@ -149,18 +165,33 @@
     "dashboard": {
       "title": "Professional Dashboard",
       "welcome": "Welcome back, {{name}}!",
-      "pendingAppointments": "Pending Appointments",
-      "upcomingAppointments": "Upcoming Appointments",
-      "myAppointments": "My Appointments",
+      "appointments": "Appointments",
       "setUnavailable": "Set Unavailable",
       "timetable": "Timetable",
-      "previousAppointments": "Previous Appointments"
+      "previousAppointments": "Previous Appointments",
+      "createGroupVisit": "Create Group Visit"
     },
     "appointments": {
       "title": "My Appointments",
-      "pending": "Pending Appointments",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
       "upcoming": "Upcoming Appointments",
-      "noAppointments": "No appointments"
+      "noAppointments": "No appointments",
+      "type": "Type",
+      "clientsCount": "clients",
+      "types": {
+        "personal": "Personal Training",
+        "split": "Split Training",
+        "group": "Group Training"
+      },
+      "pendingTab": {
+        "loading": "Loading pending appointments...",
+        "noAppointments": "No pending appointments"
+      },
+      "confirmedTab": {
+        "loading": "Loading confirmed appointments...",
+        "noAppointments": "No confirmed appointments"
+      }
     },
     "setUnavailable": {
       "selectDate": {
@@ -182,6 +213,29 @@
         "time": "Time",
         "description": "Unavailable period description",
         "descriptionPlaceholder": "e.g., 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Please enter description"
+      }
+    },
+    "createGroupVisit": {
+      "selectDate": {
+        "title": "Select Date for Group Visit"
+      },
+      "selectTime": {
+        "titleStart": "Select start time",
+        "titleEnd": "Select end time",
+        "loading": "Loading available time...",
+        "noSlots": "No available time slots for this date",
+        "noEndTimes": "No available time slots for end time",
+        "backToStart": "Back to start time selection",
+        "dateLabel": "Date",
+        "startTimeLabel": "Start time"
+      },
+      "description": {
+        "title": "Enter Group Visit Description",
+        "date": "Date",
+        "time": "Time",
+        "description": "Group visit description",
+        "descriptionPlaceholder": "e.g., 'Group training session', 'Yoga class', 'Fitness group'...",
         "descriptionRequired": "Please enter description"
       }
     },
@@ -225,6 +279,7 @@
     "createAppointmentFailed": "Failed to create appointment",
     "cancelAppointmentFailed": "Failed to cancel appointment",
     "confirmAppointmentFailed": "Failed to confirm appointment",
-    "createUnavailableFailed": "Failed to create unavailable period"
+    "createUnavailableFailed": "Failed to create unavailable period",
+    "createGroupVisitFailed": "Failed to create group visit"
   }
 }

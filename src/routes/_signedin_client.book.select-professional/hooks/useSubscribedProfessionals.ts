@@ -6,6 +6,8 @@ export interface SubscribedProfessional {
   id: string
   first_name: string
   last_name: string
+  chat_id?: number | null
+  locale: string
 }
 
 export interface GetSubscribedProfessionalsResponse {

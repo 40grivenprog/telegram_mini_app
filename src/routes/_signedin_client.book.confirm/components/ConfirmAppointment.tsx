@@ -8,6 +8,8 @@ interface ConfirmAppointmentProps {
   clientID: string
   professionalID: string
   professionalName: string
+  professionalChatID: number
+  professionalLocale: string
   date: string
   startTime: string
   endTime: string
@@ -19,6 +21,8 @@ export default function ConfirmAppointment({
   clientID,
   professionalID,
   professionalName,
+  professionalChatID,
+  professionalLocale,
   date,
   startTime,
   endTime,
@@ -32,6 +36,8 @@ export default function ConfirmAppointment({
     try {
       await createAppointment({
         professional_id: professionalID,
+        professional_chat_id: professionalChatID,
+        professional_locale: professionalLocale,
         start_time: startTime,
         end_time: endTime,
       }, onConfirm)

@@ -13,6 +13,7 @@
     "time": "Czas",
     "professional": "Profesjonalista",
     "client": "Klient",
+    "clients": "Klienci",
     "appointment": "Wizyta",
     "appointments": "Wizyty",
     "create": "Utwórz",
@@ -40,6 +41,7 @@
     "appointmentConfirmed": "Wizyta została potwierdzona",
     "appointmentCreated": "Wizyta została utworzona!",
     "unavailableCreated": "Okres niedostępności został utworzony!",
+    "groupVisitCreated": "Wizyta grupowa została utworzona!",
     "noAppointments": "Brak wizyt",
     "noClients": "Brak klientów",
     "roles": {
@@ -72,13 +74,18 @@
       "title": "Panel klienta",
       "welcome": "Witaj ponownie, {{name}}!",
       "bookAppointment": "Umów wizytę",
-      "allProfessionals": "Wszyscy profesjonaliści",
-      "mySubscriptions": "Moje subskrypcje",
+      "professionals": "Profesjonaliści",
+      "appointments": "Wizyty",
       "pendingAppointments": "Oczekujące wizyty",
       "upcomingAppointments": "Nadchodzące wizyty",
       "myAppointments": "Moje wizyty"
     },
     "professionals": {
+      "title": "Profesjonaliści",
+      "tabs": {
+        "all": "Wszyscy profesjonaliści",
+        "subscriptions": "Moje subskrypcje"
+      },
       "all": {
         "title": "Wszyscy profesjonaliści",
         "loading": "Ładowanie profesjonalistów...",
@@ -127,9 +134,18 @@
     "appointments": {
       "title": "Moje wizyty",
       "pending": "Oczekujące wizyty",
+      "confirmed": "Potwierdzone wizyty",
       "upcoming": "Nadchodzące wizyty",
       "noAppointments": "Brak wizyt",
-      "cancel": "Anuluj wizytę"
+      "cancel": "Anuluj wizytę",
+      "pendingTab": {
+        "loading": "Ładowanie oczekujących wizyt...",
+        "noAppointments": "Brak oczekujących wizyt"
+      },
+      "confirmedTab": {
+        "loading": "Ładowanie potwierdzonych wizyt...",
+        "noAppointments": "Brak potwierdzonych wizyt"
+      }
     }
   },
   "professional": {
@@ -149,18 +165,33 @@
     "dashboard": {
       "title": "Panel profesjonalisty",
       "welcome": "Witaj ponownie, {{name}}!",
-      "pendingAppointments": "Oczekujące wizyty",
-      "upcomingAppointments": "Nadchodzące wizyty",
-      "myAppointments": "Moje wizyty",
+      "appointments": "Wizyty",
       "setUnavailable": "Ustaw niedostępność",
       "timetable": "Harmonogram",
-      "previousAppointments": "Poprzednie wizyty"
+      "previousAppointments": "Poprzednie wizyty",
+      "createGroupVisit": "Utwórz wizytę grupową"
     },
     "appointments": {
       "title": "Moje wizyty",
-      "pending": "Oczekujące wizyty",
+      "pending": "Oczekujące",
+      "confirmed": "Potwierdzone",
       "upcoming": "Nadchodzące wizyty",
-      "noAppointments": "Brak wizyt"
+      "noAppointments": "Brak wizyt",
+      "type": "Typ",
+      "clientsCount": "klientów",
+      "types": {
+        "personal": "Trening personalny",
+        "split": "Trening split",
+        "group": "Trening grupowy"
+      },
+      "pendingTab": {
+        "loading": "Ładowanie oczekujących wizyt...",
+        "noAppointments": "Brak oczekujących wizyt"
+      },
+      "confirmedTab": {
+        "loading": "Ładowanie potwierdzonych wizyt...",
+        "noAppointments": "Brak potwierdzonych wizyt"
+      }
     },
     "setUnavailable": {
       "selectDate": {
@@ -182,6 +213,29 @@
         "time": "Czas",
         "description": "Opis okresu niedostępności",
         "descriptionPlaceholder": "Np. 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Proszę wprowadzić opis"
+      }
+    },
+    "createGroupVisit": {
+      "selectDate": {
+        "title": "Wybierz datę wizyty grupowej"
+      },
+      "selectTime": {
+        "titleStart": "Wybierz godzinę rozpoczęcia",
+        "titleEnd": "Wybierz godzinę zakończenia",
+        "loading": "Ładowanie dostępnego czasu...",
+        "noSlots": "Brak dostępnych terminów na ten dzień",
+        "noEndTimes": "Brak dostępnych godzin zakończenia",
+        "backToStart": "Wróć do wyboru godziny rozpoczęcia",
+        "dateLabel": "Data",
+        "startTimeLabel": "Godzina rozpoczęcia"
+      },
+      "description": {
+        "title": "Wprowadź opis wizyty grupowej",
+        "date": "Data",
+        "time": "Czas",
+        "description": "Opis wizyty grupowej",
+        "descriptionPlaceholder": "Np. 'Trening grupowy', 'Klasa jogi', 'Grupa fitness'...",
         "descriptionRequired": "Proszę wprowadzić opis"
       }
     },
@@ -225,6 +279,7 @@
     "createAppointmentFailed": "Nie udało się utworzyć wizyty",
     "cancelAppointmentFailed": "Nie udało się anulować wizyty",
     "confirmAppointmentFailed": "Nie udało się potwierdzić wizyty",
-    "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności"
+    "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności",
+    "createGroupVisitFailed": "Nie udało się utworzyć wizyty grupowej"
   }
 }

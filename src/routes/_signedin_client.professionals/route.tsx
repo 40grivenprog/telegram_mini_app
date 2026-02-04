@@ -1,13 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import AllProfessionals from './components/AllProfessionals'
+import Professionals from './components/Professionals'
 
-export default function AllProfessionalsRoute() {
+export default function ProfessionalsRoute() {
   const navigate = useNavigate()
 
   const handleBack = () => {
     navigate('/client/dashboard')
   }
 
-  return <AllProfessionals onBack={handleBack} />
+  return <Professionals onBack={handleBack} />
 }

@@ -5,21 +5,21 @@ import './ProfessionalDashboard.css'
 
 interface ProfessionalDashboardProps {
   user: any
-  onViewPendingAppointments: () => void
-  onViewUpcomingAppointments: () => void
+  onViewAppointments: () => void
   onSetUnavailable: () => void
   onViewTimetable: () => void
   onViewPreviousAppointments: () => void
+  onCreateGroupVisit: () => void
   onLocaleChange?: (locale: string) => Promise<void>
 }
 
 export default function ProfessionalDashboard({
   user,
-  onViewPendingAppointments,
-  onViewUpcomingAppointments,
+  onViewAppointments,
   onSetUnavailable,
   onViewTimetable,
   onViewPreviousAppointments,
+  onCreateGroupVisit,
   onLocaleChange
 }: ProfessionalDashboardProps) {
   const { t } = useTranslation()
@@ -34,15 +34,9 @@ export default function ProfessionalDashboard({
         <div className="dashboard-actions">
           <button
             className="btn btn-secondary btn-large"
-            onClick={onViewPendingAppointments}
+            onClick={onViewAppointments}
           >
-            ⏳ {t('professional.dashboard.pendingAppointments')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewUpcomingAppointments}
-          >
-            📋 {t('professional.dashboard.upcomingAppointments')}
+            📋 {t('professional.dashboard.appointments')}
           </button>
           <button
             className="btn btn-secondary btn-large"
@@ -61,6 +55,12 @@ export default function ProfessionalDashboard({
             onClick={onViewPreviousAppointments}
           >
             📜 {t('professional.dashboard.previousAppointments')}
+          </button>
+          <button
+            className="btn btn-primary btn-large"
+            onClick={onCreateGroupVisit}
+          >
+            👥 {t('professional.dashboard.createGroupVisit')}
           </button>
         </div>
       </div>

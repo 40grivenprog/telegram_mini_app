@@ -9,11 +9,14 @@ export default function SelectDateRoute() {
 
   if (!professionalID) return null
 
-  const professionalName = (location.state as { professionalName?: string } | null)?.professionalName || ''
+  const state = location.state as { professionalName?: string; professionalChatID?: number; professionalLocale?: string } | null
+  const professionalName = state?.professionalName || ''
+  const professionalChatID = state?.professionalChatID
+  const professionalLocale = state?.professionalLocale || ''
 
   const handleSelect = (date: string) => {
     navigate(`/client/book/select-time/${professionalID}/${date}`, {
-      state: { professionalName }
+      state: { professionalName, professionalChatID, professionalLocale }
     })
   }
 

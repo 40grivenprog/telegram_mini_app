@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import './ClientRegistration.css'
 
 function ClientRegistration({ chatID, onSuccess, onCancel }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -27,7 +26,7 @@ function ClientRegistration({ chatID, onSuccess, onCancel }) {
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         chat_id: chatID,
-        phone_number: phoneNumber.trim() || null,
+        locale: i18n.language || 'en',
       }
 
       const response = await apiService.registerClient(clientData)
@@ -66,16 +65,6 @@ function ClientRegistration({ chatID, onSuccess, onCancel }) {
               onChange={(e) => setLastName(e.target.value)}
               required
               placeholder={t('client.registration.lastName')}
-              disabled={loading}
-            />
-          </div>
-          <div className="form-group">
-            <label>{t('client.registration.phone')}</label>
-            <input
-              type="tel"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder={t('client.registration.phone')}
               disabled={loading}
             />
           </div>

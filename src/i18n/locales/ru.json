@@ -13,6 +13,7 @@
     "time": "Время",
     "professional": "Профессионал",
     "client": "Клиент",
+    "clients": "Клиенты",
     "appointment": "Запись",
     "appointments": "Записи",
     "create": "Создать",
@@ -40,6 +41,7 @@
     "appointmentConfirmed": "Запись успешно подтверждена",
     "appointmentCreated": "Бронирование успешно создано!",
     "unavailableCreated": "Недоступный период успешно создан!",
+    "groupVisitCreated": "Групповой визит успешно создан!",
     "noAppointments": "Записей не найдено",
     "noClients": "Клиентов не найдено",
     "roles": {
@@ -68,13 +70,18 @@
       "title": "Панель клиента",
       "welcome": "С возвращением, {{name}}!",
       "bookAppointment": "Записаться",
-      "allProfessionals": "Все профессионалы",
-      "mySubscriptions": "Мои подписки",
+      "professionals": "Профессионалы",
+      "appointments": "Записи",
       "pendingAppointments": "Ожидающие записи",
       "upcomingAppointments": "Предстоящие записи",
       "myAppointments": "Мои записи"
     },
     "professionals": {
+      "title": "Профессионалы",
+      "tabs": {
+        "all": "Все профессионалы",
+        "subscriptions": "Мои подписки"
+      },
       "all": {
         "title": "Все профессионалы",
         "loading": "Загрузка профессионалов...",
@@ -123,9 +130,18 @@
     "appointments": {
       "title": "Мои записи",
       "pending": "Ожидающие записи",
+      "confirmed": "Подтвержденные записи",
       "upcoming": "Предстоящие записи",
       "noAppointments": "Нет записей",
-      "cancel": "Отменить запись"
+      "cancel": "Отменить запись",
+      "pendingTab": {
+        "loading": "Загрузка ожидающих записей...",
+        "noAppointments": "Нет ожидающих записей"
+      },
+      "confirmedTab": {
+        "loading": "Загрузка подтвержденных записей...",
+        "noAppointments": "Нет подтвержденных записей"
+      }
     }
   },
   "professional": {
@@ -145,18 +161,33 @@
     "dashboard": {
       "title": "Панель профессионала",
       "welcome": "С возвращением, {{name}}!",
-      "pendingAppointments": "Ожидающие записи",
-      "upcomingAppointments": "Предстоящие записи",
-      "myAppointments": "Мои записи",
+      "appointments": "Записи",
       "setUnavailable": "Установить недоступность",
       "timetable": "Расписание",
-      "previousAppointments": "Прошедшие записи"
+      "previousAppointments": "Прошедшие записи",
+      "createGroupVisit": "Создать групповой визит"
     },
     "appointments": {
       "title": "Мои записи",
-      "pending": "Ожидающие записи",
+      "pending": "Ожидающие",
+      "confirmed": "Подтвержденные",
       "upcoming": "Предстоящие записи",
-      "noAppointments": "Нет записей"
+      "noAppointments": "Нет записей",
+      "type": "Тип",
+      "clientsCount": "клиентов",
+      "types": {
+        "personal": "Персональная тренировка",
+        "split": "Сплит тренировка",
+        "group": "Групповая тренировка"
+      },
+      "pendingTab": {
+        "loading": "Загрузка ожидающих записей...",
+        "noAppointments": "Нет ожидающих записей"
+      },
+      "confirmedTab": {
+        "loading": "Загрузка подтвержденных записей...",
+        "noAppointments": "Нет подтвержденных записей"
+      }
     },
     "setUnavailable": {
       "selectDate": {
@@ -178,6 +209,29 @@
         "time": "Время",
         "description": "Описание недоступного периода",
         "descriptionPlaceholder": "Например: 'Lunch time', 'Personal break', 'Out of office'...",
+        "descriptionRequired": "Пожалуйста, введите описание"
+      }
+    },
+    "createGroupVisit": {
+      "selectDate": {
+        "title": "Выберите дату для группового визита"
+      },
+      "selectTime": {
+        "titleStart": "Выберите начальное время",
+        "titleEnd": "Выберите конечное время",
+        "loading": "Загрузка доступного времени...",
+        "noSlots": "Нет доступного времени на эту дату",
+        "noEndTimes": "Нет доступного времени для выбора конечного времени",
+        "backToStart": "Назад к выбору начального времени",
+        "dateLabel": "Дата",
+        "startTimeLabel": "Начальное время"
+      },
+      "description": {
+        "title": "Введите описание группового визита",
+        "date": "Дата",
+        "time": "Время",
+        "description": "Описание группового визита",
+        "descriptionPlaceholder": "Например: 'Групповая тренировка', 'Йога класс', 'Фитнес группа'...",
         "descriptionRequired": "Пожалуйста, введите описание"
       }
     },
@@ -221,6 +275,7 @@
     "createAppointmentFailed": "Не удалось создать бронирование",
     "cancelAppointmentFailed": "Не удалось отменить бронирование",
     "confirmAppointmentFailed": "Не удалось подтвердить бронирование",
-    "createUnavailableFailed": "Не удалось создать недоступный период"
+    "createUnavailableFailed": "Не удалось создать недоступный период",
+    "createGroupVisitFailed": "Не удалось создать групповой визит"
   }
 }

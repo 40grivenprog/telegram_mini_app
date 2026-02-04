@@ -4,6 +4,8 @@ import i18n from '../../../i18n/config.js'
 
 export interface CreateAppointmentRequest {
   professional_id: string
+  professional_chat_id: number
+  professional_locale: string
   start_time: string
   end_time: string
 }

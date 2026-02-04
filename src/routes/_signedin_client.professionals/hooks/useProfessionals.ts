@@ -45,15 +45,16 @@ interface UseProfessionalsResult {
   handleSubscribe: (professionalID: string) => Promise<void>
 }
 
-export function useProfessionals(pageSize: number = 15): UseProfessionalsResult {
+export function useProfessionals(pageSize: number = 15, enabled: boolean = true): UseProfessionalsResult {
   const [professionals, setProfessionals] = useState<GetProfessionalsResponseItem[]>([])
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState<PaginationResponse | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [subscribingIds, setSubscribingIds] = useState<Set<string>>(new Set())
 
   const loadProfessionals = useCallback(async () => {
+    if (!enabled) return
     setLoading(true)
     setError(null)
     try {
@@ -67,7 +68,7 @@ export function useProfessionals(pageSize: number = 15): UseProfessionalsResult 
     } finally {
       setLoading(false)
     }
-  }, [page, pageSize])
+  }, [page, pageSize, enabled])
 
   const handleSubscribe = useCallback(async (professionalID: string) => {
     setSubscribingIds(prev => new Set(prev).add(professionalID))
@@ -105,8 +106,10 @@ export function useProfessionals(pageSize: number = 15): UseProfessionalsResult 
   }, [loadProfessionals, professionals])
 
   useEffect(() => {
-    loadProfessionals()
-  }, [loadProfessionals])
+    if (enabled) {
+      loadProfessionals()
+    }
+  }, [loadProfessionals, enabled])
 
   return {
     professionals,
