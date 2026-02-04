@@ -21,6 +21,7 @@ class ApiService {
 
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`
+    console.log("Making request to:", url)
     const headers = {
       'Content-Type': 'application/json',
       ...options.headers,
@@ -36,8 +37,8 @@ class ApiService {
       headers,
     }
 
-    try {
-      const response = await fetch(url, config)
+    // Missing error handling - should wrap in try/catch
+    const response = await fetch(url, config)
       
       // Handle 404 as valid response
       if (response.status === 404) {
