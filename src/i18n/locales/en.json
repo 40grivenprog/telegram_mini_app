@@ -72,9 +72,30 @@
       "title": "Client Dashboard",
       "welcome": "Welcome back, {{name}}!",
       "bookAppointment": "Book Appointment",
+      "allProfessionals": "All Professionals",
+      "mySubscriptions": "My Subscriptions",
       "pendingAppointments": "Pending Appointments",
       "upcomingAppointments": "Upcoming Appointments",
       "myAppointments": "My Appointments"
+    },
+    "professionals": {
+      "all": {
+        "title": "All Professionals",
+        "loading": "Loading professionals...",
+        "noProfessionals": "No available professionals",
+        "subscribe": "Subscribe",
+        "subscribing": "Subscribing..."
+      },
+      "subscriptions": {
+        "title": "My Subscriptions",
+        "loading": "Loading subscriptions...",
+        "noSubscriptions": "You don't have any subscriptions yet. Subscribe to professionals to see them here.",
+        "unsubscribe": "Unsubscribe",
+        "unsubscribing": "Unsubscribing...",
+        "error": {
+          "loadFailed": "Failed to load subscriptions"
+        }
+      }
     },
     "book": {
       "selectProfessional": {

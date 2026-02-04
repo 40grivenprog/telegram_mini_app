@@ -72,9 +72,30 @@
       "title": "Панель клієнта",
       "welcome": "З поверненням, {{name}}!",
       "bookAppointment": "Записатися",
+      "allProfessionals": "Всі професіонали",
+      "mySubscriptions": "Мої підписки",
       "pendingAppointments": "Очікуючі записи",
       "upcomingAppointments": "Майбутні записи",
       "myAppointments": "Мої записи"
+    },
+    "professionals": {
+      "all": {
+        "title": "Всі професіонали",
+        "loading": "Завантаження професіоналів...",
+        "noProfessionals": "Немає доступних професіоналів",
+        "subscribe": "Підписатися",
+        "subscribing": "Підписка..."
+      },
+      "subscriptions": {
+        "title": "Мої підписки",
+        "loading": "Завантаження підписок...",
+        "noSubscriptions": "У вас поки немає підписок. Підпишіться на професіоналів, щоб бачити їх тут.",
+        "unsubscribe": "Відписатися",
+        "unsubscribing": "Відписка...",
+        "error": {
+          "loadFailed": "Не вдалося завантажити підписки"
+        }
+      }
     },
     "book": {
       "selectProfessional": {

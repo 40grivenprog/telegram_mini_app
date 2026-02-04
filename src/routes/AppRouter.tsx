@@ -11,6 +11,8 @@ import ClientRegistrationRoute from './client.registration/route'
 import ProfessionalSignInRoute from './professional.signin/route'
 import SuccessRoute from './success/route'
 import ClientDashboardRoute from './_signedin_client.dashboard/route'
+import AllProfessionalsRoute from './_signedin_client.professionals.all/route'
+import MySubscriptionsRoute from './_signedin_client.professionals.subscriptions/route'
 import SelectProfessionalRoute from './_signedin_client.book.select-professional/route'
 import SelectDateRoute from './_signedin_client.book.select-date.$professionalID/route'
 import SelectTimeRoute from './_signedin_client.book.select-time.$professionalID.$date/route'
@@ -157,6 +159,8 @@ function AppRouterContent() {
       
       {/* Client routes */}
       <Route path="/client/dashboard" element={<ClientDashboardRoute />} />
+      <Route path="/client/professionals/all" element={<AllProfessionalsRoute />} />
+      <Route path="/client/professionals/subscriptions" element={<MySubscriptionsRoute />} />
       <Route path="/client/book/select-professional" element={<SelectProfessionalRoute />} />
       <Route path="/client/book/select-date/:professionalID" element={<SelectDateRoute />} />
       <Route path="/client/book/select-time/:professionalID/:date" element={<SelectTimeRoute />} />

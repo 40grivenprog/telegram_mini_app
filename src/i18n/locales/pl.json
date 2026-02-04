@@ -72,9 +72,30 @@
       "title": "Panel klienta",
       "welcome": "Witaj ponownie, {{name}}!",
       "bookAppointment": "Umów wizytę",
+      "allProfessionals": "Wszyscy profesjonaliści",
+      "mySubscriptions": "Moje subskrypcje",
       "pendingAppointments": "Oczekujące wizyty",
       "upcomingAppointments": "Nadchodzące wizyty",
       "myAppointments": "Moje wizyty"
+    },
+    "professionals": {
+      "all": {
+        "title": "Wszyscy profesjonaliści",
+        "loading": "Ładowanie profesjonalistów...",
+        "noProfessionals": "Brak dostępnych profesjonalistów",
+        "subscribe": "Subskrybuj",
+        "subscribing": "Subskrybowanie..."
+      },
+      "subscriptions": {
+        "title": "Moje subskrypcje",
+        "loading": "Ładowanie subskrypcji...",
+        "noSubscriptions": "Nie masz jeszcze żadnych subskrypcji. Subskrybuj profesjonalistów, aby zobaczyć ich tutaj.",
+        "unsubscribe": "Anuluj subskrypcję",
+        "unsubscribing": "Anulowanie subskrypcji...",
+        "error": {
+          "loadFailed": "Nie udało się załadować subskrypcji"
+        }
+      }
     },
     "book": {
       "selectProfessional": {

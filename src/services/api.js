@@ -137,9 +137,9 @@ class ApiService {
     })
   }
 
-  // Get professionals with pagination
+  // Get professionals with pagination (excluding subscribed ones)
   async getProfessionals(page = 1, pageSize = 15) {
-    return this.request(`/professionals?page=${page}&pageSize=${pageSize}`)
+    return this.request(`/clients/professionals/all?page=${page}&pageSize=${pageSize}`)
   }
 
   // Get professional availability
@@ -243,6 +243,30 @@ class ApiService {
       method: 'PATCH',
       body: JSON.stringify({ locale }),
     })
+  }
+
+  // Subscribe to professional
+  async subscribeToProfessional(professionalID, chatID, locale) {
+    return this.request(`/clients/subscribe`, {
+      method: 'POST',
+      body: JSON.stringify({
+        professional_id: professionalID,
+        chat_id: chatID,
+        locale: locale,
+      }),
+    })
+  }
+
+  // Unsubscribe from professional
+  async unsubscribeFromProfessional(professionalID) {
+    return this.request(`/clients/unsubscribe/${professionalID}`, {
+      method: 'DELETE',
+    })
+  }
+
+  // Get subscribed professionals with pagination
+  async getSubscribedProfessionals(page = 1, pageSize = 15) {
+    return this.request(`/clients/professionals?page=${page}&pageSize=${pageSize}`)
   }
 }
 

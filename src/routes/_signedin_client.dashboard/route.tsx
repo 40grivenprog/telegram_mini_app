@@ -22,6 +22,14 @@ export default function ClientDashboardRoute() {
     navigate('/client/appointments/upcoming')
   }
 
+  const handleViewAllProfessionals = () => {
+    navigate('/client/professionals/all')
+  }
+
+  const handleViewMySubscriptions = () => {
+    navigate('/client/professionals/subscriptions')
+  }
+
   const handleLocaleChange = async (locale: string) => {
     await apiService.updateClientLocale(locale)
   }
@@ -32,6 +40,8 @@ export default function ClientDashboardRoute() {
       onBookAppointment={handleBookAppointment}
       onViewPendingAppointments={handleViewPendingAppointments}
       onViewUpcomingAppointments={handleViewUpcomingAppointments}
+      onViewAllProfessionals={handleViewAllProfessionals}
+      onViewMySubscriptions={handleViewMySubscriptions}
       onLocaleChange={handleLocaleChange}
     />
   )

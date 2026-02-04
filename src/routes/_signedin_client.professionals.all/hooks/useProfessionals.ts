@@ -2,10 +2,24 @@ import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
 import i18n from '../../../i18n/config.js'
 
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp: {
+        HapticFeedback: {
+          notificationOccurred: (type: string) => void
+        }
+      }
+    }
+  }
+}
+
 export interface GetProfessionalsResponseItem {
   id: string
   first_name: string
   last_name: string
+  chat_id?: number | null
+  locale: string
 }
 
 export interface PaginationResponse {
@@ -27,6 +41,8 @@ interface UseProfessionalsResult {
   page: number
   setPage: (page: number) => void
   refetch: () => void
+  subscribingIds: Set<string>
+  handleSubscribe: (professionalID: string) => Promise<void>
 }
 
 export function useProfessionals(pageSize: number = 15): UseProfessionalsResult {
@@ -35,6 +51,7 @@ export function useProfessionals(pageSize: number = 15): UseProfessionalsResult 
   const [pagination, setPagination] = useState<PaginationResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [subscribingIds, setSubscribingIds] = useState<Set<string>>(new Set())
 
   const loadProfessionals = useCallback(async () => {
     setLoading(true)
@@ -52,6 +69,41 @@ export function useProfessionals(pageSize: number = 15): UseProfessionalsResult 
     }
   }, [page, pageSize])
 
+  const handleSubscribe = useCallback(async (professionalID: string) => {
+    setSubscribingIds(prev => new Set(prev).add(professionalID))
+    try {
+      const professional = professionals.find(p => p.id === professionalID)
+      if (!professional) {
+        throw new Error('Professional not found')
+      }
+      if (!professional.chat_id) {
+        throw new Error('Professional chat_id is missing')
+      }
+      if (!professional.locale) {
+        throw new Error('Professional locale is missing')
+      }
+      await apiService.subscribeToProfessional(professionalID, professional.chat_id, professional.locale)
+      const tg = window.Telegram?.WebApp
+      if (tg) {
+        tg.HapticFeedback.notificationOccurred('success')
+      }
+      // Reload the list after successful subscription
+      await loadProfessionals()
+    } catch (err) {
+      console.error('Failed to subscribe:', err)
+      const tg = window.Telegram?.WebApp
+      if (tg) {
+        tg.HapticFeedback.notificationOccurred('error')
+      }
+    } finally {
+      setSubscribingIds(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(professionalID)
+        return newSet
+      })
+    }
+  }, [loadProfessionals, professionals])
+
   useEffect(() => {
     loadProfessionals()
   }, [loadProfessionals])
@@ -64,5 +116,7 @@ export function useProfessionals(pageSize: number = 15): UseProfessionalsResult 
     page,
     setPage,
     refetch: loadProfessionals,
+    subscribingIds,
+    handleSubscribe,
   }
 }

@@ -68,9 +68,30 @@
       "title": "Панель клиента",
       "welcome": "С возвращением, {{name}}!",
       "bookAppointment": "Записаться",
+      "allProfessionals": "Все профессионалы",
+      "mySubscriptions": "Мои подписки",
       "pendingAppointments": "Ожидающие записи",
       "upcomingAppointments": "Предстоящие записи",
       "myAppointments": "Мои записи"
+    },
+    "professionals": {
+      "all": {
+        "title": "Все профессионалы",
+        "loading": "Загрузка профессионалов...",
+        "noProfessionals": "Нет доступных профессионалов",
+        "subscribe": "Подписаться",
+        "subscribing": "Подписка..."
+      },
+      "subscriptions": {
+        "title": "Мои подписки",
+        "loading": "Загрузка подписок...",
+        "noSubscriptions": "У вас пока нет подписок. Подпишитесь на профессионалов, чтобы видеть их здесь.",
+        "unsubscribe": "Отписаться",
+        "unsubscribing": "Отписка...",
+        "error": {
+          "loadFailed": "Не удалось загрузить подписки"
+        }
+      }
     },
     "book": {
       "selectProfessional": {

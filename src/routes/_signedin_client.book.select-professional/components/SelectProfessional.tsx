@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useProfessionals } from '../hooks/useProfessionals'
+import { useSubscribedProfessionals } from '../hooks/useSubscribedProfessionals'
 import './SelectProfessional.css'
 
 interface SelectProfessionalProps {
@@ -11,7 +11,7 @@ interface SelectProfessionalProps {
 
 export default function SelectProfessional({ clientID, onSelect, onCancel }: SelectProfessionalProps) {
   const { t } = useTranslation()
-  const { professionals, loading, error, pagination, page, setPage, refetch } = useProfessionals(15)
+  const { professionals, loading, error, refetch } = useSubscribedProfessionals()
 
   if (loading) {
     return (
@@ -59,32 +59,11 @@ export default function SelectProfessional({ clientID, onSelect, onCancel }: Sel
                   onClick={() => onSelect(prof.id, `${prof.first_name} ${prof.last_name}`)}
                 >
                   <div className="professional-name">
-                    👨‍💼 {prof.first_name} {prof.last_name}
+                    ⭐ 👨‍💼 {prof.first_name} {prof.last_name}
                   </div>
                 </div>
               ))}
             </div>
-            {pagination && (
-              <div className="pagination">
-                <button
-                  className="btn btn-secondary"
-                  disabled={page === 1}
-                  onClick={() => setPage(page - 1)}
-                >
-                  {t('client.book.selectProfessional.previous')}
-                </button>
-                <span className="page-info">
-                  {t('client.book.selectProfessional.page')} {pagination.page}
-                </span>
-                <button
-                  className="btn btn-secondary"
-                  disabled={!pagination.has_next_page}
-                  onClick={() => setPage(page + 1)}
-                >
-                  {t('client.book.selectProfessional.next')}
-                </button>
-              </div>
-            )}
             <button className="btn btn-secondary" onClick={onCancel}>
               {t('common.cancel')}
             </button>

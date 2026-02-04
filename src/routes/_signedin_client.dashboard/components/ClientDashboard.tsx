@@ -8,6 +8,8 @@ interface ClientDashboardProps {
   onBookAppointment: () => void
   onViewPendingAppointments: () => void
   onViewUpcomingAppointments: () => void
+  onViewAllProfessionals: () => void
+  onViewMySubscriptions: () => void
   onLocaleChange?: (locale: string) => Promise<void>
 }
 
@@ -16,6 +18,8 @@ export default function ClientDashboard({
   onBookAppointment,
   onViewPendingAppointments,
   onViewUpcomingAppointments,
+  onViewAllProfessionals,
+  onViewMySubscriptions,
   onLocaleChange
 }: ClientDashboardProps) {
   const { t } = useTranslation()
@@ -33,6 +37,18 @@ export default function ClientDashboard({
             onClick={onBookAppointment}
           >
             📅 {t('client.dashboard.bookAppointment')}
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewAllProfessionals}
+          >
+            👥 {t('client.dashboard.allProfessionals')}
+          </button>
+          <button
+            className="btn btn-secondary btn-large"
+            onClick={onViewMySubscriptions}
+          >
+            ⭐ {t('client.dashboard.mySubscriptions')}
           </button>
           <button
             className="btn btn-secondary btn-large"
