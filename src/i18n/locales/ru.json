@@ -37,6 +37,9 @@
     "cancelReasonPrompt": "Укажите причину отмены:",
     "cancelReasonPlaceholder": "Введите причину отмены...",
     "cancelReasonRequired": "Пожалуйста, укажите причину отмены",
+    "defaultCancelReason": "Запись была создана по ошибке",
+    "viewDetails": "Просмотр деталей",
+    "appointmentDetails": "Детали записи",
     "appointmentCancelled": "Запись успешно отменена",
     "appointmentConfirmed": "Запись успешно подтверждена",
     "appointmentCreated": "Бронирование успешно создано!",
@@ -230,6 +233,13 @@
         "title": "Введите описание группового визита",
         "date": "Дата",
         "time": "Время",
+        "type": "Тип",
+        "typeGroup": "Групповой",
+        "typeSplit": "Сплит",
+        "clients": "Клиенты",
+        "selectAll": "Выбрать всех",
+        "noSubscriptions": "Нет доступных подписок",
+        "selectClientsRequired": "Пожалуйста, выберите хотя бы одного клиента или выберите всех",
         "description": "Описание группового визита",
         "descriptionPlaceholder": "Например: 'Групповая тренировка', 'Йога класс', 'Фитнес группа'...",
         "descriptionRequired": "Пожалуйста, введите описание"
@@ -246,7 +256,8 @@
       "selectClient": {
         "title": "Выберите клиента",
         "subtitle": "Выберите клиента, чтобы посмотреть его прошлые записи:",
-        "loading": "Загрузка клиентов..."
+        "loading": "Загрузка клиентов...",
+        "allClients": "Все клиенты"
       },
       "byClient": {
         "title": "Прошедшие записи",

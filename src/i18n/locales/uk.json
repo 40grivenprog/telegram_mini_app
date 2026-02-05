@@ -37,6 +37,9 @@
     "cancelReasonPrompt": "Вкажіть причину скасування:",
     "cancelReasonPlaceholder": "Введіть причину скасування...",
     "cancelReasonRequired": "Будь ласка, вкажіть причину скасування",
+    "defaultCancelReason": "Запис був створений помилково",
+    "viewDetails": "Переглянути деталі",
+    "appointmentDetails": "Деталі запису",
     "appointmentCancelled": "Запис успішно скасовано",
     "appointmentConfirmed": "Запис успішно підтверджено",
     "appointmentCreated": "Бронювання успішно створено!",
@@ -234,6 +237,13 @@
         "title": "Введіть опис групового візиту",
         "date": "Дата",
         "time": "Час",
+        "type": "Тип",
+        "typeGroup": "Груповий",
+        "typeSplit": "Спліт",
+        "clients": "Клієнти",
+        "selectAll": "Вибрати всіх",
+        "noSubscriptions": "Немає доступних підписок",
+        "selectClientsRequired": "Будь ласка, виберіть хоча б одного клієнта або виберіть всіх",
         "description": "Опис групового візиту",
         "descriptionPlaceholder": "Наприклад: 'Групове тренування', 'Йога клас', 'Фітнес група'...",
         "descriptionRequired": "Будь ласка, введіть опис"
@@ -250,7 +260,8 @@
       "selectClient": {
         "title": "Виберіть клієнта",
         "subtitle": "Виберіть клієнта, щоб переглянути його попередні записи:",
-        "loading": "Завантаження клієнтів..."
+        "loading": "Завантаження клієнтів...",
+        "allClients": "Всі клієнти"
       },
       "byClient": {
         "title": "Минулі записи",

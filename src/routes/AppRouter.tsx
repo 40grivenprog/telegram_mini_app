@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { useTelegram } from '../hooks/useTelegram'
 import { apiService } from '../services/api'
 import { UserProvider, useUser } from '../contexts/UserContext'
+import { getQueryParam, getAllQueryParams } from '../utils/urlParams'
 import LoadingRoute from './loading/route'
 import ErrorRoute from './error/route'
 import RoleSelectionRoute from './role_selection/route'
@@ -27,7 +28,7 @@ import SelectGroupVisitTimeRoute from './_signedin_professional.create-group-vis
 import GroupVisitDescriptionRoute from './_signedin_professional.create-group-visit.description/route'
 import TimetableRoute from './_signedin_professional.timetable.$date/route'
 import SelectClientRoute from './_signedin_professional.previous-appointments.select-client/route'
-import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments.$clientID.$month/route'
+import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments/route'
 
 declare global {
   interface Window {
@@ -58,6 +59,22 @@ function AppRouterContent() {
   const location = useLocation()
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  // Read query parameters on mount (example usage)
+  useEffect(() => {
+    // Example: Read a specific query parameter
+    const someQueryParam = getQueryParam('some_query_param')
+    if (someQueryParam) {
+      console.log('Query parameter value:', someQueryParam)
+      // You can use this value to navigate, set state, etc.
+    }
+
+    // Example: Read all query parameters
+    const allParams = getAllQueryParams()
+    if (Object.keys(allParams).length > 0) {
+      console.log('All query parameters:', allParams)
+    }
+  }, []) // Run once on mount
 
   // Fetch user on mount (only once)
   useEffect(() => {
@@ -179,7 +196,7 @@ function AppRouterContent() {
       <Route path="/professional/create-group-visit/description" element={<GroupVisitDescriptionRoute />} />
       <Route path="/professional/timetable/:date" element={<TimetableRoute />} />
       <Route path="/professional/previous-appointments/select-client" element={<SelectClientRoute />} />
-      <Route path="/professional/previous-appointments/:clientID/:month" element={<PreviousAppointmentsRoute />} />
+      <Route path="/professional/previous-appointments" element={<PreviousAppointmentsRoute />} />
       
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/loading" replace />} />

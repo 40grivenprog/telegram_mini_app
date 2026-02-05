@@ -201,6 +201,11 @@ class ApiService {
     })
   }
 
+  // Get appointment details
+  async getAppointmentDetails(appointmentID) {
+    return this.request(`/professionals/appointments/${appointmentID}`)
+  }
+
   // Create unavailable appointment
   async createUnavailableAppointment(appointmentData) {
     return this.request(`/professionals/unavailable_appointments`, {
@@ -227,14 +232,15 @@ class ApiService {
     return this.request(`/professionals/${professionalID}/clients`)
   }
 
-  // Get previous appointments by client
-  async getPreviousAppointmentsByClient(professionalID, clientID, month) {
+  // Get previous appointments with optional client filter and pagination
+  async getPreviousAppointments(clientID = null, page = 1, pageSize = 15) {
     const params = new URLSearchParams()
-    params.append('client_id', clientID)
-    if (month) {
-      params.append('month', month) // Format: YYYY-MM
+    if (clientID) {
+      params.append('client_id', clientID)
     }
-    return this.request(`/professionals/${professionalID}/previous_appointments?${params.toString()}`)
+    params.append('page', page.toString())
+    params.append('pageSize', pageSize.toString())
+    return this.request(`/professionals/previous_appointments?${params.toString()}`)
   }
 
   // Update client locale
@@ -275,6 +281,11 @@ class ApiService {
   // Get subscribed professionals with pagination
   async getSubscribedProfessionals(page = 1, pageSize = 15) {
     return this.request(`/clients/professionals?page=${page}&pageSize=${pageSize}`)
+  }
+
+  // Get professional subscriptions
+  async getProfessionalSubscriptions() {
+    return this.request(`/professionals/subscriptions`)
   }
 }
 

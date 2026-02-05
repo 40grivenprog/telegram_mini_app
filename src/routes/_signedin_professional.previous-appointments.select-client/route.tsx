@@ -9,10 +9,9 @@ export default function SelectClientRoute() {
 
   if (!user) return null
 
-  const handleSelect = (clientID: string, clientName: string) => {
-    const currentMonth = new Date().toISOString().slice(0, 7) // YYYY-MM
-    navigate(`/professional/previous-appointments/${clientID}/${currentMonth}`, {
-      state: { clientName }
+  const handleSelect = (clientID: string | null, clientName: string) => {
+    navigate('/professional/previous-appointments', {
+      state: { clientID, clientName }
     })
   }
 

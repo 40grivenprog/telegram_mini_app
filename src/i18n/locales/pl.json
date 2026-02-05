@@ -37,6 +37,9 @@
     "cancelReasonPrompt": "Podaj powód anulowania:",
     "cancelReasonPlaceholder": "Wpisz powód anulowania...",
     "cancelReasonRequired": "Podaj powód anulowania",
+    "defaultCancelReason": "Wizyta została utworzona przez pomyłkę",
+    "viewDetails": "Zobacz szczegóły",
+    "appointmentDetails": "Szczegóły wizyty",
     "appointmentCancelled": "Wizyta została anulowana",
     "appointmentConfirmed": "Wizyta została potwierdzona",
     "appointmentCreated": "Wizyta została utworzona!",
@@ -234,6 +237,13 @@
         "title": "Wprowadź opis wizyty grupowej",
         "date": "Data",
         "time": "Czas",
+        "type": "Typ",
+        "typeGroup": "Grupowy",
+        "typeSplit": "Split",
+        "clients": "Klienci",
+        "selectAll": "Wybierz wszystkich",
+        "noSubscriptions": "Brak dostępnych subskrypcji",
+        "selectClientsRequired": "Proszę wybrać przynajmniej jednego klienta lub wybrać wszystkich",
         "description": "Opis wizyty grupowej",
         "descriptionPlaceholder": "Np. 'Trening grupowy', 'Klasa jogi', 'Grupa fitness'...",
         "descriptionRequired": "Proszę wprowadzić opis"
@@ -250,7 +260,8 @@
       "selectClient": {
         "title": "Wybierz klienta",
         "subtitle": "Wybierz klienta, aby zobaczyć jego poprzednie wizyty:",
-        "loading": "Ładowanie klientów..."
+        "loading": "Ładowanie klientów...",
+        "allClients": "Wszyscy klienci"
       },
       "byClient": {
         "title": "Poprzednie wizyty",

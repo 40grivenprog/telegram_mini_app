@@ -37,6 +37,9 @@
     "cancelReasonPrompt": "Please provide a reason for cancellation:",
     "cancelReasonPlaceholder": "Enter cancellation reason...",
     "cancelReasonRequired": "Please provide a cancellation reason",
+    "defaultCancelReason": "Appointment was created by mistake",
+    "viewDetails": "View Details",
+    "appointmentDetails": "Appointment Details",
     "appointmentCancelled": "Appointment canceled successfully",
     "appointmentConfirmed": "Appointment confirmed successfully",
     "appointmentCreated": "Appointment created successfully!",
@@ -234,6 +237,13 @@
         "title": "Enter Group Visit Description",
         "date": "Date",
         "time": "Time",
+        "type": "Type",
+        "typeGroup": "Group",
+        "typeSplit": "Split",
+        "clients": "Clients",
+        "selectAll": "Select All",
+        "noSubscriptions": "No subscriptions available",
+        "selectClientsRequired": "Please select at least one client or select all",
         "description": "Group visit description",
         "descriptionPlaceholder": "e.g., 'Group training session', 'Yoga class', 'Fitness group'...",
         "descriptionRequired": "Please enter description"
@@ -250,7 +260,8 @@
       "selectClient": {
         "title": "Select a client",
         "subtitle": "Select a client to view their previous appointments:",
-        "loading": "Loading clients..."
+        "loading": "Loading clients...",
+        "allClients": "All Clients"
       },
       "byClient": {
         "title": "Previous Appointments",
