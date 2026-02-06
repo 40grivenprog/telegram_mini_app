@@ -10,6 +10,7 @@ export interface ClientAppointmentProfessional {
 
 export interface ClientAppointment {
   id: string
+  type?: string
   start_time: string
   end_time: string
   description?: string

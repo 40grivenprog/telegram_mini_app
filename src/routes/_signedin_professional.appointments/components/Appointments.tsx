@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Clock, CheckCircle, ChevronLeft, ChevronRight, Loader2, AlertCircle, Calendar, Tag, User, Users, Check, FileText } from 'lucide-react'
 import { useProfessionalAppointments } from '../hooks/useProfessionalAppointments'
 import { useConfirmAppointment } from '../hooks/useConfirmAppointment'
 import { useCancelProfessionalAppointment } from '../../../hooks/professionals/useCancelProfessionalAppointment'
@@ -166,19 +167,19 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
     if (apt.type === 'personal') {
       return apt.clients && apt.clients.length > 0 ? (
         <p className="client-name">
-          <strong>👤 {t('common.client')}:</strong> {apt.clients[0]}
+          <strong><User size={16} /> {t('common.client')}:</strong> {apt.clients[0]}
         </p>
       ) : null
     } else if (apt.type === 'split') {
       return apt.clients && apt.clients.length > 0 ? (
         <p className="client-name">
-          <strong>👥 {t('common.clients')}:</strong> {apt.clients.join(', ')}
+          <strong><Users size={16} /> {t('common.clients')}:</strong> {apt.clients.length} {t('professional.appointments.clientsCount')}
         </p>
       ) : null
     } else if (apt.type === 'group') {
       return apt.clients ? (
         <p className="client-name">
-          <strong>👥 {t('common.clients')}:</strong> {apt.clients.length} {t('professional.appointments.clientsCount')}
+          <strong><Users size={16} /> {t('common.clients')}:</strong> {apt.clients.length} {t('professional.appointments.clientsCount')}
         </p>
       ) : null
     }
@@ -199,17 +200,19 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
   const renderPendingAppointments = () => {
     if (pendingAppointments.loading) {
       return (
-        <div className="loading-screen">
-          <div className="loading">{t('professional.appointments.pendingTab.loading')}</div>
+        <div className="appointments-status">
+          <Loader2 size={32} className="spinner" />
+          <p>{t('professional.appointments.pendingTab.loading')}</p>
         </div>
       )
     }
 
     if (pendingAppointments.error) {
       return (
-        <div className="error-screen">
-          <div className="error-message">{pendingAppointments.error}</div>
-          <button className="btn btn-primary" onClick={pendingAppointments.refetch}>
+        <div className="appointments-status appointments-error">
+          <AlertCircle size={32} />
+          <p>{pendingAppointments.error}</p>
+          <button className="btn btn-secondary" onClick={pendingAppointments.refetch}>
             {t('common.tryAgain')}
           </button>
         </div>
@@ -218,7 +221,8 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
 
     if (pendingAppointments.appointments.length === 0) {
       return (
-        <div className="no-appointments">
+        <div className="appointments-status">
+          <Clock size={40} className="empty-icon" />
           <p>{t('professional.appointments.pendingTab.noAppointments')}</p>
         </div>
       )
@@ -235,37 +239,39 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
             >
               <div className="appointment-details">
                 <p className="appointment-type">
-                  <strong>🏋️ {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
+                  <strong><Tag size={16} /> {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
                 </p>
                 {renderClientInfo(apt)}
                 <p className="appointment-date">
-                  <strong>📅 {t('common.date')}:</strong> {formatDate(apt.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
+                  <strong><Calendar size={16} /> {t('common.date')}:</strong> {formatDate(apt.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
                 <p className="appointment-time">
-                  <strong>🕐 {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
+                  <strong><Clock size={16} /> {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                 </p>
               </div>
             </div>
           ))}
         </div>
         {pendingAppointments.pagination && (pendingAppointments.pagination.has_next_page || pendingAppointments.pagination.page > 1 || pendingAppointments.appointments.length >= pendingAppointments.pagination.page_size) && (
-          <div className="pagination">
+          <div className="appointments-pagination">
             <button
-              className="btn btn-secondary"
+              className="btn btn-pagination"
               disabled={pendingAppointments.page === 1}
               onClick={() => pendingAppointments.setPage(pendingAppointments.page - 1)}
             >
+              <ChevronLeft size={18} />
               {t('common.previous')}
             </button>
-            <span className="page-info">
+            <span className="page-indicator">
               {t('common.page')} {pendingAppointments.pagination.page}
             </span>
             <button
-              className="btn btn-secondary"
+              className="btn btn-pagination"
               disabled={!pendingAppointments.pagination.has_next_page}
               onClick={() => pendingAppointments.setPage(pendingAppointments.page + 1)}
             >
               {t('common.next')}
+              <ChevronRight size={18} />
             </button>
           </div>
         )}
@@ -276,17 +282,19 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
   const renderConfirmedAppointments = () => {
     if (confirmedAppointments.loading) {
       return (
-        <div className="loading-screen">
-          <div className="loading">{t('professional.appointments.confirmedTab.loading')}</div>
+        <div className="appointments-status">
+          <Loader2 size={32} className="spinner" />
+          <p>{t('professional.appointments.confirmedTab.loading')}</p>
         </div>
       )
     }
 
     if (confirmedAppointments.error) {
       return (
-        <div className="error-screen">
-          <div className="error-message">{confirmedAppointments.error}</div>
-          <button className="btn btn-primary" onClick={confirmedAppointments.refetch}>
+        <div className="appointments-status appointments-error">
+          <AlertCircle size={32} />
+          <p>{confirmedAppointments.error}</p>
+          <button className="btn btn-secondary" onClick={confirmedAppointments.refetch}>
             {t('common.tryAgain')}
           </button>
         </div>
@@ -295,7 +303,8 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
 
     if (confirmedAppointments.appointments.length === 0) {
       return (
-        <div className="no-appointments">
+        <div className="appointments-status">
+          <CheckCircle size={40} className="empty-icon" />
           <p>{t('professional.appointments.confirmedTab.noAppointments')}</p>
         </div>
       )
@@ -312,37 +321,39 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
             >
               <div className="appointment-details">
                 <p className="appointment-type">
-                  <strong>🏋️ {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
+                  <strong><Tag size={16} /> {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
                 </p>
                 {renderClientInfo(apt)}
                 <p className="appointment-date">
-                  <strong>📅 {t('common.date')}:</strong> {formatDate(apt.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
+                  <strong><Calendar size={16} /> {t('common.date')}:</strong> {formatDate(apt.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
                 <p className="appointment-time">
-                  <strong>🕐 {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
+                  <strong><Clock size={16} /> {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                 </p>
               </div>
             </div>
           ))}
         </div>
         {confirmedAppointments.pagination && (confirmedAppointments.pagination.has_next_page || confirmedAppointments.pagination.page > 1 || confirmedAppointments.appointments.length >= confirmedAppointments.pagination.page_size) && (
-          <div className="pagination">
+          <div className="appointments-pagination">
             <button
-              className="btn btn-secondary"
+              className="btn btn-pagination"
               disabled={confirmedAppointments.page === 1}
               onClick={() => confirmedAppointments.setPage(confirmedAppointments.page - 1)}
             >
+              <ChevronLeft size={18} />
               {t('common.previous')}
             </button>
-            <span className="page-info">
+            <span className="page-indicator">
               {t('common.page')} {confirmedAppointments.pagination.page}
             </span>
             <button
-              className="btn btn-secondary"
+              className="btn btn-pagination"
               disabled={!confirmedAppointments.pagination.has_next_page}
               onClick={() => confirmedAppointments.setPage(confirmedAppointments.page + 1)}
             >
               {t('common.next')}
+              <ChevronRight size={18} />
             </button>
           </div>
         )}
@@ -351,32 +362,35 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
   }
 
   return (
-    <div className="container">
-      <header className="header">
-        <h1>📋 {t('professional.appointments.title')}</h1>
-      </header>
-      <div className="content">
-        {/* Tabs */}
-        <div className="tabs">
+    <div className="appointments-container">
+      <div className="appointments-wrapper">
+        <header className="appointments-header">
+          <h1>{t('professional.appointments.title')}</h1>
+        </header>
+
+        <div className="appointments-tabs">
           <button
-            className={`tab ${activeTab === 'pending' ? 'active' : ''}`}
+            className={`appointments-tab ${activeTab === 'pending' ? 'active' : ''}`}
             onClick={() => handleTabChange('pending')}
           >
-            ⏳ {t('professional.appointments.pending')}
+            <Clock size={18} />
+            {t('professional.appointments.pending')}
           </button>
           <button
-            className={`tab ${activeTab === 'confirmed' ? 'active' : ''}`}
+            className={`appointments-tab ${activeTab === 'confirmed' ? 'active' : ''}`}
             onClick={() => handleTabChange('confirmed')}
           >
-            ✅ {t('professional.appointments.confirmed')}
+            <CheckCircle size={18} />
+            {t('professional.appointments.confirmed')}
           </button>
         </div>
 
         {confirmError && <div className="error-message">{confirmError}</div>}
         {cancelError && <div className="error-message">{cancelError}</div>}
 
-        {/* Tab Content */}
-        {activeTab === 'pending' ? renderPendingAppointments() : renderConfirmedAppointments()}
+        <div className="appointments-content">
+          {activeTab === 'pending' ? renderPendingAppointments() : renderConfirmedAppointments()}
+        </div>
 
         {/* Details Modal */}
         {detailsModalOpen && (
@@ -387,32 +401,54 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                 <div className="loading">{t('common.loading')}</div>
               ) : appointmentDetails ? (
                 <div className="appointment-details-content">
-                  <div className="detail-row">
-                    <span className="detail-label">{t('common.date')}:</span>
-                    <span className="detail-value">
-                      {formatDate(appointmentDetails.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
-                    </span>
-                  </div>
-                  <div className="detail-row">
-                    <span className="detail-label">{t('common.time')}:</span>
-                    <span className="detail-value">
-                      {formatTime(appointmentDetails.start_time)} - {formatTime(appointmentDetails.end_time)}
-                    </span>
-                  </div>
-                  {appointmentDetails.type && (
-                    <div className="detail-row">
-                      <span className="detail-label">{t('professional.appointments.type')}:</span>
-                      <span className="detail-value">
-                        {t(`professional.appointments.types.${appointmentDetails.type}`)}
+                  <section className="gv-summary">
+                    <div className="summary-row">
+                      <Calendar size={16} />
+                      <span className="summary-label">{t('common.date')}</span>
+                      <span className="summary-value filled">
+                        <Check size={14} className="check-icon" />
+                        {formatDate(appointmentDetails.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
                     </div>
-                  )}
-                  {appointmentDetails.description && appointmentDetails.description.trim() && (
-                    <div className="detail-row">
-                      <span className="detail-label">{t('common.description')}:</span>
-                      <span className="detail-value">{appointmentDetails.description}</span>
+                    <div className="summary-row">
+                      <Clock size={16} />
+                      <span className="summary-label">{t('common.time')}</span>
+                      <span className="summary-value filled">
+                        <Check size={14} className="check-icon" />
+                        {formatTime(appointmentDetails.start_time)} – {formatTime(appointmentDetails.end_time)}
+                      </span>
                     </div>
-                  )}
+                    {appointmentDetails.type && (
+                      <div className="summary-row">
+                        <Tag size={16} />
+                        <span className="summary-label">{t('professional.appointments.type')}</span>
+                        <span className="summary-value filled">
+                          <Check size={14} className="check-icon" />
+                          {t(`professional.appointments.types.${appointmentDetails.type}`)}
+                        </span>
+                      </div>
+                    )}
+                    {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
+                      <div className="summary-row">
+                        <Users size={16} />
+                        <span className="summary-label">{t('common.clients')}</span>
+                        <span className="summary-value filled">
+                          <Check size={14} className="check-icon" />
+                          {appointmentDetails.clients.length} {t('professional.appointments.clientsCount')}
+                        </span>
+                      </div>
+                    )}
+                    {appointmentDetails.description && appointmentDetails.description.trim() && (
+                      <div className="summary-row">
+                        <FileText size={16} />
+                        <span className="summary-label">{t('common.description')}</span>
+                        <span className="summary-value filled">
+                          <Check size={14} className="check-icon" />
+                          {appointmentDetails.description.trim().length > 30 ? appointmentDetails.description.trim().substring(0, 30) + '…' : appointmentDetails.description.trim()}
+                        </span>
+                      </div>
+                    )}
+                  </section>
                   {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
                     <div className="detail-section">
                       <h3 className="detail-section-title">
@@ -498,15 +534,6 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
             </div>
           </div>
         )}
-
-        <div className="actions">
-          <button
-            className="btn btn-secondary"
-            onClick={onBack}
-          >
-            {t('common.backToDashboard')}
-          </button>
-        </div>
       </div>
     </div>
   )

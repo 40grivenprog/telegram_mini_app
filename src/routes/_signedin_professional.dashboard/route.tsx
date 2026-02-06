@@ -15,7 +15,7 @@ export default function ProfessionalDashboardRoute() {
   }
 
   const handleSetUnavailable = () => {
-    navigate('/professional/set-unavailable/select-date')
+    navigate('/professional/set-unavailable')
   }
 
   const handleViewTimetable = () => {
@@ -24,11 +24,11 @@ export default function ProfessionalDashboardRoute() {
   }
 
   const handleViewPreviousAppointments = () => {
-    navigate('/professional/previous-appointments/select-client')
+    navigate('/professional/previous-appointments')
   }
 
   const handleCreateGroupVisit = () => {
-    navigate('/professional/create-group-visit/select-date')
+    navigate('/professional/create-group-visit')
   }
 
   const handleLocaleChange = async (locale: string) => {

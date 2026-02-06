@@ -11,7 +11,7 @@ export default function ClientDashboardRoute() {
   if (!user) return null
 
   const handleBookAppointment = () => {
-    navigate('/client/book/select-professional')
+    navigate('/client/book')
   }
 
   const handleViewAppointments = () => {
@@ -20,6 +20,14 @@ export default function ClientDashboardRoute() {
 
   const handleViewProfessionals = () => {
     navigate('/client/professionals')
+  }
+
+  const handleViewInvites = () => {
+    navigate('/client/invites')
+  }
+
+  const handleViewPreviousAppointments = () => {
+    navigate('/client/previous-appointments')
   }
 
   const handleLocaleChange = async (locale: string) => {
@@ -32,6 +40,8 @@ export default function ClientDashboardRoute() {
       onBookAppointment={handleBookAppointment}
       onViewAppointments={handleViewAppointments}
       onViewProfessionals={handleViewProfessionals}
+      onViewInvites={handleViewInvites}
+      onViewPreviousAppointments={handleViewPreviousAppointments}
       onLocaleChange={handleLocaleChange}
     />
   )

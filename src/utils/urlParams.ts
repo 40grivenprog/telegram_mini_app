@@ -18,9 +18,12 @@ export function getQueryParam(paramName: string): string | null {
     const tgWebAppStartParam = url.searchParams.get('tgWebAppStartParam')
     
     if (tgWebAppStartParam) {
-      // Check if it matches the expected format (e.g., "appointment_UUID")
+      // Check if it matches the expected format (e.g., "appointment_UUID" or "invite_UUID")
       if (paramName === 'appointment_id' && tgWebAppStartParam.startsWith('appointment_')) {
         return tgWebAppStartParam.replace('appointment_', '')
+      }
+      if (paramName === 'invite_id' && tgWebAppStartParam.startsWith('invite_')) {
+        return tgWebAppStartParam.replace('invite_', '')
       }
     }
     
@@ -65,6 +68,51 @@ export function removeAppointmentParamFromURL(): void {
       
       if (urlParams.has('appointment_id')) {
         urlParams.delete('appointment_id')
+        hasChanges = true
+      }
+      
+      if (hasChanges) {
+        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash
+        window.history.replaceState({}, '', newUrl)
+      }
+    } catch (e2) {
+      // Ignore errors
+    }
+  }
+}
+
+/**
+ * Remove invite_id parameter from URL
+ * Should be called after the invite details modal is shown and user interacts with it
+ */
+export function removeInviteParamFromURL(): void {
+  if (typeof window === 'undefined') {
+    return
+  }
+  
+  try {
+    const url = new URL(window.location.href)
+    let hasChanges = false
+    
+    // Remove tgWebAppStartParam if it contains invite_id
+    const tgWebAppStartParam = url.searchParams.get('tgWebAppStartParam')
+    if (tgWebAppStartParam && tgWebAppStartParam.startsWith('invite_')) {
+      url.searchParams.delete('tgWebAppStartParam')
+      hasChanges = true
+    }
+    
+    if (hasChanges) {
+      const newUrl = url.pathname + url.search + url.hash
+      window.history.replaceState({}, '', newUrl)
+    }
+  } catch (e) {
+    // URL parsing failed, try fallback
+    try {
+      const urlParams = new URLSearchParams(window.location.search)
+      let hasChanges = false
+      
+      if (urlParams.has('invite_id')) {
+        urlParams.delete('invite_id')
         hasChanges = true
       }
       

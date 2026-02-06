@@ -25,11 +25,18 @@ interface UsePreviousAppointmentsResult {
   pagination: GetPreviousAppointmentsResponse['pagination'] | null
   loading: boolean
   error: string | null
+  page: number
+  setPage: (page: number) => void
   refetch: () => void
-  loadPage: (page: number) => void
 }
 
-export function usePreviousAppointments(clientID: string | null, page: number = 1, pageSize: number = 15): UsePreviousAppointmentsResult {
+export function usePreviousAppointments(
+  clientID: string | null,
+  page: number = 1,
+  pageSize: number = 15,
+  dateFrom: string | null = null,
+  dateTo: string | null = null
+): UsePreviousAppointmentsResult {
   const [appointments, setAppointments] = useState<PreviousAppointment[]>([])
   const [pagination, setPagination] = useState<GetPreviousAppointmentsResponse['pagination'] | null>(null)
   const [loading, setLoading] = useState(true)
@@ -41,7 +48,7 @@ export function usePreviousAppointments(clientID: string | null, page: number = 
     setError(null)
 
     try {
-      const response = await apiService.getPreviousAppointments(clientID, pageNum, pageSize) as GetPreviousAppointmentsResponse
+      const response = await apiService.getPreviousAppointments(clientID, pageNum, pageSize, dateFrom, dateTo) as GetPreviousAppointmentsResponse
       setAppointments(response.appointments || [])
       setPagination(response.pagination || null)
     } catch (err: any) {
@@ -51,13 +58,17 @@ export function usePreviousAppointments(clientID: string | null, page: number = 
     } finally {
       setLoading(false)
     }
-  }, [clientID, pageSize])
+  }, [clientID, pageSize, dateFrom, dateTo])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [clientID, dateFrom, dateTo])
 
   useEffect(() => {
     fetchAppointments(currentPage)
   }, [fetchAppointments, currentPage])
 
-  const loadPage = useCallback((pageNum: number) => {
+  const setPage = useCallback((pageNum: number) => {
     setCurrentPage(pageNum)
   }, [])
 
@@ -66,7 +77,8 @@ export function usePreviousAppointments(clientID: string | null, page: number = 
     pagination,
     loading,
     error,
+    page: currentPage,
+    setPage,
     refetch: () => fetchAppointments(currentPage),
-    loadPage,
   }
 }

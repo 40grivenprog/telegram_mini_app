@@ -39,11 +39,6 @@ class ApiService {
     try {
       const response = await fetch(url, config)
       
-      // Handle 404 as valid response
-      if (response.status === 404) {
-        return null
-      }
-
       // Check if response has content before trying to parse JSON
       const contentType = response.headers.get('content-type')
       if (!contentType || !contentType.includes('application/json')) {
@@ -54,7 +49,10 @@ class ApiService {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || `HTTP error! status: ${response.status}`)
+        const error = new Error(data.message || `HTTP error! status: ${response.status}`)
+        error.status = response.status
+        error.data = data
+        throw error
       }
 
       return data
@@ -173,6 +171,14 @@ class ApiService {
     return this.request(`/clients/appointments?${params.toString()}`)
   }
 
+  // Get client previous appointments
+  async getClientPreviousAppointments(page = 1, pageSize = 15) {
+    const params = new URLSearchParams()
+    params.append('page', page.toString())
+    params.append('pageSize', pageSize.toString())
+    return this.request(`/clients/previous_appointments?${params.toString()}`)
+  }
+
   // Cancel client appointment
   async cancelClientAppointment(appointmentID, cancellationReason) {
     return this.request(`/clients/appointments/${appointmentID}`, {
@@ -232,11 +238,17 @@ class ApiService {
     return this.request(`/professionals/${professionalID}/clients`)
   }
 
-  // Get previous appointments with optional client filter and pagination
-  async getPreviousAppointments(clientID = null, page = 1, pageSize = 15) {
+  // Get previous appointments with optional client filter, date range, and pagination
+  async getPreviousAppointments(clientID = null, page = 1, pageSize = 15, dateFrom = null, dateTo = null) {
     const params = new URLSearchParams()
     if (clientID) {
       params.append('client_id', clientID)
+    }
+    if (dateFrom) {
+      params.append('date_from', dateFrom)
+    }
+    if (dateTo) {
+      params.append('date_to', dateTo)
     }
     params.append('page', page.toString())
     params.append('pageSize', pageSize.toString())
@@ -286,6 +298,34 @@ class ApiService {
   // Get professional subscriptions
   async getProfessionalSubscriptions() {
     return this.request(`/professionals/subscriptions`)
+  }
+
+  // Get client invites
+  async getClientInvites() {
+    return this.request(`/clients/invites`)
+  }
+
+  // Get client invite by ID
+  async getClientInvite(inviteID) {
+    return this.request(`/clients/invites/${inviteID}`)
+  }
+
+  // Delete client invite
+  async deleteClientInvite(inviteID) {
+    return this.request(`/clients/invites/${inviteID}`, {
+      method: 'DELETE',
+    })
+  }
+
+  // Accept client invite
+  async acceptClientInvite(inviteID, appointmentID, type) {
+    return this.request(`/clients/invites/${inviteID}/accept`, {
+      method: 'POST',
+      body: JSON.stringify({
+        appointment_id: appointmentID,
+        type: type,
+      }),
+    })
   }
 }
 

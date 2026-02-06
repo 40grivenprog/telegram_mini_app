@@ -12,6 +12,7 @@
     "date": "Date",
     "time": "Time",
     "professional": "Professional",
+    "coach": "Coach",
     "client": "Client",
     "clients": "Clients",
     "appointment": "Appointment",
@@ -38,6 +39,7 @@
     "cancelReasonPlaceholder": "Enter cancellation reason...",
     "cancelReasonRequired": "Please provide a cancellation reason",
     "defaultCancelReason": "Appointment was created by mistake",
+    "clientDefaultCancelReason": "I'll be busy at this time",
     "viewDetails": "View Details",
     "appointmentDetails": "Appointment Details",
     "appointmentCancelled": "Appointment canceled successfully",
@@ -76,31 +78,59 @@
     },
     "dashboard": {
       "title": "Client Dashboard",
-      "welcome": "Welcome back, {{name}}!",
+      "welcome": "Hello, {{name}}!",
       "bookAppointment": "Book Appointment",
-      "professionals": "Professionals",
+      "professionals": "Coaches",
       "appointments": "Appointments",
+      "invites": "Invites",
+      "previousAppointments": "Previous Appointments",
       "pendingAppointments": "Pending Appointments",
       "upcomingAppointments": "Upcoming Appointments",
       "myAppointments": "My Appointments"
     },
+    "invites": {
+      "title": "Invites",
+      "newInvite": "New Invite",
+      "noInvites": "No invites available",
+      "inviteFrom": "New invite from {{professionalName}}",
+      "toVisit": "to visit",
+      "training": "training",
+      "invitedYou": "{{professionalName}} invited you to {{typeDisplay}}",
+      "inviteDetails": "Invite Details",
+      "type": "Type",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "typeSplit": "split training",
+      "typeGroup": "group training",
+      "typeSplitSingle": "split training",
+      "typeGroupSingle": "group training",
+      "typePersonal": "personal training",
+      "confirm": "Confirm",
+      "dismiss": "Dismiss",
+      "cancel": "Cancel",
+      "inviteAccepted": "Invite accepted successfully!",
+      "inviteDismissed": "Invite dismissed",
+      "acceptError": "Failed to accept invite",
+      "dismissError": "Failed to dismiss invite",
+      "inviteAlreadyConfirmedOrUnavailable": "This visit was already confirmed or unavailable anymore"
+    },
     "professionals": {
-      "title": "Professionals",
+      "title": "Coaches",
       "tabs": {
-        "all": "All Professionals",
+        "all": "All Coaches",
         "subscriptions": "My Subscriptions"
       },
       "all": {
-        "title": "All Professionals",
-        "loading": "Loading professionals...",
-        "noProfessionals": "No available professionals",
+        "title": "All Coaches",
+        "loading": "Loading coaches...",
+        "noProfessionals": "No available coaches",
         "subscribe": "Subscribe",
         "subscribing": "Subscribing..."
       },
       "subscriptions": {
         "title": "My Subscriptions",
         "loading": "Loading subscriptions...",
-        "noSubscriptions": "You don't have any subscriptions yet. Subscribe to professionals to see them here.",
+        "noSubscriptions": "You don't have any subscriptions yet. Subscribe to coaches to see them here.",
         "unsubscribe": "Unsubscribe",
         "unsubscribing": "Unsubscribing...",
         "error": {
@@ -109,31 +139,13 @@
       }
     },
     "book": {
-      "selectProfessional": {
-        "title": "Select Professional",
-        "loading": "Loading professionals...",
-        "noProfessionals": "No available professionals",
-        "tryAgain": "Try again",
-        "page": "Page",
-        "previous": "← Previous",
-        "next": "Next →"
-      },
-      "selectDate": {
-        "title": "Select Date"
-      },
-      "selectTime": {
-        "title": "Select Time",
-        "loading": "Loading available time...",
-        "noSlots": "No available time slots for this date",
-        "dateLabel": "Date",
-        "date": "Date"
-      },
-      "confirm": {
-        "title": "Confirm Booking",
-        "professional": "Professional",
-        "date": "Date",
-        "time": "Time"
-      }
+      "title": "Book Appointment",
+      "selectCoach": "Coach",
+      "chooseCoach": "Select a coach...",
+      "noCoaches": "No subscribed coaches. Subscribe to a coach first.",
+      "availableSlots": "Available Slots",
+      "noSlots": "No available slots for this date",
+      "confirmBooking": "Confirm Booking"
     },
     "appointments": {
       "title": "My Appointments",
@@ -150,6 +162,11 @@
         "loading": "Loading confirmed appointments...",
         "noAppointments": "No confirmed appointments"
       }
+    },
+    "previousAppointments": {
+      "title": "Previous Appointments",
+      "loading": "Loading previous appointments...",
+      "noAppointments": "No previous appointments found"
     }
   },
   "professional": {
@@ -186,7 +203,8 @@
       "types": {
         "personal": "Personal Training",
         "split": "Split Training",
-        "group": "Group Training"
+        "group": "Group Training",
+        "unavailable": "Unavailable slot"
       },
       "pendingTab": {
         "loading": "Loading pending appointments...",
@@ -198,9 +216,8 @@
       }
     },
     "setUnavailable": {
-      "selectDate": {
-        "title": "Select Date"
-      },
+      "title": "Set Unavailable",
+      "predefinedDescription": "I will be busy during this period",
       "selectTime": {
         "titleStart": "Select start time",
         "titleEnd": "Select end time",
@@ -221,6 +238,7 @@
       }
     },
     "createGroupVisit": {
+      "title": "Create Group Visit",
       "selectDate": {
         "title": "Select Date for Group Visit"
       },
@@ -247,7 +265,13 @@
         "selectClientsRequired": "Please select at least one client or select all",
         "description": "Group visit description",
         "descriptionPlaceholder": "e.g., 'Group training session', 'Yoga class', 'Fitness group'...",
-        "descriptionRequired": "Please enter description"
+        "descriptionRequired": "Please enter description",
+        "predefinedGroup": "Ideal possibility to work together in a big group!",
+        "predefinedSplit": "Ideal possibility to work with someone in pairs",
+        "splitNeedTwoClients": "Split training requires exactly 2 clients",
+        "splitMaxTwoClients": "Split training allows maximum 2 clients",
+        "splitCannotSelectAll": "Split training cannot use 'Select All'. Please select exactly 2 clients",
+        "groupNeedMoreThanTwoClients": "Group training requires more than 2 clients. Select at least 3 clients or use 'Select All'"
       }
     },
     "timetable": {
@@ -258,6 +282,19 @@
       "cancelSlot": "Cancel Slot #{{number}}"
     },
     "previousAppointments": {
+      "title": "Previous Appointments",
+      "loading": "Loading previous appointments...",
+      "noAppointments": "No previous appointments found",
+      "filters": {
+        "toggle": "Filters",
+        "byClient": "Client",
+        "allClients": "All Clients",
+        "dateFrom": "From",
+        "dateTo": "To",
+        "selectDate": "Select date...",
+        "active": "Filters applied",
+        "clearAll": "Clear all"
+      },
       "selectClient": {
         "title": "Select a client",
         "subtitle": "Select a client to view their previous appointments:",

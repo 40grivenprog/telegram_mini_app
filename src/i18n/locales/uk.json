@@ -38,6 +38,7 @@
     "cancelReasonPlaceholder": "Введіть причину скасування...",
     "cancelReasonRequired": "Будь ласка, вкажіть причину скасування",
     "defaultCancelReason": "Запис був створений помилково",
+    "clientDefaultCancelReason": "буду зайнятий в цей час",
     "viewDetails": "Переглянути деталі",
     "appointmentDetails": "Деталі запису",
     "appointmentCancelled": "Запис успішно скасовано",
@@ -76,31 +77,57 @@
     },
     "dashboard": {
       "title": "Панель клієнта",
-      "welcome": "З поверненням, {{name}}!",
+      "welcome": "Привіт, {{name}}!",
       "bookAppointment": "Записатися",
-      "professionals": "Професіонали",
+      "professionals": "Тренери",
       "appointments": "Записи",
+      "invites": "Запрошення",
+      "previousAppointments": "Минулі записи",
       "pendingAppointments": "Очікуючі записи",
       "upcomingAppointments": "Майбутні записи",
       "myAppointments": "Мої записи"
     },
+    "invites": {
+      "title": "Запрошення",
+      "newInvite": "Нове запрошення",
+      "noInvites": "Немає запрошень",
+      "inviteFrom": "Нове запрошення від {{professionalName}}",
+      "toVisit": "на відвідування",
+      "training": "тренування",
+      "invitedYou": "{{professionalName}} запросив вас на {{typeDisplay}}",
+      "inviteDetails": "Деталі запрошення",
+      "type": "Тип",
+      "startTime": "Час початку",
+      "endTime": "Час закінчення",
+      "typeSplit": "спліт тренування",
+      "typeGroup": "групове тренування",
+      "typePersonal": "персональне тренування",
+      "confirm": "Підтвердити",
+      "dismiss": "Відхилити",
+      "cancel": "Скасувати",
+      "inviteAccepted": "Запрошення прийнято!",
+      "inviteDismissed": "Запрошення відхилено",
+      "acceptError": "Не вдалося прийняти запрошення",
+      "dismissError": "Не вдалося відхилити запрошення",
+      "inviteAlreadyConfirmedOrUnavailable": "Цей візит вже був підтверджений або недоступний"
+    },
     "professionals": {
-      "title": "Професіонали",
+      "title": "Тренери",
       "tabs": {
-        "all": "Всі професіонали",
+        "all": "Всі тренери",
         "subscriptions": "Мої підписки"
       },
       "all": {
-        "title": "Всі професіонали",
-        "loading": "Завантаження професіоналів...",
-        "noProfessionals": "Немає доступних професіоналів",
+        "title": "Всі тренери",
+        "loading": "Завантаження тренерів...",
+        "noProfessionals": "Немає доступних тренерів",
         "subscribe": "Підписатися",
         "subscribing": "Підписка..."
       },
       "subscriptions": {
         "title": "Мої підписки",
         "loading": "Завантаження підписок...",
-        "noSubscriptions": "У вас поки немає підписок. Підпишіться на професіоналів, щоб бачити їх тут.",
+        "noSubscriptions": "У вас поки немає підписок. Підпишіться на тренерів, щоб бачити їх тут.",
         "unsubscribe": "Відписатися",
         "unsubscribing": "Відписка...",
         "error": {
@@ -109,31 +136,13 @@
       }
     },
     "book": {
-      "selectProfessional": {
-        "title": "Виберіть професіонала",
-        "loading": "Завантаження професіоналів...",
-        "noProfessionals": "Немає доступних професіоналів",
-        "tryAgain": "Спробувати ще раз",
-        "page": "Сторінка",
-        "previous": "← Назад",
-        "next": "Вперед →"
-      },
-      "selectDate": {
-        "title": "Виберіть дату"
-      },
-      "selectTime": {
-        "title": "Виберіть час",
-        "loading": "Завантаження доступного часу...",
-        "noSlots": "Немає доступного часу на цю дату",
-        "dateLabel": "Дата",
-        "date": "Дата"
-      },
-      "confirm": {
-        "title": "Підтвердження бронювання",
-        "professional": "Професіонал",
-        "date": "Дата",
-        "time": "Час"
-      }
+      "title": "Записатися",
+      "selectCoach": "Тренер",
+      "chooseCoach": "Виберіть тренера...",
+      "noCoaches": "Немає підписок на тренерів. Спочатку підпишіться на тренера.",
+      "availableSlots": "Доступний час",
+      "noSlots": "Немає доступного часу на цю дату",
+      "confirmBooking": "Підтвердити запис"
     },
     "appointments": {
       "title": "Мої записи",
@@ -142,6 +151,12 @@
       "upcoming": "Майбутні записи",
       "noAppointments": "Немає записів",
       "cancel": "Скасувати запис",
+      "types": {
+        "personal": "Персональне тренування",
+        "split": "Спліт тренування",
+        "group": "Группове тренування",
+        "unavailable": "Недоступний час"
+      },
       "pendingTab": {
         "loading": "Завантаження очікуючих записів...",
         "noAppointments": "Немає очікуючих записів"
@@ -186,7 +201,8 @@
       "types": {
         "personal": "Персональне тренування",
         "split": "Спліт тренування",
-        "group": "Группове тренування"
+        "group": "Группове тренування",
+        "unavailable": "Недоступний час"
       },
       "pendingTab": {
         "loading": "Завантаження очікуючих записів...",
@@ -197,10 +213,10 @@
         "noAppointments": "Немає підтверджених записів"
       }
     },
+    
     "setUnavailable": {
-      "selectDate": {
-        "title": "Виберіть дату"
-      },
+      "title": "Встановити недоступність",
+      "predefinedDescription": "Я буду зайнятий в цей час",
       "selectTime": {
         "titleStart": "Виберіть початковий час",
         "titleEnd": "Виберіть кінцевий час",
@@ -221,6 +237,7 @@
       }
     },
     "createGroupVisit": {
+      "title": "Створити груповий візит",
       "selectDate": {
         "title": "Виберіть дату для групового візиту"
       },
@@ -247,7 +264,13 @@
         "selectClientsRequired": "Будь ласка, виберіть хоча б одного клієнта або виберіть всіх",
         "description": "Опис групового візиту",
         "descriptionPlaceholder": "Наприклад: 'Групове тренування', 'Йога клас', 'Фітнес група'...",
-        "descriptionRequired": "Будь ласка, введіть опис"
+        "descriptionRequired": "Будь ласка, введіть опис",
+        "predefinedGroup": "Ідеальна можливість працювати разом у великій групі!",
+        "predefinedSplit": "Ідеальна можливість працювати з кимось у парах",
+        "splitNeedTwoClients": "Спліт тренування вимагає рівно 2 клієнтів",
+        "splitMaxTwoClients": "Спліт тренування дозволяє максимум 2 клієнтів",
+        "splitCannotSelectAll": "Спліт тренування не може використовувати 'Вибрати всіх'. Будь ласка, виберіть рівно 2 клієнтів",
+        "groupNeedMoreThanTwoClients": "Группове тренування вимагає більше 2 клієнтів. Виберіть мінімум 3 клієнтів або використайте 'Вибрати всіх'"
       }
     },
     "timetable": {
@@ -258,6 +281,19 @@
       "cancelSlot": "Скасувати слот #{{number}}"
     },
     "previousAppointments": {
+      "title": "Минулі записи",
+      "loading": "Завантаження минулих записів...",
+      "noAppointments": "Минулі записи не знайдено",
+      "filters": {
+        "toggle": "Фільтри",
+        "byClient": "Клієнт",
+        "allClients": "Всі клієнти",
+        "dateFrom": "З",
+        "dateTo": "По",
+        "selectDate": "Виберіть дату...",
+        "active": "Фільтри застосовано",
+        "clearAll": "Скинути все"
+      },
       "selectClient": {
         "title": "Виберіть клієнта",
         "subtitle": "Виберіть клієнта, щоб переглянути його попередні записи:",
