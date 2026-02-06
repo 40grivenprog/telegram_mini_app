@@ -42,6 +42,7 @@
     "appointmentDetails": "Детали записи",
     "appointmentCancelled": "Запись успешно отменена",
     "appointmentConfirmed": "Запись успешно подтверждена",
+    "appointmentClosed": "Закрыто",
     "appointmentCreated": "Бронирование успешно создано!",
     "unavailableCreated": "Недоступный период успешно создан!",
     "groupVisitCreated": "Групповой визит успешно создан!",

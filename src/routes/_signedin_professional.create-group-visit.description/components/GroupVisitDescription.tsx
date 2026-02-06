@@ -91,6 +91,7 @@ export default function GroupVisitDescription({
               return null
             }
             return {
+              id: subscription.id,
               chat_id: subscription.chat_id,
               locale: subscription.locale,
             }

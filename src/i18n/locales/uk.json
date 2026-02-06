@@ -42,6 +42,7 @@
     "appointmentDetails": "Деталі запису",
     "appointmentCancelled": "Запис успішно скасовано",
     "appointmentConfirmed": "Запис успішно підтверджено",
+    "appointmentClosed": "Закрито",
     "appointmentCreated": "Бронювання успішно створено!",
     "unavailableCreated": "Період недоступності успішно створено!",
     "groupVisitCreated": "Груповий візит успішно створено!",

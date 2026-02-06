@@ -3,6 +3,7 @@ import { apiService } from '../../../services/api'
 import i18n from '../../../i18n/config.js'
 
 export interface CreateGroupVisitAppointmentClient {
+  id: string
   chat_id: number
   locale: string
 }

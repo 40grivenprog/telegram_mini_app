@@ -4,7 +4,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { useTelegram } from '../hooks/useTelegram'
 import { apiService } from '../services/api'
 import { UserProvider, useUser } from '../contexts/UserContext'
-import { getQueryParam, getAllQueryParams } from '../utils/urlParams'
+import { getQueryParam } from '../utils/urlParams'
 import LoadingRoute from './loading/route'
 import ErrorRoute from './error/route'
 import RoleSelectionRoute from './role_selection/route'
@@ -60,21 +60,8 @@ function AppRouterContent() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Read query parameters on mount (example usage)
-  useEffect(() => {
-    // Example: Read a specific query parameter
-    const someQueryParam = getQueryParam('some_query_param')
-    if (someQueryParam) {
-      console.log('Query parameter value:', someQueryParam)
-      // You can use this value to navigate, set state, etc.
-    }
-
-    // Example: Read all query parameters
-    const allParams = getAllQueryParams()
-    if (Object.keys(allParams).length > 0) {
-      console.log('All query parameters:', allParams)
-    }
-  }, []) // Run once on mount
+  // Read appointment_id from query parameters
+  const appointmentID = getQueryParam('appointment_id')
 
   // Fetch user on mount (only once)
   useEffect(() => {
@@ -83,9 +70,16 @@ function AppRouterContent() {
       return
     }
 
-    // If user already loaded, don't fetch again
+    // If user already loaded, check if we need to navigate to appointments with appointment_id
     if (user !== null) {
       setIsLoading(false)
+      // If user is professional and appointment_id is in query, navigate to appointments
+      if (user.role === 'professional' && appointmentID) {
+        navigate('/professional/appointments', { 
+          replace: true,
+          state: { appointmentID }
+        })
+      }
       return
     }
 
@@ -115,7 +109,15 @@ function AppRouterContent() {
           if (userData.user.role === 'client') {
             navigate('/client/dashboard', { replace: true })
           } else if (userData.user.role === 'professional') {
-            navigate('/professional/dashboard', { replace: true })
+            // If appointment_id is in query params, navigate to appointments with it
+            if (appointmentID) {
+              navigate('/professional/appointments', { 
+                replace: true,
+                state: { appointmentID }
+              })
+            } else {
+              navigate('/professional/dashboard', { replace: true })
+            }
           } else {
             navigate('/success', { replace: true })
           }
@@ -136,11 +138,11 @@ function AppRouterContent() {
     }
 
     fetchUser()
-  }, [initialized, chatID, navigate, setUser, user, location.pathname])
+  }, [initialized, chatID, navigate, setUser, user, location.pathname, appointmentID])
 
   // Setup Telegram Back Button
   useEffect(() => {
-    const tg = window.Telegram?.WebApp
+    const tg = (window as any).Telegram?.WebApp
     if (!tg) return
 
     const hideRoutes = ['/role-selection', '/client/dashboard', '/professional/dashboard', '/loading', '/success', '/error', '/']
@@ -153,14 +155,18 @@ function AppRouterContent() {
 
     tg.BackButton.show()
     const handleBack = () => {
-      navigate(-1)
+      if (location.pathname === '/professional/appointments') {
+        navigate('/professional/dashboard', { replace: false })
+      } else {
+        navigate(-1)
+      }
     }
     tg.BackButton.onClick(handleBack)
 
     return () => {
       tg.BackButton.offClick(handleBack)
     }
-  }, [location.pathname, navigate])
+  }, [location.pathname, location.search, navigate])
 
   // Show loading only if we're on loading route or initializing
   if (isLoading && (location.pathname === '/loading' || location.pathname === '/')) {

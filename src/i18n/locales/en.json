@@ -42,6 +42,7 @@
     "appointmentDetails": "Appointment Details",
     "appointmentCancelled": "Appointment canceled successfully",
     "appointmentConfirmed": "Appointment confirmed successfully",
+    "appointmentClosed": "Closed",
     "appointmentCreated": "Appointment created successfully!",
     "unavailableCreated": "Unavailable period created successfully!",
     "groupVisitCreated": "Group visit created successfully!",

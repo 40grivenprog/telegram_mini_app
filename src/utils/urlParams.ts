@@ -1,9 +1,10 @@
 /**
  * Utility functions for reading URL query parameters
+ * In Telegram Mini App, parameters are passed via tgWebAppStartParam in URL
  */
 
 /**
- * Get a query parameter value from the current URL
+ * Get a query parameter value from URL
  * @param paramName - The name of the query parameter
  * @returns The value of the parameter or null if not found
  */
@@ -12,39 +13,67 @@ export function getQueryParam(paramName: string): string | null {
     return null
   }
   
-  const urlParams = new URLSearchParams(window.location.search)
-  return urlParams.get(paramName)
+  try {
+    const url = new URL(window.location.href)
+    const tgWebAppStartParam = url.searchParams.get('tgWebAppStartParam')
+    
+    if (tgWebAppStartParam) {
+      // Check if it matches the expected format (e.g., "appointment_UUID")
+      if (paramName === 'appointment_id' && tgWebAppStartParam.startsWith('appointment_')) {
+        return tgWebAppStartParam.replace('appointment_', '')
+      }
+    }
+    
+    // Fallback to regular URL params
+    return url.searchParams.get(paramName)
+  } catch (e) {
+    // URL parsing failed, fallback to window.location.search
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get(paramName)
+  }
 }
 
 /**
- * Get all query parameters as an object
- * @returns An object with all query parameters
+ * Remove appointment_id parameter from URL
+ * Should be called after the appointment details modal is shown and user interacts with it
  */
-export function getAllQueryParams(): Record<string, string> {
+export function removeAppointmentParamFromURL(): void {
   if (typeof window === 'undefined') {
-    return {}
+    return
   }
   
-  const urlParams = new URLSearchParams(window.location.search)
-  const params: Record<string, string> = {}
-  
-  urlParams.forEach((value, key) => {
-    params[key] = value
-  })
-  
-  return params
-}
-
-/**
- * React hook for reading query parameters (alternative to useSearchParams from react-router-dom)
- * @param paramName - The name of the query parameter to read
- * @returns The value of the parameter or null if not found
- */
-export function useQueryParam(paramName: string): string | null {
-  if (typeof window === 'undefined') {
-    return null
+  try {
+    const url = new URL(window.location.href)
+    let hasChanges = false
+    
+    // Remove tgWebAppStartParam if it contains appointment_id
+    const tgWebAppStartParam = url.searchParams.get('tgWebAppStartParam')
+    if (tgWebAppStartParam && tgWebAppStartParam.startsWith('appointment_')) {
+      url.searchParams.delete('tgWebAppStartParam')
+      hasChanges = true
+    }
+    
+    if (hasChanges) {
+      const newUrl = url.pathname + url.search + url.hash
+      window.history.replaceState({}, '', newUrl)
+    }
+  } catch (e) {
+    // URL parsing failed, try fallback
+    try {
+      const urlParams = new URLSearchParams(window.location.search)
+      let hasChanges = false
+      
+      if (urlParams.has('appointment_id')) {
+        urlParams.delete('appointment_id')
+        hasChanges = true
+      }
+      
+      if (hasChanges) {
+        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash
+        window.history.replaceState({}, '', newUrl)
+      }
+    } catch (e2) {
+      // Ignore errors
+    }
   }
-  
-  const urlParams = new URLSearchParams(window.location.search)
-  return urlParams.get(paramName)
 }

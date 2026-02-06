@@ -1,28 +1,67 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useProfessionalAppointments } from '../hooks/useProfessionalAppointments'
 import { useConfirmAppointment } from '../hooks/useConfirmAppointment'
 import { useCancelProfessionalAppointment } from '../../../hooks/professionals/useCancelProfessionalAppointment'
+import { useAppointmentDetails, AppointmentDetails } from '../../_signedin_professional.previous-appointments/hooks/useAppointmentDetails'
+import { removeAppointmentParamFromURL } from '../../../utils/urlParams'
 import { formatDate, formatTime } from '../../../utils/i18n'
 import './Appointments.css'
 
 interface AppointmentsProps {
   onBack: () => void
+  initialAppointmentID?: string
 }
 
 type Tab = 'pending' | 'confirmed'
 
-export default function Appointments({ onBack }: AppointmentsProps) {
+export default function Appointments({ onBack, initialAppointmentID }: AppointmentsProps) {
   const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<Tab>('pending')
+  const paramRemovedRef = useRef(false)
   
   const pendingAppointments = useProfessionalAppointments('pending', 15, activeTab === 'pending')
   const confirmedAppointments = useProfessionalAppointments('confirmed', 15, activeTab === 'confirmed')
   const { confirmAppointment, confirming, error: confirmError } = useConfirmAppointment()
   const { cancelAppointment, canceling, error: cancelError } = useCancelProfessionalAppointment()
+  const { getAppointmentDetails, loading: detailsLoading } = useAppointmentDetails()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false)
   const [selectedAppointmentID, setSelectedAppointmentID] = useState<string | null>(null)
+  const [appointmentDetails, setAppointmentDetails] = useState<AppointmentDetails | null>(null)
   const [cancellationReason, setCancellationReason] = useState('')
+
+  // Helper function to remove appointment parameter from URL (deep link cleanup)
+  const removeAppointmentParam = () => {
+    if (initialAppointmentID && !paramRemovedRef.current) {
+      removeAppointmentParamFromURL()
+      paramRemovedRef.current = true
+    }
+  }
+
+  // Open appointment details if initialAppointmentID is provided
+  useEffect(() => {
+    if (initialAppointmentID && !detailsModalOpen) {
+      const openDetails = async () => {
+        setSelectedAppointmentID(initialAppointmentID)
+        setDetailsModalOpen(true)
+        
+        const details = await getAppointmentDetails(initialAppointmentID)
+        if (details) {
+          setAppointmentDetails(details)
+        } else {
+          // If appointment not found, it was probably deleted or cancelled
+          setAppointmentDetails(null)
+        }
+      }
+      // Wait a bit for appointments to load first
+      const timer = setTimeout(() => {
+        openDetails()
+      }, 500)
+      return () => clearTimeout(timer)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialAppointmentID])
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
@@ -34,26 +73,9 @@ export default function Appointments({ onBack }: AppointmentsProps) {
     }
   }
 
-  const handleConfirmClick = async (appointmentID: string) => {
-    try {
-      await confirmAppointment(appointmentID)
-      if (activeTab === 'pending') {
-        await pendingAppointments.refetch()
-      } else {
-        await confirmedAppointments.refetch()
-      }
-      const tg = (window as any).Telegram?.WebApp
-      if (tg) {
-        tg.showAlert(t('common.appointmentConfirmed'))
-      }
-    } catch {
-      // Error is already handled by the hook
-    }
-  }
-
   const handleCancelClick = (appointmentID: string) => {
     setSelectedAppointmentID(appointmentID)
-    setCancellationReason('')
+    setCancellationReason(t('common.defaultCancelReason'))
     setCancelModalOpen(true)
   }
 
@@ -90,6 +112,54 @@ export default function Appointments({ onBack }: AppointmentsProps) {
     setCancelModalOpen(false)
     setSelectedAppointmentID(null)
     setCancellationReason('')
+  }
+
+  const handleViewDetailsClick = async (appointmentID: string) => {
+    setSelectedAppointmentID(appointmentID)
+    setDetailsModalOpen(true)
+    const details = await getAppointmentDetails(appointmentID)
+    if (details) {
+      setAppointmentDetails(details)
+    }
+  }
+
+  const handleDetailsClose = () => {
+    setDetailsModalOpen(false)
+    setSelectedAppointmentID(null)
+    setAppointmentDetails(null)
+    removeAppointmentParam()
+  }
+
+  const handleConfirmFromDetails = async () => {
+    if (!selectedAppointmentID) return
+    
+    try {
+      await confirmAppointment(selectedAppointmentID)
+      setDetailsModalOpen(false)
+      setSelectedAppointmentID(null)
+      setAppointmentDetails(null)
+      removeAppointmentParam()
+      // Refetch the active tab
+      if (activeTab === 'pending') {
+        await pendingAppointments.refetch()
+      } else {
+        await confirmedAppointments.refetch()
+      }
+      const tg = (window as any).Telegram?.WebApp
+      if (tg) {
+        tg.showAlert(t('common.appointmentConfirmed'))
+      }
+    } catch {
+      // Error is already handled by the hook
+    }
+  }
+
+  const handleCancelFromDetails = () => {
+    if (!selectedAppointmentID) return
+    setDetailsModalOpen(false)
+    setCancellationReason(t('common.defaultCancelReason'))
+    setCancelModalOpen(true)
+    removeAppointmentParam()
   }
 
   const renderClientInfo = (apt: any) => {
@@ -158,7 +228,11 @@ export default function Appointments({ onBack }: AppointmentsProps) {
       <>
         <div className="appointments-list">
           {pendingAppointments.appointments.map((apt) => (
-            <div key={apt.id} className="appointment-card">
+            <div 
+              key={apt.id} 
+              className="appointment-card appointment-card-clickable"
+              onClick={() => handleViewDetailsClick(apt.id)}
+            >
               <div className="appointment-details">
                 <p className="appointment-type">
                   <strong>🏋️ {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
@@ -170,22 +244,6 @@ export default function Appointments({ onBack }: AppointmentsProps) {
                 <p className="appointment-time">
                   <strong>🕐 {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                 </p>
-                <div className="appointment-actions">
-                  <button
-                    className="btn btn-primary btn-small"
-                    onClick={() => handleConfirmClick(apt.id)}
-                    disabled={confirming || canceling}
-                  >
-                    ✅ {t('common.confirm')}
-                  </button>
-                  <button
-                    className="btn btn-danger btn-small"
-                    onClick={() => handleCancelClick(apt.id)}
-                    disabled={canceling}
-                  >
-                    ❌ {t('common.cancel')}
-                  </button>
-                </div>
               </div>
             </div>
           ))}
@@ -247,7 +305,11 @@ export default function Appointments({ onBack }: AppointmentsProps) {
       <>
         <div className="appointments-list">
           {confirmedAppointments.appointments.map((apt) => (
-            <div key={apt.id} className="appointment-card">
+            <div 
+              key={apt.id} 
+              className="appointment-card appointment-card-clickable"
+              onClick={() => handleViewDetailsClick(apt.id)}
+            >
               <div className="appointment-details">
                 <p className="appointment-type">
                   <strong>🏋️ {t('professional.appointments.type')}:</strong> {renderAppointmentType(apt.type)}
@@ -259,15 +321,6 @@ export default function Appointments({ onBack }: AppointmentsProps) {
                 <p className="appointment-time">
                   <strong>🕐 {t('common.time')}:</strong> {formatTime(apt.start_time)} - {formatTime(apt.end_time)}
                 </p>
-                <div className="appointment-actions">
-                  <button
-                    className="btn btn-danger btn-small"
-                    onClick={() => handleCancelClick(apt.id)}
-                    disabled={canceling}
-                  >
-                    ❌ {t('common.cancel')}
-                  </button>
-                </div>
               </div>
             </div>
           ))}
@@ -324,6 +377,92 @@ export default function Appointments({ onBack }: AppointmentsProps) {
 
         {/* Tab Content */}
         {activeTab === 'pending' ? renderPendingAppointments() : renderConfirmedAppointments()}
+
+        {/* Details Modal */}
+        {detailsModalOpen && (
+          <div className="modal-overlay" onClick={handleDetailsClose}>
+            <div className="modal-content modal-content-large" onClick={(e) => e.stopPropagation()}>
+              <h2>{t('common.appointmentDetails')}</h2>
+              {detailsLoading ? (
+                <div className="loading">{t('common.loading')}</div>
+              ) : appointmentDetails ? (
+                <div className="appointment-details-content">
+                  <div className="detail-row">
+                    <span className="detail-label">{t('common.date')}:</span>
+                    <span className="detail-value">
+                      {formatDate(appointmentDetails.start_time, { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </span>
+                  </div>
+                  <div className="detail-row">
+                    <span className="detail-label">{t('common.time')}:</span>
+                    <span className="detail-value">
+                      {formatTime(appointmentDetails.start_time)} - {formatTime(appointmentDetails.end_time)}
+                    </span>
+                  </div>
+                  {appointmentDetails.type && (
+                    <div className="detail-row">
+                      <span className="detail-label">{t('professional.appointments.type')}:</span>
+                      <span className="detail-value">
+                        {t(`professional.appointments.types.${appointmentDetails.type}`)}
+                      </span>
+                    </div>
+                  )}
+                  {appointmentDetails.description && appointmentDetails.description.trim() && (
+                    <div className="detail-row">
+                      <span className="detail-label">{t('common.description')}:</span>
+                      <span className="detail-value">{appointmentDetails.description}</span>
+                    </div>
+                  )}
+                  {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
+                    <div className="detail-section">
+                      <h3 className="detail-section-title">
+                        {t('common.clients')} ({appointmentDetails.clients.length})
+                      </h3>
+                      <div className="clients-list">
+                        {appointmentDetails.clients.map((client) => (
+                          <div key={client.id} className="client-item">
+                            {client.first_name} {client.last_name}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="error-message">{t('common.appointmentClosed')}</div>
+              )}
+              <div className="modal-actions">
+                {appointmentDetails ? (
+                  <>
+                    {activeTab === 'pending' && (
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleConfirmFromDetails}
+                        disabled={confirming}
+                      >
+                        {confirming ? t('common.creating') : t('common.confirm')}
+                      </button>
+                    )}
+                    <button
+                      className="btn btn-danger"
+                      onClick={handleCancelFromDetails}
+                      disabled={canceling || confirming}
+                    >
+                      {t('common.cancelAppointment')}
+                    </button>
+                  </>
+                ) : null}
+                <button
+                  className="btn btn-secondary"
+                  onClick={handleDetailsClose}
+                  disabled={canceling || confirming}
+                >
+                  {t('common.close')}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Cancel Modal */}
         {cancelModalOpen && (

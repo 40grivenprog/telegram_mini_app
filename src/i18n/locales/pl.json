@@ -42,6 +42,7 @@
     "appointmentDetails": "Szczegóły wizyty",
     "appointmentCancelled": "Wizyta została anulowana",
     "appointmentConfirmed": "Wizyta została potwierdzona",
+    "appointmentClosed": "Zamknięte",
     "appointmentCreated": "Wizyta została utworzona!",
     "unavailableCreated": "Okres niedostępności został utworzony!",
     "groupVisitCreated": "Wizyta grupowa została utworzona!",
