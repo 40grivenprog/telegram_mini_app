@@ -7,16 +7,17 @@ export default defineConfig({
   server: {
     port: 8000,
     host: true,
+    strictPort: false,
     allowedHosts: [
       'tynisha-thermophosphorescent-vennie.ngrok-free.dev',
       '.ngrok-free.dev',
       '.ngrok.app',
-      '.ngrok.io'
+      '.ngrok.io',
+      'localhost'
     ],
     hmr: {
-      overlay: true, // Показывать ошибки в браузере
+      overlay: true,
     },
-    // Прокси для API запросов - перенаправляет /api/* на booking_api
     proxy: {
       '/api': {
         target: process.env.VITE_API_TARGET || 'http://localhost:8080',

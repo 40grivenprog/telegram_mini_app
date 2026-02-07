@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import Calendar from 'react-calendar'
-import { ChevronLeft, ChevronRight, Loader2, AlertCircle, Calendar as CalendarIcon, Tag, Users, Clock, Filter, X, Check, FileText } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Loader2, AlertCircle, Calendar as CalendarIcon, Tag, Users, Clock, Filter, X, Check, FileText, Edit2, UserPlus, UserMinus } from 'lucide-react'
 import { usePreviousAppointments } from '../hooks/usePreviousAppointments'
 import { useCancelProfessionalAppointment } from '../../../hooks/professionals/useCancelProfessionalAppointment'
+import { useUpdatePreviousAppointment } from '../../../hooks/professionals/useUpdatePreviousAppointment'
+import { useMissingClients, MissingClient } from '../../../hooks/professionals/useMissingClients'
 import { useAppointmentDetails, AppointmentDetails } from '../hooks/useAppointmentDetails'
 import { useProfessionalSubscriptions, ProfessionalSubscription } from '../../_signedin_professional.previous-appointments.select-client/hooks/useProfessionalSubscriptions'
 import { formatDate, formatTime } from '../../../utils/i18n'
@@ -43,6 +45,8 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
   )
   const { subscriptions } = useProfessionalSubscriptions()
   const { cancelAppointment, canceling, error: cancelError } = useCancelProfessionalAppointment()
+  const { updatePreviousAppointment, updating, error: updateError } = useUpdatePreviousAppointment()
+  const { getMissingClients, loading: missingClientsLoading } = useMissingClients()
   const { getAppointmentDetails, loading: detailsLoading } = useAppointmentDetails()
 
   // Modal state
@@ -51,6 +55,12 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
   const [selectedAppointmentID, setSelectedAppointmentID] = useState<string | null>(null)
   const [appointmentDetails, setAppointmentDetails] = useState<AppointmentDetails | null>(null)
   const [cancellationReason, setCancellationReason] = useState('')
+
+  // Edit mode state
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [missingClients, setMissingClients] = useState<MissingClient[]>([])
+  const [clientsToAdd, setClientsToAdd] = useState<Set<string>>(new Set())
+  const [clientsToRemove, setClientsToRemove] = useState<Set<string>>(new Set())
 
   // Close calendar on outside click
   useEffect(() => {
@@ -129,6 +139,10 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
     setDetailsModalOpen(false)
     setSelectedAppointmentID(null)
     setAppointmentDetails(null)
+    setIsEditMode(false)
+    setMissingClients([])
+    setClientsToAdd(new Set())
+    setClientsToRemove(new Set())
   }
 
   const handleCancelFromDetails = () => {
@@ -136,6 +150,97 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
     setDetailsModalOpen(false)
     setCancellationReason(t('common.defaultCancelReason'))
     setCancelModalOpen(true)
+  }
+
+  // Edit mode helpers
+  const computeNewType = (clientCount: number): string => {
+    if (clientCount === 1) return 'personal'
+    if (clientCount === 2) return 'split'
+    return 'group'
+  }
+
+  const handleEnterEditMode = async () => {
+    if (!selectedAppointmentID) return
+    setIsEditMode(true)
+    setClientsToAdd(new Set())
+    setClientsToRemove(new Set())
+
+    const clients = await getMissingClients(selectedAppointmentID)
+    setMissingClients(clients)
+  }
+
+  const handleSaveEdit = async () => {
+    if (!selectedAppointmentID || !appointmentDetails) return
+
+    const existingCount = appointmentDetails.clients?.length || 0
+    const finalCount = existingCount - clientsToRemove.size + clientsToAdd.size
+
+    if (finalCount < 1) {
+      const tg = (window as any).Telegram?.WebApp
+      if (tg) {
+        tg.showAlert(t('professional.editPreviousAppointment.needAtLeastOneClient'))
+      }
+      return
+    }
+
+    const newType = computeNewType(finalCount)
+
+    try {
+      await updatePreviousAppointment(selectedAppointmentID, {
+        type: newType,
+        clients_added: Array.from(clientsToAdd),
+        clients_removed: Array.from(clientsToRemove),
+      })
+
+      const tg = (window as any).Telegram?.WebApp
+      if (tg) {
+        tg.showAlert(t('professional.editPreviousAppointment.updateSuccess'))
+      }
+
+      // Refresh details and list
+      const details = await getAppointmentDetails(selectedAppointmentID)
+      if (details) {
+        setAppointmentDetails(details)
+      }
+      setIsEditMode(false)
+      setClientsToAdd(new Set())
+      setClientsToRemove(new Set())
+      setMissingClients([])
+      await refetch()
+    } catch {
+      // Error is handled by the hook
+    }
+  }
+
+  const handleCancelEdit = () => {
+    setIsEditMode(false)
+    setClientsToAdd(new Set())
+    setClientsToRemove(new Set())
+    setMissingClients([])
+  }
+
+  const handleAddClientToggle = (clientId: string) => {
+    setClientsToAdd(prev => {
+      const next = new Set(prev)
+      if (next.has(clientId)) {
+        next.delete(clientId)
+      } else {
+        next.add(clientId)
+      }
+      return next
+    })
+  }
+
+  const handleRemoveClientToggle = (clientId: string) => {
+    setClientsToRemove(prev => {
+      const next = new Set(prev)
+      if (next.has(clientId)) {
+        next.delete(clientId)
+      } else {
+        next.add(clientId)
+      }
+      return next
+    })
   }
 
   const renderAppointmentType = (type: string) => {
@@ -400,10 +505,16 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
         </div>
 
         {/* Details Modal */}
-        {detailsModalOpen && (
+        {detailsModalOpen && (() => {
+          const existingCount = appointmentDetails?.clients?.length || 0
+          const finalCount = existingCount - clientsToRemove.size + clientsToAdd.size
+          const newType = computeNewType(finalCount)
+          const hasChanges = clientsToAdd.size > 0 || clientsToRemove.size > 0
+
+          return (
           <div className="modal-overlay" onClick={handleDetailsClose}>
             <div className="modal-content modal-content-large" onClick={(e) => e.stopPropagation()}>
-              <h2>{t('common.appointmentDetails')}</h2>
+              <h2>{isEditMode ? t('professional.editPreviousAppointment.title') : t('common.appointmentDetails')}</h2>
               {detailsLoading ? (
                 <div className="loading">{t('common.loading')}</div>
               ) : appointmentDetails ? (
@@ -425,7 +536,7 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                         {formatTime(appointmentDetails.start_time)} – {formatTime(appointmentDetails.end_time)}
                       </span>
                     </div>
-                    {appointmentDetails.type && (
+                    {!isEditMode && appointmentDetails.type && (
                       <div className="summary-row">
                         <Tag size={16} />
                         <span className="summary-label">{t('professional.appointments.type')}</span>
@@ -435,7 +546,7 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                         </span>
                       </div>
                     )}
-                    {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
+                    {!isEditMode && appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
                       <div className="summary-row">
                         <Users size={16} />
                         <span className="summary-label">{t('common.clients')}</span>
@@ -445,7 +556,7 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                         </span>
                       </div>
                     )}
-                    {appointmentDetails.description && appointmentDetails.description.trim() && (
+                    {!isEditMode && appointmentDetails.description && appointmentDetails.description.trim() && (
                       <div className="summary-row">
                         <FileText size={16} />
                         <span className="summary-label">{t('common.description')}</span>
@@ -456,7 +567,9 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                       </div>
                     )}
                   </section>
-                  {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
+
+                  {/* View mode: clients list */}
+                  {!isEditMode && appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
                     <div className="detail-section">
                       <h3 className="detail-section-title">
                         {t('common.clients')} ({appointmentDetails.clients.length})
@@ -470,31 +583,145 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                       </div>
                     </div>
                   )}
+
+                  {/* Edit mode: existing clients with removal checkboxes */}
+                  {isEditMode && appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
+                    <>
+                      <div className="edit-section-label">
+                        <UserMinus size={16} />
+                        {t('professional.editPreviousAppointment.existingClients')} ({appointmentDetails.clients.length})
+                      </div>
+                      <div className="modal-clients-selector">
+                        {appointmentDetails.clients.map((client) => (
+                          <label key={client.id} className="modal-checkbox-label">
+                            <input
+                              type="checkbox"
+                              checked={clientsToRemove.has(client.id)}
+                              onChange={() => handleRemoveClientToggle(client.id)}
+                              disabled={updating}
+                            />
+                            <span className={clientsToRemove.has(client.id) ? 'client-removed' : ''}>
+                              {client.first_name} {client.last_name}
+                              {clientsToRemove.has(client.id) && (
+                                <span> — {t('professional.editPreviousAppointment.willBeRemoved')}</span>
+                              )}
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Edit mode: add missing clients */}
+                  {isEditMode && (
+                    <>
+                      <div className="edit-section-label">
+                        <UserPlus size={16} />
+                        {t('professional.editPreviousAppointment.addClients')}
+                      </div>
+                      {missingClientsLoading ? (
+                        <p className="loading">{t('professional.editPreviousAppointment.loadingMissingClients')}</p>
+                      ) : missingClients.length === 0 ? (
+                        <p className="modal-subtitle">{t('professional.editPreviousAppointment.noMissingClients')}</p>
+                      ) : (
+                        <div className="modal-clients-selector">
+                          {missingClients.map((client) => (
+                            <label key={client.id} className="modal-checkbox-label">
+                              <input
+                                type="checkbox"
+                                checked={clientsToAdd.has(client.id)}
+                                onChange={() => handleAddClientToggle(client.id)}
+                                disabled={updating}
+                              />
+                              {client.first_name} {client.last_name}
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+
+                  {/* Edit mode: auto-computed type banner */}
+                  {isEditMode && hasChanges && finalCount >= 1 && (
+                    <div className="type-auto-update">
+                      <Tag size={14} />
+                      {t('professional.editPreviousAppointment.typeAutoUpdate', {
+                        type: t(`professional.appointments.types.${newType}`),
+                        count: finalCount,
+                      })}
+                    </div>
+                  )}
+
+                  {/* Edit mode: validation error */}
+                  {isEditMode && hasChanges && finalCount < 1 && (
+                    <div className="edit-validation-error">
+                      {t('professional.editPreviousAppointment.needAtLeastOneClient')}
+                    </div>
+                  )}
+
+                  {updateError && <div className="error-message">{updateError}</div>}
                 </div>
               ) : (
                 <div className="error-message">{t('error.loadAppointmentsFailed')}</div>
               )}
               <div className="modal-actions">
                 {appointmentDetails && (
+                  isEditMode ? (
+                    <>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleCancelEdit}
+                        disabled={updating}
+                      >
+                        {t('professional.editPreviousAppointment.cancelEdit')}
+                      </button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleSaveEdit}
+                        disabled={updating || !hasChanges || finalCount < 1}
+                      >
+                        {updating ? t('professional.editPreviousAppointment.saving') : t('professional.editPreviousAppointment.saveButton')}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="btn btn-primary"
+                        onClick={handleEnterEditMode}
+                      >
+                        <Edit2 size={14} />
+                        {t('professional.editPreviousAppointment.editButton')}
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={handleCancelFromDetails}
+                        disabled={canceling}
+                      >
+                        {t('common.cancelAppointment')}
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleDetailsClose}
+                        disabled={canceling}
+                      >
+                        {t('common.close')}
+                      </button>
+                    </>
+                  )
+                )}
+                {!appointmentDetails && !detailsLoading && (
                   <button
-                    className="btn btn-danger"
-                    onClick={handleCancelFromDetails}
-                    disabled={canceling}
+                    className="btn btn-secondary"
+                    onClick={handleDetailsClose}
                   >
-                    {t('common.cancelAppointment')}
+                    {t('common.close')}
                   </button>
                 )}
-                <button
-                  className="btn btn-secondary"
-                  onClick={handleDetailsClose}
-                  disabled={canceling}
-                >
-                  {t('common.close')}
-                </button>
               </div>
             </div>
           </div>
-        )}
+          )
+        })()}
 
         {/* Cancel Modal */}
         {cancelModalOpen && (

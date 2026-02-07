@@ -83,8 +83,8 @@
       "professionals": "Coaches",
       "appointments": "Appointments",
       "invites": "Invites",
-      "previousAppointments": "Previous Appointments",
-      "pendingAppointments": "Pending Appointments",
+      "previousAppointments": "Appointments history",
+      "pendingAppointments": "Pending",
       "upcomingAppointments": "Upcoming Appointments",
       "myAppointments": "My Appointments"
     },
@@ -149,8 +149,8 @@
     },
     "appointments": {
       "title": "My Appointments",
-      "pending": "Pending Appointments",
-      "confirmed": "Confirmed Appointments",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
       "upcoming": "Upcoming Appointments",
       "noAppointments": "No appointments",
       "cancel": "Cancel Appointment",
@@ -164,7 +164,7 @@
       }
     },
     "previousAppointments": {
-      "title": "Previous Appointments",
+      "title": "Appointments history",
       "loading": "Loading previous appointments...",
       "noAppointments": "No previous appointments found"
     }
@@ -189,7 +189,7 @@
       "appointments": "Appointments",
       "setUnavailable": "Set Unavailable",
       "timetable": "Timetable",
-      "previousAppointments": "Previous Appointments",
+      "previousAppointments": "Appointments history",
       "createGroupVisit": "Create Group Visit"
     },
     "appointments": {
@@ -282,7 +282,7 @@
       "cancelSlot": "Cancel Slot #{{number}}"
     },
     "previousAppointments": {
-      "title": "Previous Appointments",
+      "title": "Appointments history",
       "loading": "Loading previous appointments...",
       "noAppointments": "No previous appointments found",
       "filters": {
@@ -302,12 +302,46 @@
         "allClients": "All Clients"
       },
       "byClient": {
-        "title": "Previous Appointments",
+        "title": "Appointments history",
         "month": "Month",
         "noAppointments": "No appointments for this client",
         "emptyMonth": "No appointments found for this month.",
         "clientLabel": "Client: {{name}}"
       }
+    },
+    "editAppointment": {
+      "title": "Edit Appointment",
+      "editButton": "Edit",
+      "saveButton": "Save Changes",
+      "saving": "Saving...",
+      "cancelEdit": "Cancel Edit",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter appointment description...",
+      "type": "Appointment Type",
+      "suggestedType": "Suggested: {{type}} ({{count}} clients)",
+      "inviteUsers": "Invite Users",
+      "noMissingUsers": "No additional users to invite",
+      "loadingMissingUsers": "Loading available users...",
+      "timeChangeWarning": "If you want to change appointment time, you should cancel it and create a new one. All invites for your clients will be deleted and clients who already confirmed it will lose this appointment.",
+      "personalNeedOneClient": "Personal training requires exactly 1 client",
+      "splitNeedTwoClients": "Split training requires exactly 2 clients",
+      "groupNeedThreeClients": "Group training requires at least 3 clients",
+      "updateSuccess": "Appointment updated successfully"
+    },
+    "editPreviousAppointment": {
+      "title": "Edit Previous Appointment",
+      "editButton": "Edit",
+      "saveButton": "Save Changes",
+      "saving": "Saving...",
+      "cancelEdit": "Cancel Edit",
+      "existingClients": "Current Clients",
+      "willBeRemoved": "will be removed",
+      "addClients": "Add Clients",
+      "noMissingClients": "No additional clients to add",
+      "loadingMissingClients": "Loading available clients...",
+      "typeAutoUpdate": "Type will be updated to: {{type}} ({{count}} clients)",
+      "needAtLeastOneClient": "Appointment must have at least 1 client",
+      "updateSuccess": "Previous appointment updated successfully"
     }
   },
   "success": {
@@ -329,6 +363,10 @@
     "cancelAppointmentFailed": "Failed to cancel appointment",
     "confirmAppointmentFailed": "Failed to confirm appointment",
     "createUnavailableFailed": "Failed to create unavailable period",
-    "createGroupVisitFailed": "Failed to create group visit"
+    "createGroupVisitFailed": "Failed to create group visit",
+    "updateAppointmentFailed": "Failed to update appointment",
+    "updatePreviousAppointmentFailed": "Failed to update previous appointment",
+    "loadMissingInviteUsersFailed": "Failed to load available users",
+    "loadMissingClientsFailed": "Failed to load available clients"
   }
 }

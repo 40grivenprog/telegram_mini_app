@@ -1080,3 +1080,119 @@ body.dark .client-item {
   background: rgba(255, 255, 255, 0.05);
   color: #e2e8f0;
 }
+
+/* Edit mode styles */
+.edit-section-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-clients-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.modal-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2d3748;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.modal-checkbox-label:hover {
+  background-color: rgba(102, 126, 234, 0.06);
+}
+
+.modal-checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #667eea;
+  flex-shrink: 0;
+}
+
+.client-removed {
+  text-decoration: line-through;
+  color: #e53e3e;
+  opacity: 0.7;
+}
+
+.type-auto-update {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  background: rgba(102, 126, 234, 0.06);
+  border: 1px solid rgba(102, 126, 234, 0.12);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.edit-validation-error {
+  color: #e53e3e;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.12);
+  border-radius: 8px;
+}
+
+/* Edit mode dark */
+body.dark .edit-section-label {
+  color: #a0aec0;
+}
+
+body.dark .modal-clients-selector {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark .modal-checkbox-label {
+  color: #e2e8f0;
+}
+
+body.dark .modal-checkbox-label:hover {
+  background-color: rgba(167, 139, 250, 0.08);
+}
+
+body.dark .client-removed {
+  color: #fc8181;
+}
+
+body.dark .type-auto-update {
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.15);
+  color: #a78bfa;
+}
+
+body.dark .edit-validation-error {
+  color: #fc8181;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}

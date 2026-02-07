@@ -317,6 +317,32 @@ class ApiService {
     })
   }
 
+  // Get missing invite users for a confirmed appointment
+  async getMissingInviteUsers(appointmentID) {
+    return this.request(`/professionals/appointments/${appointmentID}/missing_invite_users`)
+  }
+
+  // Update a confirmed appointment (description, type, invite new clients)
+  async updateAppointment(appointmentID, data) {
+    return this.request(`/professionals/appointments/${appointmentID}/update`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    })
+  }
+
+  // Get missing clients for a previous appointment
+  async getMissingClientsForPreviousAppointment(appointmentID) {
+    return this.request(`/professionals/previous_appointments/${appointmentID}/missing_clients`)
+  }
+
+  // Update a previous appointment (add/remove clients)
+  async updatePreviousAppointment(appointmentID, data) {
+    return this.request(`/professionals/previous_appointments/${appointmentID}/update`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    })
+  }
+
   // Accept client invite
   async acceptClientInvite(inviteID, appointmentID, type) {
     return this.request(`/clients/invites/${inviteID}/accept`, {

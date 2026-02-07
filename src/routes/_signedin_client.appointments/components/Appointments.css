@@ -33,63 +33,45 @@
   background-clip: text;
 }
 
-/* Date selector */
-.appointments-date-selector {
+/* Tabs */
+.appointments-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 24px;
-}
-
-.date-selector-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #4a5568;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.calendar-picker-wrapper {
-  position: relative;
-}
-
-.calendar-trigger {
-  display: flex;
-  align-items: center;
   gap: 8px;
-  padding: 10px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 28px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+.appointments-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
   border-radius: 10px;
   font-size: 14px;
-  font-family: inherit;
-  color: #2d3748;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
-  backdrop-filter: blur(10px);
+  font-weight: 500;
+  color: #718096;
   cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-  text-align: left;
+  transition: all 0.25s ease;
 }
 
-.calendar-trigger:hover {
-  border-color: rgba(102, 126, 234, 0.3);
+.appointments-tab:hover {
+  color: #4a5568;
+  background: rgba(255, 255, 255, 0.5);
 }
 
-.calendar-trigger.has-value {
-  color: #2d3748;
-}
-
-.calendar-dropdown {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 100;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  overflow: hidden;
+.appointments-tab.active {
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  font-weight: 600;
 }
 
 /* Content area */
@@ -230,6 +212,49 @@
 .btn-secondary:hover:not(:disabled) {
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Pagination */
+.appointments-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.btn-pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-pagination:hover:not(:disabled) {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.btn-pagination:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-size: 13px;
+  font-weight: 500;
+  color: #718096;
 }
 
 /* Modal */
@@ -440,8 +465,28 @@
     margin-bottom: 16px;
   }
 
+  .appointments-tabs {
+    margin-bottom: 22px;
+  }
+
+  .appointments-tab {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
   .appointment-card {
     padding: 14px;
+  }
+
+  .appointments-pagination {
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 18px;
+  }
+
+  .btn-pagination {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 }
 
@@ -457,14 +502,23 @@ body.dark .appointments-header h1 {
   background-clip: text;
 }
 
-body.dark .date-selector-label {
+body.dark .appointments-tabs {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark .appointments-tab {
   color: #a0aec0;
 }
 
-body.dark .calendar-trigger {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
+body.dark .appointments-tab:hover {
   color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark .appointments-tab.active {
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 body.dark .calendar-dropdown {
@@ -540,6 +594,24 @@ body.dark .appointment-card {
 body.dark .appointment-card:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   border-color: rgba(102, 126, 234, 0.3);
+}
+
+body.dark .btn-pagination {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #a0aec0;
+}
+
+body.dark .btn-pagination:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .page-indicator {
+  color: #a0aec0;
+}
+
+body.dark .appointments-pagination {
+  border-top-color: rgba(255, 255, 255, 0.06);
 }
 
 body.dark .coach-name,

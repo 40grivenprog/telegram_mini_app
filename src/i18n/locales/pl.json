@@ -82,8 +82,8 @@
       "professionals": "Trenerzy",
       "appointments": "Wizyty",
       "invites": "Zaproszenia",
-      "previousAppointments": "Poprzednie wizyty",
-      "pendingAppointments": "Oczekujące wizyty",
+      "previousAppointments": "Historia wizyt",
+      "pendingAppointments": "Oczekujące",
       "upcomingAppointments": "Nadchodzące wizyty",
       "myAppointments": "Moje wizyty"
     },
@@ -147,8 +147,8 @@
     },
     "appointments": {
       "title": "Moje wizyty",
-      "pending": "Oczekujące wizyty",
-      "confirmed": "Potwierdzone wizyty",
+      "pending": "Oczekujące",
+      "confirmed": "Potwierdzone",
       "upcoming": "Nadchodzące wizyty",
       "noAppointments": "Brak wizyt",
       "cancel": "Anuluj wizytę",
@@ -188,7 +188,7 @@
       "appointments": "Wizyty",
       "setUnavailable": "Ustaw niedostępność",
       "timetable": "Harmonogram",
-      "previousAppointments": "Poprzednie wizyty",
+      "previousAppointments": "Historia wizyt",
       "createGroupVisit": "Utwórz wizytę grupową"
     },
     "appointments": {
@@ -281,9 +281,9 @@
       "cancelSlot": "Anuluj slot #{{number}}"
     },
     "previousAppointments": {
-      "title": "Poprzednie wizyty",
-      "loading": "Ładowanie poprzednich wizyt...",
-      "noAppointments": "Nie znaleziono poprzednich wizyt",
+      "title": "Historia wizyt",
+      "loading": "Ładowanie historii wizyt...",
+      "noAppointments": "Nie znaleziono historii wizyt",
       "filters": {
         "toggle": "Filtry",
         "byClient": "Klient",
@@ -301,12 +301,46 @@
         "allClients": "Wszyscy klienci"
       },
       "byClient": {
-        "title": "Poprzednie wizyty",
+        "title": "Historia wizyt",
         "month": "Miesiąc",
         "noAppointments": "Brak wizyt dla tego klienta",
         "emptyMonth": "Brak wizyt w tym miesiącu.",
         "clientLabel": "Klient: {{name}}"
       }
+    },
+    "editAppointment": {
+      "title": "Edytuj wizytę",
+      "editButton": "Edytuj",
+      "saveButton": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "cancelEdit": "Anuluj edycję",
+      "description": "Opis",
+      "descriptionPlaceholder": "Wprowadź opis wizyty...",
+      "type": "Typ wizyty",
+      "suggestedType": "Sugerowany: {{type}} ({{count}} klientów)",
+      "inviteUsers": "Zaproś użytkowników",
+      "noMissingUsers": "Brak dodatkowych użytkowników do zaproszenia",
+      "loadingMissingUsers": "Ładowanie dostępnych użytkowników...",
+      "timeChangeWarning": "Jeśli chcesz zmienić czas wizyty, musisz ją anulować i utworzyć nową. Wszystkie zaproszenia dla Twoich klientów zostaną usunięte, a klienci, którzy już potwierdzili wizytę, stracą ją.",
+      "personalNeedOneClient": "Trening personalny wymaga dokładnie 1 klienta",
+      "splitNeedTwoClients": "Trening split wymaga dokładnie 2 klientów",
+      "groupNeedThreeClients": "Trening grupowy wymaga minimum 3 klientów",
+      "updateSuccess": "Wizyta została zaktualizowana"
+    },
+    "editPreviousAppointment": {
+      "title": "Edytuj poprzednią wizytę",
+      "editButton": "Edytuj",
+      "saveButton": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "cancelEdit": "Anuluj edycję",
+      "existingClients": "Obecni klienci",
+      "willBeRemoved": "zostanie usunięty",
+      "addClients": "Dodaj klientów",
+      "noMissingClients": "Brak dodatkowych klientów do dodania",
+      "loadingMissingClients": "Ładowanie dostępnych klientów...",
+      "typeAutoUpdate": "Typ zostanie zaktualizowany na: {{type}} ({{count}} klientów)",
+      "needAtLeastOneClient": "Wizyta musi mieć co najmniej 1 klienta",
+      "updateSuccess": "Poprzednia wizyta została zaktualizowana"
     }
   },
   "success": {
@@ -328,6 +362,10 @@
     "cancelAppointmentFailed": "Nie udało się anulować wizyty",
     "confirmAppointmentFailed": "Nie udało się potwierdzić wizyty",
     "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności",
-    "createGroupVisitFailed": "Nie udało się utworzyć wizyty grupowej"
+    "createGroupVisitFailed": "Nie udało się utworzyć wizyty grupowej",
+    "updateAppointmentFailed": "Nie udało się zaktualizować wizyty",
+    "updatePreviousAppointmentFailed": "Nie udało się zaktualizować poprzedniej wizyty",
+    "loadMissingInviteUsersFailed": "Nie udało się załadować dostępnych użytkowników",
+    "loadMissingClientsFailed": "Nie udało się załadować dostępnych klientów"
   }
 }

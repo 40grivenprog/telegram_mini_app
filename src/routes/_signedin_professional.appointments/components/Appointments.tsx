@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Clock, CheckCircle, ChevronLeft, ChevronRight, Loader2, AlertCircle, Calendar, Tag, User, Users, Check, FileText } from 'lucide-react'
+import { Clock, CheckCircle, ChevronLeft, ChevronRight, Loader2, AlertCircle, Calendar, Tag, User, Users, Check, FileText, Edit2, AlertTriangle, UserPlus } from 'lucide-react'
 import { useProfessionalAppointments } from '../hooks/useProfessionalAppointments'
 import { useConfirmAppointment } from '../hooks/useConfirmAppointment'
 import { useCancelProfessionalAppointment } from '../../../hooks/professionals/useCancelProfessionalAppointment'
+import { useUpdateAppointment, UpdateAppointmentClient } from '../../../hooks/professionals/useUpdateAppointment'
+import { useMissingInviteUsers, MissingInviteUser } from '../../../hooks/professionals/useMissingInviteUsers'
 import { useAppointmentDetails, AppointmentDetails } from '../../_signedin_professional.previous-appointments/hooks/useAppointmentDetails'
 import { removeAppointmentParamFromURL } from '../../../utils/urlParams'
 import { formatDate, formatTime } from '../../../utils/i18n'
@@ -20,17 +22,26 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
   const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<Tab>('pending')
   const paramRemovedRef = useRef(false)
-  
+
   const pendingAppointments = useProfessionalAppointments('pending', 15, activeTab === 'pending')
   const confirmedAppointments = useProfessionalAppointments('confirmed', 15, activeTab === 'confirmed')
   const { confirmAppointment, confirming, error: confirmError } = useConfirmAppointment()
   const { cancelAppointment, canceling, error: cancelError } = useCancelProfessionalAppointment()
+  const { updateAppointment, updating, error: updateError } = useUpdateAppointment()
+  const { getMissingInviteUsers, loading: missingUsersLoading } = useMissingInviteUsers()
   const { getAppointmentDetails, loading: detailsLoading } = useAppointmentDetails()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [detailsModalOpen, setDetailsModalOpen] = useState(false)
   const [selectedAppointmentID, setSelectedAppointmentID] = useState<string | null>(null)
   const [appointmentDetails, setAppointmentDetails] = useState<AppointmentDetails | null>(null)
   const [cancellationReason, setCancellationReason] = useState('')
+
+  // Edit mode state
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [editDescription, setEditDescription] = useState('')
+  const [editType, setEditType] = useState('')
+  const [missingInviteUsers, setMissingInviteUsers] = useState<MissingInviteUser[]>([])
+  const [selectedInviteUsers, setSelectedInviteUsers] = useState<Set<string>>(new Set())
 
   // Helper function to remove appointment parameter from URL (deep link cleanup)
   const removeAppointmentParam = () => {
@@ -46,7 +57,7 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
       const openDetails = async () => {
         setSelectedAppointmentID(initialAppointmentID)
         setDetailsModalOpen(true)
-        
+
         const details = await getAppointmentDetails(initialAppointmentID)
         if (details) {
           setAppointmentDetails(details)
@@ -128,12 +139,17 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
     setDetailsModalOpen(false)
     setSelectedAppointmentID(null)
     setAppointmentDetails(null)
+    setIsEditMode(false)
+    setEditDescription('')
+    setEditType('')
+    setMissingInviteUsers([])
+    setSelectedInviteUsers(new Set())
     removeAppointmentParam()
   }
 
   const handleConfirmFromDetails = async () => {
     if (!selectedAppointmentID) return
-    
+
     try {
       await confirmAppointment(selectedAppointmentID)
       setDetailsModalOpen(false)
@@ -158,9 +174,106 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
   const handleCancelFromDetails = () => {
     if (!selectedAppointmentID) return
     setDetailsModalOpen(false)
+    setIsEditMode(false)
     setCancellationReason(t('common.defaultCancelReason'))
     setCancelModalOpen(true)
     removeAppointmentParam()
+  }
+
+  // Edit mode handlers
+  const getSuggestedType = (clientCount: number): string => {
+    if (clientCount === 1) return 'personal'
+    if (clientCount === 2) return 'split'
+    return 'group'
+  }
+
+  const getTypeValidationError = (): string | null => {
+    if (!appointmentDetails) return null
+    const existingClientCount = appointmentDetails.clients?.length || 0
+    const totalClients = existingClientCount + selectedInviteUsers.size
+
+    if (editType === 'personal' && totalClients !== 1) {
+      return t('professional.editAppointment.personalNeedOneClient')
+    }
+    if (editType === 'split' && totalClients !== 2) {
+      return t('professional.editAppointment.splitNeedTwoClients')
+    }
+    if (editType === 'group' && totalClients < 3) {
+      return t('professional.editAppointment.groupNeedThreeClients')
+    }
+    return null
+  }
+
+  const handleEnterEditMode = async () => {
+    if (!appointmentDetails || !selectedAppointmentID) return
+
+    setIsEditMode(true)
+    setEditDescription(appointmentDetails.description || '')
+    setEditType(appointmentDetails.type || 'personal')
+    setSelectedInviteUsers(new Set())
+
+    const users = await getMissingInviteUsers(selectedAppointmentID)
+    setMissingInviteUsers(users)
+  }
+
+  const handleSaveEdit = async () => {
+    if (!selectedAppointmentID || !appointmentDetails) return
+
+    const typeError = getTypeValidationError()
+    if (typeError) {
+      const tg = (window as any).Telegram?.WebApp
+      if (tg) tg.showAlert(typeError)
+      return
+    }
+
+    const clients: UpdateAppointmentClient[] = Array.from(selectedInviteUsers)
+      .map(userId => {
+        const user = missingInviteUsers.find(u => u.id === userId)
+        if (!user) return null
+        return { id: user.id, chat_id: user.chat_id, locale: user.locale }
+      })
+      .filter((c): c is UpdateAppointmentClient => c !== null)
+
+    try {
+      await updateAppointment(selectedAppointmentID, {
+        description: editDescription.trim(),
+        type: editType,
+        clients: clients.length > 0 ? clients : undefined,
+      })
+
+      setIsEditMode(false)
+      setDetailsModalOpen(false)
+      setSelectedAppointmentID(null)
+      setAppointmentDetails(null)
+      setMissingInviteUsers([])
+      setSelectedInviteUsers(new Set())
+      await confirmedAppointments.refetch()
+
+      const tg = (window as any).Telegram?.WebApp
+      if (tg) tg.showAlert(t('professional.editAppointment.updateSuccess'))
+    } catch {
+      // Error handled by hook
+    }
+  }
+
+  const handleCancelEdit = () => {
+    setIsEditMode(false)
+    setEditDescription('')
+    setEditType('')
+    setMissingInviteUsers([])
+    setSelectedInviteUsers(new Set())
+  }
+
+  const handleInviteUserToggle = (userId: string, checked: boolean) => {
+    setSelectedInviteUsers(prev => {
+      const newSet = new Set(prev)
+      if (checked) {
+        newSet.add(userId)
+      } else {
+        newSet.delete(userId)
+      }
+      return newSet
+    })
   }
 
   const renderClientInfo = (apt: any) => {
@@ -232,8 +345,8 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
       <>
         <div className="appointments-list">
           {pendingAppointments.appointments.map((apt) => (
-            <div 
-              key={apt.id} 
+            <div
+              key={apt.id}
               className="appointment-card appointment-card-clickable"
               onClick={() => handleViewDetailsClick(apt.id)}
             >
@@ -314,8 +427,8 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
       <>
         <div className="appointments-list">
           {confirmedAppointments.appointments.map((apt) => (
-            <div 
-              key={apt.id} 
+            <div
+              key={apt.id}
               className="appointment-card appointment-card-clickable"
               onClick={() => handleViewDetailsClick(apt.id)}
             >
@@ -361,6 +474,10 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
     )
   }
 
+  const totalClientsInEditMode = (appointmentDetails?.clients?.length || 0) + selectedInviteUsers.size
+  const suggestedType = getSuggestedType(totalClientsInEditMode)
+  const typeValidationError = isEditMode ? getTypeValidationError() : null
+
   return (
     <div className="appointments-container">
       <div className="appointments-wrapper">
@@ -396,11 +513,19 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
         {detailsModalOpen && (
           <div className="modal-overlay" onClick={handleDetailsClose}>
             <div className="modal-content modal-content-large" onClick={(e) => e.stopPropagation()}>
-              <h2>{t('common.appointmentDetails')}</h2>
+              <h2>{isEditMode ? t('professional.editAppointment.title') : t('common.appointmentDetails')}</h2>
               {detailsLoading ? (
                 <div className="loading">{t('common.loading')}</div>
               ) : appointmentDetails ? (
                 <div className="appointment-details-content">
+                  {/* Warning banner in edit mode */}
+                  {isEditMode && (
+                    <div className="edit-warning">
+                      <AlertTriangle size={16} />
+                      <span>{t('professional.editAppointment.timeChangeWarning')}</span>
+                    </div>
+                  )}
+
                   <section className="gv-summary">
                     <div className="summary-row">
                       <Calendar size={16} />
@@ -418,7 +543,7 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                         {formatTime(appointmentDetails.start_time)} – {formatTime(appointmentDetails.end_time)}
                       </span>
                     </div>
-                    {appointmentDetails.type && (
+                    {!isEditMode && appointmentDetails.type && (
                       <div className="summary-row">
                         <Tag size={16} />
                         <span className="summary-label">{t('professional.appointments.type')}</span>
@@ -428,7 +553,7 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                         </span>
                       </div>
                     )}
-                    {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
+                    {!isEditMode && appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
                       <div className="summary-row">
                         <Users size={16} />
                         <span className="summary-label">{t('common.clients')}</span>
@@ -438,7 +563,7 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                         </span>
                       </div>
                     )}
-                    {appointmentDetails.description && appointmentDetails.description.trim() && (
+                    {!isEditMode && appointmentDetails.description && appointmentDetails.description.trim() && (
                       <div className="summary-row">
                         <FileText size={16} />
                         <span className="summary-label">{t('common.description')}</span>
@@ -449,6 +574,58 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                       </div>
                     )}
                   </section>
+
+                  {/* Edit mode: description textarea */}
+                  {isEditMode && (
+                    <>
+                      <div className="edit-section-label">
+                        <FileText size={14} />
+                        {t('professional.editAppointment.description')}
+                      </div>
+                      <textarea
+                        className="modal-textarea"
+                        value={editDescription}
+                        onChange={(e) => setEditDescription(e.target.value)}
+                        placeholder={t('professional.editAppointment.descriptionPlaceholder')}
+                        rows={3}
+                        disabled={updating}
+                      />
+                    </>
+                  )}
+
+                  {/* Edit mode: type select */}
+                  {isEditMode && (
+                    <>
+                      <div className="edit-section-label">
+                        <Tag size={14} />
+                        {t('professional.editAppointment.type')}
+                      </div>
+                      <select
+                        className="modal-select"
+                        value={editType}
+                        onChange={(e) => setEditType(e.target.value)}
+                        disabled={updating}
+                      >
+                        <option value="personal">{t('professional.appointments.types.personal')}</option>
+                        <option value="split">{t('professional.appointments.types.split')}</option>
+                        <option value="group">{t('professional.appointments.types.group')}</option>
+                      </select>
+                      <div className="type-suggestion">
+                        {t('professional.editAppointment.suggestedType', {
+                          type: renderAppointmentType(suggestedType),
+                          count: totalClientsInEditMode,
+                        })}
+                      </div>
+                      {typeValidationError && (
+                        <div className="edit-validation-error">
+                          <AlertCircle size={14} />
+                          {typeValidationError}
+                        </div>
+                      )}
+                    </>
+                  )}
+
+                  {/* Existing clients list */}
                   {appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
                     <div className="detail-section">
                       <h3 className="detail-section-title">
@@ -463,38 +640,99 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                       </div>
                     </div>
                   )}
+
+                  {/* Edit mode: invite users section */}
+                  {isEditMode && (
+                    <div className="detail-section">
+                      <h3 className="detail-section-title">
+                        <UserPlus size={16} /> {t('professional.editAppointment.inviteUsers')}
+                      </h3>
+                      {missingUsersLoading ? (
+                        <div className="loading">{t('professional.editAppointment.loadingMissingUsers')}</div>
+                      ) : missingInviteUsers.length === 0 ? (
+                        <p className="modal-subtitle">{t('professional.editAppointment.noMissingUsers')}</p>
+                      ) : (
+                        <div className="modal-clients-selector">
+                          {missingInviteUsers.map((user) => (
+                            <label key={user.id} className="modal-checkbox-label">
+                              <input
+                                type="checkbox"
+                                checked={selectedInviteUsers.has(user.id)}
+                                onChange={(e) => handleInviteUserToggle(user.id, e.target.checked)}
+                                disabled={updating}
+                              />
+                              <span>{user.first_name} {user.last_name}</span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="error-message">{t('common.appointmentClosed')}</div>
               )}
+
+              {updateError && <div className="error-message">{updateError}</div>}
+
               <div className="modal-actions">
                 {appointmentDetails ? (
-                  <>
-                    {activeTab === 'pending' && (
+                  isEditMode ? (
+                    <>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={handleCancelEdit}
+                        disabled={updating}
+                      >
+                        {t('professional.editAppointment.cancelEdit')}
+                      </button>
                       <button
                         className="btn btn-primary"
-                        onClick={handleConfirmFromDetails}
-                        disabled={confirming}
+                        onClick={handleSaveEdit}
+                        disabled={updating || !!typeValidationError}
                       >
-                        {confirming ? t('common.creating') : t('common.confirm')}
+                        {updating ? t('professional.editAppointment.saving') : t('professional.editAppointment.saveButton')}
                       </button>
-                    )}
-                    <button
-                      className="btn btn-danger"
-                      onClick={handleCancelFromDetails}
-                      disabled={canceling || confirming}
-                    >
-                      {t('common.cancelAppointment')}
-                    </button>
-                  </>
+                    </>
+                  ) : (
+                    <>
+                      {activeTab === 'pending' && (
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleConfirmFromDetails}
+                          disabled={confirming}
+                        >
+                          {confirming ? t('common.creating') : t('common.confirm')}
+                        </button>
+                      )}
+                      {activeTab === 'confirmed' && (
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleEnterEditMode}
+                        >
+                          <Edit2 size={14} />
+                          {t('professional.editAppointment.editButton')}
+                        </button>
+                      )}
+                      <button
+                        className="btn btn-danger"
+                        onClick={handleCancelFromDetails}
+                        disabled={canceling || confirming}
+                      >
+                        {t('common.cancelAppointment')}
+                      </button>
+                    </>
+                  )
                 ) : null}
-                <button
-                  className="btn btn-secondary"
-                  onClick={handleDetailsClose}
-                  disabled={canceling || confirming}
-                >
-                  {t('common.close')}
-                </button>
+                {!isEditMode && (
+                  <button
+                    className="btn btn-secondary"
+                    onClick={handleDetailsClose}
+                    disabled={canceling || confirming}
+                  >
+                    {t('common.close')}
+                  </button>
+                )}
               </div>
             </div>
           </div>

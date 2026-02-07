@@ -78,8 +78,8 @@
       "professionals": "Тренеры",
       "appointments": "Записи",
       "invites": "Приглашения",
-      "previousAppointments": "Прошедшие записи",
-      "pendingAppointments": "Ожидающие записи",
+      "previousAppointments": "История посещений",
+      "pendingAppointments": "Ожидающие",
       "upcomingAppointments": "Предстоящие записи",
       "myAppointments": "Мои записи"
     },
@@ -144,8 +144,8 @@
     },
     "appointments": {
       "title": "Мои записи",
-      "pending": "Ожидающие записи",
-      "confirmed": "Подтвержденные записи",
+      "pending": "Ожидающие",
+      "confirmed": "Подтвержденные",
       "upcoming": "Предстоящие записи",
       "noAppointments": "Нет записей",
       "cancel": "Отменить запись",
@@ -185,7 +185,7 @@
       "appointments": "Записи",
       "setUnavailable": "Установить недоступность",
       "timetable": "Расписание",
-      "previousAppointments": "Прошедшие записи",
+      "previousAppointments": "История посещений",
       "createGroupVisit": "Создать групповой визит"
     },
     "appointments": {
@@ -279,9 +279,9 @@
       "cancelSlot": "Отменить слот #{{number}}"
     },
     "previousAppointments": {
-      "title": "Прошедшие записи",
-      "loading": "Загрузка прошедших записей...",
-      "noAppointments": "Прошедшие записи не найдены",
+      "title": "История посещений",
+      "loading": "Загрузка истории посещений...",
+      "noAppointments": "История посещений не найдена",
       "filters": {
         "toggle": "Фильтры",
         "byClient": "Клиент",
@@ -299,12 +299,46 @@
         "allClients": "Все клиенты"
       },
       "byClient": {
-        "title": "Прошедшие записи",
+        "title": "История посещений",
         "month": "Месяц",
         "noAppointments": "Нет записей для этого клиента",
         "emptyMonth": "Нет записей за этот месяц.",
         "clientLabel": "Клиент: {{name}}"
       }
+    },
+    "editAppointment": {
+      "title": "Редактировать запись",
+      "editButton": "Редактировать",
+      "saveButton": "Сохранить изменения",
+      "saving": "Сохранение...",
+      "cancelEdit": "Отменить редактирование",
+      "description": "Описание",
+      "descriptionPlaceholder": "Введите описание записи...",
+      "type": "Тип записи",
+      "suggestedType": "Рекомендуемый: {{type}} ({{count}} клиентов)",
+      "inviteUsers": "Пригласить пользователей",
+      "noMissingUsers": "Нет дополнительных пользователей для приглашения",
+      "loadingMissingUsers": "Загрузка доступных пользователей...",
+      "timeChangeWarning": "Если вы хотите изменить время записи, вам нужно отменить её и создать новую. Все приглашения для ваших клиентов будут удалены, а клиенты, которые уже подтвердили запись, потеряют её.",
+      "personalNeedOneClient": "Персональная тренировка требует ровно 1 клиента",
+      "splitNeedTwoClients": "Сплит тренировка требует ровно 2 клиентов",
+      "groupNeedThreeClients": "Групповая тренировка требует минимум 3 клиентов",
+      "updateSuccess": "Запись успешно обновлена"
+    },
+    "editPreviousAppointment": {
+      "title": "Редактировать прошлую запись",
+      "editButton": "Редактировать",
+      "saveButton": "Сохранить изменения",
+      "saving": "Сохранение...",
+      "cancelEdit": "Отменить редактирование",
+      "existingClients": "Текущие клиенты",
+      "willBeRemoved": "будет удалён",
+      "addClients": "Добавить клиентов",
+      "noMissingClients": "Нет дополнительных клиентов для добавления",
+      "loadingMissingClients": "Загрузка доступных клиентов...",
+      "typeAutoUpdate": "Тип будет обновлён на: {{type}} ({{count}} клиентов)",
+      "needAtLeastOneClient": "В записи должен быть хотя бы 1 клиент",
+      "updateSuccess": "Прошлая запись успешно обновлена"
     }
   },
   "success": {
@@ -326,6 +360,10 @@
     "cancelAppointmentFailed": "Не удалось отменить бронирование",
     "confirmAppointmentFailed": "Не удалось подтвердить бронирование",
     "createUnavailableFailed": "Не удалось создать недоступный период",
-    "createGroupVisitFailed": "Не удалось создать групповой визит"
+    "createGroupVisitFailed": "Не удалось создать групповой визит",
+    "updateAppointmentFailed": "Не удалось обновить запись",
+    "updatePreviousAppointmentFailed": "Не удалось обновить прошлую запись",
+    "loadMissingInviteUsersFailed": "Не удалось загрузить доступных пользователей",
+    "loadMissingClientsFailed": "Не удалось загрузить доступных клиентов"
   }
 }
