@@ -74,7 +74,8 @@ export default function Route() {
           setRoute(Routes.ROLE_SELECTION)
         }
       } catch (err) {
-        setError(t('error.userCheckError'))
+        const apiUrl = apiService.baseURL || 'Not configured'
+        setError(t('error.userCheckError', { apiUrl }))
         setRoute(Routes.ERROR)
       }
     }

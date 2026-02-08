@@ -142,7 +142,8 @@ function AppRouterContent() {
         if (err.message?.includes('404') || err.message?.includes('not found')) {
           navigate('/role-selection', { replace: true })
         } else {
-          setError(t('error.userCheckError'))
+          const apiUrl = apiService.baseURL || 'Not configured'
+          setError(t('error.userCheckError', { apiUrl }))
           navigate('/error', { replace: true })
         }
       } finally {

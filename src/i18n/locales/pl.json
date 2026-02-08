@@ -400,8 +400,8 @@
   },
   "error": {
     "title": "Błąd",
-    "userCheckError": "Błąd podczas sprawdzania użytkownika",
-    "generic": "Wystąpił błąd",
+    "userCheckError": "Błąd podczas sprawdzania użytkownika. API URL: {{apiUrl}}",
+    "generic": "Wystąpił błąd. API URL: {{apiUrl}}",
     "loadAppointmentsFailed": "Nie udało się załadować wizyt",
     "loadProfessionalsFailed": "Nie udało się załadować listy profesjonalistów",
     "loadTimetableFailed": "Nie udało się załadować harmonogramu",

@@ -398,8 +398,8 @@
   },
   "error": {
     "title": "Ошибка",
-    "userCheckError": "Ошибка при проверке пользователя",
-    "generic": "Произошла ошибка",
+    "userCheckError": "Ошибка при проверке пользователя. API URL: {{apiUrl}}",
+    "generic": "Произошла ошибка. API URL: {{apiUrl}}",
     "loadAppointmentsFailed": "Не удалось загрузить записи",
     "loadProfessionalsFailed": "Не удалось загрузить список профессионалов",
     "loadTimetableFailed": "Не удалось загрузить расписание",
