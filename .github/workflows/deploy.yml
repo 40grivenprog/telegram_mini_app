@@ -19,8 +19,6 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        # If telegram_mini_app is a subdirectory, use: cache-dependency-path: telegram_mini_app/package-lock.json
-        # If telegram_mini_app is the repo root, use: cache-dependency-path: package-lock.json
         cache-dependency-path: package-lock.json
 
     - name: Install dependencies
