@@ -2,11 +2,13 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
 import { apiService } from '../../services/api'
+import { useClientInvites } from '../_signedin_client.invites/hooks/useClientInvites'
 import ClientDashboard from './components/ClientDashboard'
 
 export default function ClientDashboardRoute() {
   const navigate = useNavigate()
   const { user } = useUser()
+  const { invites } = useClientInvites()
 
   if (!user) return null
 
@@ -30,6 +32,10 @@ export default function ClientDashboardRoute() {
     navigate('/client/previous-appointments')
   }
 
+  const handleViewPackages = () => {
+    navigate('/client/packages')
+  }
+
   const handleLocaleChange = async (locale: string) => {
     await apiService.updateClientLocale(locale)
   }
@@ -42,7 +48,9 @@ export default function ClientDashboardRoute() {
       onViewProfessionals={handleViewProfessionals}
       onViewInvites={handleViewInvites}
       onViewPreviousAppointments={handleViewPreviousAppointments}
+      onViewPackages={handleViewPackages}
       onLocaleChange={handleLocaleChange}
+      invitesCount={invites.length}
     />
   )
 }

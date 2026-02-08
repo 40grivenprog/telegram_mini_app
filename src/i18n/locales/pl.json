@@ -6,6 +6,8 @@
     "save": "Zapisz",
     "delete": "Usuń",
     "edit": "Edytuj",
+    "accept": "Zaakceptuj",
+    "dismiss": "Odrzuć",
     "loading": "Ładowanie...",
     "error": "Błąd",
     "success": "Sukces",
@@ -83,6 +85,7 @@
       "appointments": "Wizyty",
       "invites": "Zaproszenia",
       "previousAppointments": "Historia wizyt",
+      "packages": "Pakiety",
       "pendingAppointments": "Oczekujące",
       "upcomingAppointments": "Nadchodzące wizyty",
       "myAppointments": "Moje wizyty"
@@ -134,6 +137,10 @@
         "error": {
           "loadFailed": "Nie udało się załadować subskrypcji"
         }
+      },
+      "viewTimetable": "Zobacz harmonogram",
+      "timetable": {
+        "title": "Harmonogram {{name}}"
       }
     },
     "book": {
@@ -166,6 +173,24 @@
         "loading": "Ładowanie potwierdzonych wizyt...",
         "noAppointments": "Brak potwierdzonych wizyt"
       }
+    },
+    "previousAppointments": {
+      "title": "Historia wizyt",
+      "loading": "Ładowanie historii wizyt...",
+      "noAppointments": "Nie znaleziono historii wizyt"
+    },
+    "packages": {
+      "title": "Moje pakiety",
+      "loading": "Ładowanie pakietów...",
+      "noPackages": "Nie znaleziono pakietów",
+      "professional": "Profesjonalista",
+      "issuedAt": "Wydano",
+      "expiresAt": "Wygasa",
+      "appointments": "Wizyty",
+      "packageDetails": "Szczegóły pakietu",
+      "loadingDetails": "Ładowanie szczegółów pakietu...",
+      "appointmentsList": "Lista wizyt",
+      "noAppointmentsInPackage": "W tym pakiecie nie ma jeszcze wizyt"
     }
   },
   "professional": {
@@ -189,7 +214,8 @@
       "setUnavailable": "Ustaw niedostępność",
       "timetable": "Harmonogram",
       "previousAppointments": "Historia wizyt",
-      "createGroupVisit": "Utwórz wizytę grupową"
+      "createGroupVisit": "Utwórz wizytę grupową",
+      "packages": "Pakiety"
     },
     "appointments": {
       "title": "Moje wizyty",
@@ -212,7 +238,9 @@
       "confirmedTab": {
         "loading": "Ładowanie potwierdzonych wizyt...",
         "noAppointments": "Brak potwierdzonych wizyt"
-      }
+      },
+      "pendingInviteUsers": "Oczekujący na potwierdzenie",
+      "noPendingInviteUsers": "Brak użytkowników oczekujących na potwierdzenie"
     },
     
     "setUnavailable": {
@@ -325,7 +353,26 @@
       "personalNeedOneClient": "Trening personalny wymaga dokładnie 1 klienta",
       "splitNeedTwoClients": "Trening split wymaga dokładnie 2 klientów",
       "groupNeedThreeClients": "Trening grupowy wymaga minimum 3 klientów",
-      "updateSuccess": "Wizyta została zaktualizowana"
+      "updateSuccess": "Wizyta została zaktualizowana",
+      "sendInvite": "Wyślij zaproszenie",
+      "sendingInvite": "Wysyłanie...",
+      "inviteSuccess": "Zaproszenia wysłane pomyślnie"
+    },
+    "packages": {
+      "title": "Pakiety",
+      "loading": "Ładowanie pakietów...",
+      "noPackages": "Nie znaleziono pakietów",
+      "createPackage": "Utwórz pakiet",
+      "selectClient": "Wybierz klienta",
+      "noClients": "Brak subskrybowanych klientów",
+      "issuedAt": "Data wystawienia",
+      "expiresAt": "Ważny do",
+      "appointmentsNumber": "Liczba wizyt",
+      "appointments": "Wizyty",
+      "packageDetails": "Szczegóły pakietu",
+      "loadingDetails": "Ładowanie szczegółów pakietu...",
+      "appointmentsList": "Lista wizyt",
+      "noAppointmentsInPackage": "Brak wizyt w tym pakiecie"
     },
     "editPreviousAppointment": {
       "title": "Edytuj poprzednią wizytę",
@@ -338,6 +385,8 @@
       "addClients": "Dodaj klientów",
       "noMissingClients": "Brak dodatkowych klientów do dodania",
       "loadingMissingClients": "Ładowanie dostępnych klientów...",
+      "suggestedType": "Sugerowany: {{type}} ({{count}} klientów)",
+      "typeSuggestionAccepted": "Typ zostanie zmieniony na {{type}}",
       "typeAutoUpdate": "Typ zostanie zaktualizowany na: {{type}} ({{count}} klientów)",
       "needAtLeastOneClient": "Wizyta musi mieć co najmniej 1 klienta",
       "updateSuccess": "Poprzednia wizyta została zaktualizowana"
@@ -366,6 +415,10 @@
     "updateAppointmentFailed": "Nie udało się zaktualizować wizyty",
     "updatePreviousAppointmentFailed": "Nie udało się zaktualizować poprzedniej wizyty",
     "loadMissingInviteUsersFailed": "Nie udało się załadować dostępnych użytkowników",
-    "loadMissingClientsFailed": "Nie udało się załadować dostępnych klientów"
+    "loadMissingClientsFailed": "Nie udało się załadować dostępnych klientów",
+    "loadPackagesFailed": "Nie udało się załadować pakietów",
+    "createPackageFailed": "Nie udało się utworzyć pakietu",
+    "loadPackageDetailsFailed": "Nie udało się załadować szczegółów pakietu",
+    "inviteForAppointmentFailed": "Nie udało się wysłać zaproszeń"
   }
 }

@@ -6,6 +6,8 @@
     "save": "Зберегти",
     "delete": "Видалити",
     "edit": "Редагувати",
+    "accept": "Прийняти",
+    "dismiss": "Відхилити",
     "loading": "Завантаження...",
     "error": "Помилка",
     "success": "Успішно",
@@ -83,6 +85,7 @@
       "appointments": "Записи",
       "invites": "Запрошення",
       "previousAppointments": "Історія записів",
+      "packages": "Пакети",
       "pendingAppointments": "Очікуючі",
       "upcomingAppointments": "Майбутні записи",
       "myAppointments": "Мої записи"
@@ -133,6 +136,10 @@
         "error": {
           "loadFailed": "Не вдалося завантажити підписки"
         }
+      },
+      "viewTimetable": "Переглянути розклад",
+      "timetable": {
+        "title": "Розклад {{name}}"
       }
     },
     "book": {
@@ -165,6 +172,24 @@
         "loading": "Завантаження підтверджених записів...",
         "noAppointments": "Немає підтверджених записів"
       }
+    },
+    "previousAppointments": {
+      "title": "Історія записів",
+      "loading": "Завантаження історії записів...",
+      "noAppointments": "Історію записів не знайдено"
+    },
+    "packages": {
+      "title": "Мої пакети",
+      "loading": "Завантаження пакетів...",
+      "noPackages": "Пакети не знайдено",
+      "professional": "Професіонал",
+      "issuedAt": "Видано",
+      "expiresAt": "Закінчується",
+      "appointments": "Записи",
+      "packageDetails": "Деталі пакета",
+      "loadingDetails": "Завантаження деталей пакета...",
+      "appointmentsList": "Список записів",
+      "noAppointmentsInPackage": "У цьому пакеті поки немає записів"
     }
   },
   "professional": {
@@ -188,7 +213,8 @@
       "setUnavailable": "Встановити недоступність",
       "timetable": "Розклад",
       "previousAppointments": "Історія записів",
-      "createGroupVisit": "Створити груповий візит"
+      "createGroupVisit": "Створити груповий візит",
+      "packages": "Пакети"
     },
     "appointments": {
       "title": "Мої записи",
@@ -211,7 +237,9 @@
       "confirmedTab": {
         "loading": "Завантаження підтверджених записів...",
         "noAppointments": "Немає підтверджених записів"
-      }
+      },
+      "pendingInviteUsers": "Очікуючі підтвердження",
+      "noPendingInviteUsers": "Немає користувачів, які очікують підтвердження"
     },
     
     "setUnavailable": {
@@ -325,7 +353,26 @@
       "personalNeedOneClient": "Персональне тренування вимагає рівно 1 клієнта",
       "splitNeedTwoClients": "Спліт тренування вимагає рівно 2 клієнтів",
       "groupNeedThreeClients": "Групове тренування вимагає мінімум 3 клієнтів",
-      "updateSuccess": "Запис успішно оновлено"
+      "updateSuccess": "Запис успішно оновлено",
+      "sendInvite": "Надіслати запрошення",
+      "sendingInvite": "Надсилання...",
+      "inviteSuccess": "Запрошення успішно надіслані"
+    },
+    "packages": {
+      "title": "Пакети",
+      "loading": "Завантаження пакетів...",
+      "noPackages": "Пакети не знайдені",
+      "createPackage": "Створити пакет",
+      "selectClient": "Виберіть клієнта",
+      "noClients": "Немає підписаних клієнтів",
+      "issuedAt": "Дата видачі",
+      "expiresAt": "Діє до",
+      "appointmentsNumber": "Кількість занять",
+      "appointments": "Заняття",
+      "packageDetails": "Деталі пакету",
+      "loadingDetails": "Завантаження деталей пакету...",
+      "appointmentsList": "Список занять",
+      "noAppointmentsInPackage": "У цьому пакеті поки немає занять"
     },
     "editPreviousAppointment": {
       "title": "Редагувати попередній запис",
@@ -338,6 +385,8 @@
       "addClients": "Додати клієнтів",
       "noMissingClients": "Немає додаткових клієнтів для додавання",
       "loadingMissingClients": "Завантаження доступних клієнтів...",
+      "suggestedType": "Рекомендований: {{type}} ({{count}} клієнтів)",
+      "typeSuggestionAccepted": "Тип буде змінено на {{type}}",
       "typeAutoUpdate": "Тип буде оновлено на: {{type}} ({{count}} клієнтів)",
       "needAtLeastOneClient": "У записі повинен бути хоча б 1 клієнт",
       "updateSuccess": "Попередній запис успішно оновлено"
@@ -366,6 +415,10 @@
     "updateAppointmentFailed": "Не вдалося оновити запис",
     "updatePreviousAppointmentFailed": "Не вдалося оновити попередній запис",
     "loadMissingInviteUsersFailed": "Не вдалося завантажити доступних користувачів",
-    "loadMissingClientsFailed": "Не вдалося завантажити доступних клієнтів"
+    "loadMissingClientsFailed": "Не вдалося завантажити доступних клієнтів",
+    "loadPackagesFailed": "Не вдалося завантажити пакети",
+    "createPackageFailed": "Не вдалося створити пакет",
+    "loadPackageDetailsFailed": "Не вдалося завантажити деталі пакету",
+    "inviteForAppointmentFailed": "Не вдалося надіслати запрошення"
   }
 }

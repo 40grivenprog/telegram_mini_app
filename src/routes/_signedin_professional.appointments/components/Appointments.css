@@ -860,3 +860,39 @@ body.dark .modal-select:focus {
   border-color: rgba(167, 139, 250, 0.4);
   box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.12);
 }
+
+/* Send invite button */
+.btn-invite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+}
+
+.btn-invite:hover:not(:disabled) {
+  box-shadow: 0 4px 14px rgba(72, 187, 120, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-invite:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+body.dark .btn-invite {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  box-shadow: 0 2px 8px rgba(72, 187, 120, 0.2);
+}

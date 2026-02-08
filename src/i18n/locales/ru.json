@@ -6,6 +6,8 @@
     "save": "Сохранить",
     "delete": "Удалить",
     "edit": "Редактировать",
+    "accept": "Принять",
+    "dismiss": "Отклонить",
     "loading": "Загрузка...",
     "error": "Ошибка",
     "success": "Успешно",
@@ -79,6 +81,7 @@
       "appointments": "Записи",
       "invites": "Приглашения",
       "previousAppointments": "История посещений",
+      "packages": "Пакеты",
       "pendingAppointments": "Ожидающие",
       "upcomingAppointments": "Предстоящие записи",
       "myAppointments": "Мои записи"
@@ -131,6 +134,10 @@
         "error": {
           "loadFailed": "Не удалось загрузить подписки"
         }
+      },
+      "viewTimetable": "Посмотреть расписание",
+      "timetable": {
+        "title": "Расписание {{name}}"
       }
     },
     "book": {
@@ -163,6 +170,24 @@
         "loading": "Загрузка подтвержденных записей...",
         "noAppointments": "Нет подтвержденных записей"
       }
+    },
+    "previousAppointments": {
+      "title": "История посещений",
+      "loading": "Загрузка истории посещений...",
+      "noAppointments": "История посещений не найдена"
+    },
+    "packages": {
+      "title": "Мои пакеты",
+      "loading": "Загрузка пакетов...",
+      "noPackages": "Пакеты не найдены",
+      "professional": "Профессионал",
+      "issuedAt": "Выдан",
+      "expiresAt": "Истекает",
+      "appointments": "Занятия",
+      "packageDetails": "Детали пакета",
+      "loadingDetails": "Загрузка деталей пакета...",
+      "appointmentsList": "Список занятий",
+      "noAppointmentsInPackage": "В этом пакете пока нет занятий"
     }
   },
   "professional": {
@@ -186,7 +211,8 @@
       "setUnavailable": "Установить недоступность",
       "timetable": "Расписание",
       "previousAppointments": "История посещений",
-      "createGroupVisit": "Создать групповой визит"
+      "createGroupVisit": "Создать групповой визит",
+      "packages": "Пакеты"
     },
     "appointments": {
       "title": "Мои записи",
@@ -209,7 +235,9 @@
       "confirmedTab": {
         "loading": "Загрузка подтвержденных записей...",
         "noAppointments": "Нет подтвержденных записей"
-      }
+      },
+      "pendingInviteUsers": "Ожидающие подтверждения",
+      "noPendingInviteUsers": "Нет пользователей, ожидающих подтверждения"
     },
     
     "setUnavailable": {
@@ -323,7 +351,26 @@
       "personalNeedOneClient": "Персональная тренировка требует ровно 1 клиента",
       "splitNeedTwoClients": "Сплит тренировка требует ровно 2 клиентов",
       "groupNeedThreeClients": "Групповая тренировка требует минимум 3 клиентов",
-      "updateSuccess": "Запись успешно обновлена"
+      "updateSuccess": "Запись успешно обновлена",
+      "sendInvite": "Отправить приглашение",
+      "sendingInvite": "Отправка...",
+      "inviteSuccess": "Приглашения успешно отправлены"
+    },
+    "packages": {
+      "title": "Пакеты",
+      "loading": "Загрузка пакетов...",
+      "noPackages": "Пакеты не найдены",
+      "createPackage": "Создать пакет",
+      "selectClient": "Выберите клиента",
+      "noClients": "Нет подписанных клиентов",
+      "issuedAt": "Дата выдачи",
+      "expiresAt": "Действует до",
+      "appointmentsNumber": "Количество занятий",
+      "appointments": "Занятия",
+      "packageDetails": "Детали пакета",
+      "loadingDetails": "Загрузка деталей пакета...",
+      "appointmentsList": "Список занятий",
+      "noAppointmentsInPackage": "В этом пакете пока нет занятий"
     },
     "editPreviousAppointment": {
       "title": "Редактировать прошлую запись",
@@ -336,6 +383,8 @@
       "addClients": "Добавить клиентов",
       "noMissingClients": "Нет дополнительных клиентов для добавления",
       "loadingMissingClients": "Загрузка доступных клиентов...",
+      "suggestedType": "Рекомендуемый: {{type}} ({{count}} клиентов)",
+      "typeSuggestionAccepted": "Тип будет изменён на {{type}}",
       "typeAutoUpdate": "Тип будет обновлён на: {{type}} ({{count}} клиентов)",
       "needAtLeastOneClient": "В записи должен быть хотя бы 1 клиент",
       "updateSuccess": "Прошлая запись успешно обновлена"
@@ -364,6 +413,10 @@
     "updateAppointmentFailed": "Не удалось обновить запись",
     "updatePreviousAppointmentFailed": "Не удалось обновить прошлую запись",
     "loadMissingInviteUsersFailed": "Не удалось загрузить доступных пользователей",
-    "loadMissingClientsFailed": "Не удалось загрузить доступных клиентов"
+    "loadMissingClientsFailed": "Не удалось загрузить доступных клиентов",
+    "loadPackagesFailed": "Не удалось загрузить пакеты",
+    "createPackageFailed": "Не удалось создать пакет",
+    "loadPackageDetailsFailed": "Не удалось загрузить детали пакета",
+    "inviteForAppointmentFailed": "Не удалось отправить приглашения"
   }
 }

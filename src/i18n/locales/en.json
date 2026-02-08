@@ -6,6 +6,8 @@
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
+    "accept": "Accept",
+    "dismiss": "Dismiss",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
@@ -84,6 +86,7 @@
       "appointments": "Appointments",
       "invites": "Invites",
       "previousAppointments": "Appointments history",
+      "packages": "Packages",
       "pendingAppointments": "Pending",
       "upcomingAppointments": "Upcoming Appointments",
       "myAppointments": "My Appointments"
@@ -136,6 +139,10 @@
         "error": {
           "loadFailed": "Failed to load subscriptions"
         }
+      },
+      "viewTimetable": "View Timetable",
+      "timetable": {
+        "title": "{{name}}'s Timetable"
       }
     },
     "book": {
@@ -167,6 +174,19 @@
       "title": "Appointments history",
       "loading": "Loading previous appointments...",
       "noAppointments": "No previous appointments found"
+    },
+    "packages": {
+      "title": "My Packages",
+      "loading": "Loading packages...",
+      "noPackages": "No packages found",
+      "professional": "Professional",
+      "issuedAt": "Issued at",
+      "expiresAt": "Expires at",
+      "appointments": "Appointments",
+      "packageDetails": "Package Details",
+      "loadingDetails": "Loading package details...",
+      "appointmentsList": "Appointments list",
+      "noAppointmentsInPackage": "No appointments in this package yet"
     }
   },
   "professional": {
@@ -190,7 +210,8 @@
       "setUnavailable": "Set Unavailable",
       "timetable": "Timetable",
       "previousAppointments": "Appointments history",
-      "createGroupVisit": "Create Group Visit"
+      "createGroupVisit": "Create Group Visit",
+      "packages": "Packages"
     },
     "appointments": {
       "title": "My Appointments",
@@ -213,7 +234,9 @@
       "confirmedTab": {
         "loading": "Loading confirmed appointments...",
         "noAppointments": "No confirmed appointments"
-      }
+      },
+      "pendingInviteUsers": "Pending Invite Users",
+      "noPendingInviteUsers": "No users waiting for confirmation"
     },
     "setUnavailable": {
       "title": "Set Unavailable",
@@ -326,7 +349,26 @@
       "personalNeedOneClient": "Personal training requires exactly 1 client",
       "splitNeedTwoClients": "Split training requires exactly 2 clients",
       "groupNeedThreeClients": "Group training requires at least 3 clients",
-      "updateSuccess": "Appointment updated successfully"
+      "updateSuccess": "Appointment updated successfully",
+      "sendInvite": "Send Invite",
+      "sendingInvite": "Sending...",
+      "inviteSuccess": "Invites sent successfully"
+    },
+    "packages": {
+      "title": "Packages",
+      "loading": "Loading packages...",
+      "noPackages": "No packages found",
+      "createPackage": "Create Package",
+      "selectClient": "Select Client",
+      "noClients": "No subscribed clients found",
+      "issuedAt": "Issued at",
+      "expiresAt": "Expires at",
+      "appointmentsNumber": "Number of appointments",
+      "appointments": "Appointments",
+      "packageDetails": "Package Details",
+      "loadingDetails": "Loading package details...",
+      "appointmentsList": "Appointments list",
+      "noAppointmentsInPackage": "No appointments in this package yet"
     },
     "editPreviousAppointment": {
       "title": "Edit Previous Appointment",
@@ -339,6 +381,8 @@
       "addClients": "Add Clients",
       "noMissingClients": "No additional clients to add",
       "loadingMissingClients": "Loading available clients...",
+      "suggestedType": "Suggested: {{type}} ({{count}} clients)",
+      "typeSuggestionAccepted": "Type will be changed to {{type}}",
       "typeAutoUpdate": "Type will be updated to: {{type}} ({{count}} clients)",
       "needAtLeastOneClient": "Appointment must have at least 1 client",
       "updateSuccess": "Previous appointment updated successfully"
@@ -367,6 +411,10 @@
     "updateAppointmentFailed": "Failed to update appointment",
     "updatePreviousAppointmentFailed": "Failed to update previous appointment",
     "loadMissingInviteUsersFailed": "Failed to load available users",
-    "loadMissingClientsFailed": "Failed to load available clients"
+    "loadMissingClientsFailed": "Failed to load available clients",
+    "loadPackagesFailed": "Failed to load packages",
+    "createPackageFailed": "Failed to create package",
+    "loadPackageDetailsFailed": "Failed to load package details",
+    "inviteForAppointmentFailed": "Failed to send invites"
   }
 }

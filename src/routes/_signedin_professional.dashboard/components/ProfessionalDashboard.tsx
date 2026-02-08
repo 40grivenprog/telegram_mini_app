@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Users, Calendar, CalendarX, History } from 'lucide-react'
+import { Users, Calendar, CalendarX, History, Package } from 'lucide-react'
 import LanguageSelector from '../../../components/LanguageSelector'
+import logo from '../../../assets/logo.png'
 import './ProfessionalDashboard.css'
 
 interface ProfessionalDashboardProps {
@@ -11,6 +12,7 @@ interface ProfessionalDashboardProps {
   onViewTimetable: () => void
   onViewPreviousAppointments: () => void
   onCreateGroupVisit: () => void
+  onViewPackages: () => void
   onLocaleChange?: (locale: string) => Promise<void>
 }
 
@@ -21,6 +23,7 @@ export default function ProfessionalDashboard({
   onViewTimetable,
   onViewPreviousAppointments,
   onCreateGroupVisit,
+  onViewPackages,
   onLocaleChange
 }: ProfessionalDashboardProps) {
   const { t } = useTranslation()
@@ -30,7 +33,7 @@ export default function ProfessionalDashboard({
       <div className="dashboard-wrapper">
         <LanguageSelector onLocaleChange={onLocaleChange} />
         <header className="dashboard-header">
-          <h1>{t('professional.dashboard.welcome', { name: user?.first_name || '' })}</h1>
+          <img src={logo} alt="Logo" className="dashboard-logo" />
         </header>
         <div className="dashboard-content">
           <div className="dashboard-actions">
@@ -68,6 +71,13 @@ export default function ProfessionalDashboard({
             >
               <History size={20} />
               {t('professional.dashboard.previousAppointments')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onViewPackages}
+            >
+              <Package size={20} />
+              {t('professional.dashboard.packages')}
             </button>
           </div>
         </div>

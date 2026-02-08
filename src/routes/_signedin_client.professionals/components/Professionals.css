@@ -141,6 +141,20 @@
   color: #2d3748;
 }
 
+/* Coach actions */
+.coach-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-small {
+  padding: 8px 12px;
+  font-size: 12px;
+  min-width: auto;
+}
+
 /* Subscribe / Unsubscribe buttons */
 .btn-subscribe,
 .btn-unsubscribe {

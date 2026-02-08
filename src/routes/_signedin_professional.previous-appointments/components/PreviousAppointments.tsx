@@ -61,6 +61,8 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
   const [missingClients, setMissingClients] = useState<MissingClient[]>([])
   const [clientsToAdd, setClientsToAdd] = useState<Set<string>>(new Set())
   const [clientsToRemove, setClientsToRemove] = useState<Set<string>>(new Set())
+  const [typeSuggestionDismissed, setTypeSuggestionDismissed] = useState(false)
+  const [typeSuggestionAccepted, setTypeSuggestionAccepted] = useState(false)
 
   // Close calendar on outside click
   useEffect(() => {
@@ -143,6 +145,8 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
     setMissingClients([])
     setClientsToAdd(new Set())
     setClientsToRemove(new Set())
+    setTypeSuggestionDismissed(false)
+    setTypeSuggestionAccepted(false)
   }
 
   const handleCancelFromDetails = () => {
@@ -164,9 +168,22 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
     setIsEditMode(true)
     setClientsToAdd(new Set())
     setClientsToRemove(new Set())
+    setTypeSuggestionDismissed(false)
+    setTypeSuggestionAccepted(false)
 
     const clients = await getMissingClients(selectedAppointmentID)
+    console.log('clients', clients)
     setMissingClients(clients)
+  }
+
+  const handleAcceptTypeSuggestion = () => {
+    setTypeSuggestionAccepted(true)
+    setTypeSuggestionDismissed(false)
+  }
+
+  const handleDismissTypeSuggestion = () => {
+    setTypeSuggestionDismissed(true)
+    setTypeSuggestionAccepted(false)
   }
 
   const handleSaveEdit = async () => {
@@ -217,6 +234,8 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
     setClientsToAdd(new Set())
     setClientsToRemove(new Set())
     setMissingClients([])
+    setTypeSuggestionDismissed(false)
+    setTypeSuggestionAccepted(false)
   }
 
   const handleAddClientToggle = (clientId: string) => {
@@ -509,7 +528,11 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
           const existingCount = appointmentDetails?.clients?.length || 0
           const finalCount = existingCount - clientsToRemove.size + clientsToAdd.size
           const newType = computeNewType(finalCount)
-          const hasChanges = clientsToAdd.size > 0 || clientsToRemove.size > 0
+          const hasChanges = clientsToAdd.size > 0 || clientsToRemove.size > 0 || typeSuggestionAccepted
+          // Compute suggested type for view mode (based on current client count)
+          const suggestedType = appointmentDetails ? computeNewType(existingCount) : null
+          const shouldSuggestType = appointmentDetails && suggestedType && appointmentDetails.type !== suggestedType
+          const showTypeSuggestionInEdit = isEditMode && shouldSuggestType && !typeSuggestionDismissed && !hasChanges
 
           return (
           <div className="modal-overlay" onClick={handleDetailsClose}>
@@ -584,6 +607,17 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                     </div>
                   )}
 
+                  {/* View mode: type suggestion banner */}
+                  {!isEditMode && shouldSuggestType && (
+                    <div className="type-suggestion-banner">
+                      <Tag size={14} />
+                      {t('professional.editPreviousAppointment.suggestedType', {
+                        type: t(`professional.appointments.types.${suggestedType}`),
+                        count: existingCount,
+                      })}
+                    </div>
+                  )}
+
                   {/* Edit mode: existing clients with removal checkboxes */}
                   {isEditMode && appointmentDetails.clients && appointmentDetails.clients.length > 0 && (
                     <>
@@ -641,7 +675,50 @@ export default function PreviousAppointments({ onBack }: PreviousAppointmentsPro
                     </>
                   )}
 
-                  {/* Edit mode: auto-computed type banner */}
+                  {/* Edit mode: interactive type suggestion before changes */}
+                  {showTypeSuggestionInEdit && (
+                    <div className="type-suggestion-interactive">
+                      <div className="type-suggestion-content">
+                        <Tag size={14} />
+                        <span>
+                          {t('professional.editPreviousAppointment.suggestedType', {
+                            type: t(`professional.appointments.types.${suggestedType}`),
+                            count: existingCount,
+                          })}
+                        </span>
+                      </div>
+                      <div className="type-suggestion-actions">
+                        <button
+                          className="btn-suggestion-action btn-accept"
+                          onClick={handleAcceptTypeSuggestion}
+                          title={t('common.accept')}
+                        >
+                          <Check size={16} />
+                        </button>
+                        <button
+                          className="btn-suggestion-action btn-dismiss"
+                          onClick={handleDismissTypeSuggestion}
+                          title={t('common.dismiss')}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Edit mode: accepted suggestion confirmation */}
+                  {isEditMode && !hasChanges && typeSuggestionAccepted && shouldSuggestType && (
+                    <div className="type-suggestion-accepted">
+                      <Check size={14} />
+                      <span>
+                        {t('professional.editPreviousAppointment.typeSuggestionAccepted', {
+                          type: t(`professional.appointments.types.${suggestedType}`),
+                        })}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Edit mode: auto-computed type banner after changes */}
                   {isEditMode && hasChanges && finalCount >= 1 && (
                     <div className="type-auto-update">
                       <Tag size={14} />

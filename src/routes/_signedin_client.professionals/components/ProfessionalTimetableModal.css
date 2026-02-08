@@ -1,0 +1,277 @@
+/* Professional Timetable Modal - Reusing Timetable styles */
+.timetable-modal {
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.timetable-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.timetable-modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  color: #666;
+}
+
+.modal-close-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.timetable-date-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 12px;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.date-selector-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #667eea;
+  white-space: nowrap;
+}
+
+.calendar-picker-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.calendar-trigger {
+  width: 100%;
+  padding: 10px 14px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.calendar-trigger:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.calendar-trigger.has-value {
+  color: #333;
+}
+
+.calendar-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 1000;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+}
+
+.timetable-content {
+  min-height: 200px;
+}
+
+.timetable-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.timetable-status .spinner {
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.timetable-status p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.timetable-error p {
+  color: #e53e3e;
+}
+
+.timetable-status .empty-icon {
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.timetable-appointments {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timetable-slot {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.timetable-slot:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.slot-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slot-details p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.slot-details strong {
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slot-type {
+  color: #667eea;
+}
+
+.slot-client {
+  color: #555;
+}
+
+.slot-time {
+  color: #333;
+}
+
+.slot-description {
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Dark mode support */
+body.dark .timetable-modal-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .timetable-modal-header h2 {
+  color: #e2e8f0;
+}
+
+body.dark .modal-close-btn {
+  color: #a0aec0;
+}
+
+body.dark .modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .timetable-date-selector {
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.15);
+}
+
+body.dark .date-selector-label {
+  color: #a78bfa;
+}
+
+body.dark .calendar-trigger {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+body.dark .calendar-trigger:hover {
+  border-color: #a78bfa;
+}
+
+body.dark .calendar-dropdown {
+  background: #2d3748;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .timetable-status p {
+  color: #a0aec0;
+}
+
+body.dark .timetable-error p {
+  color: #fc8181;
+}
+
+body.dark .timetable-slot {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .timetable-slot:hover {
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+body.dark .slot-details strong {
+  color: #e2e8f0;
+}
+
+body.dark .slot-type {
+  color: #a78bfa;
+}
+
+body.dark .slot-client {
+  color: #cbd5e0;
+}
+
+body.dark .slot-time {
+  color: #e2e8f0;
+}
+
+body.dark .slot-description {
+  color: #a0aec0;
+}

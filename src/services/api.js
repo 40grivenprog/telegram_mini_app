@@ -233,6 +233,11 @@ class ApiService {
     return this.request(`/professionals/timetable?date=${date}`)
   }
 
+  // Get professional timetable from client perspective
+  async getProfessionalsTimetable(professionalID, date) {
+    return this.request(`/clients/professionals/${professionalID}/timetable?date=${date}`)
+  }
+
   // Get professional clients
   async getProfessionalClients(professionalID) {
     return this.request(`/professionals/${professionalID}/clients`)
@@ -322,11 +327,24 @@ class ApiService {
     return this.request(`/professionals/appointments/${appointmentID}/missing_invite_users`)
   }
 
-  // Update a confirmed appointment (description, type, invite new clients)
+  // Get pending invite users for an appointment (users who haven't confirmed yet)
+  async getPendingInviteUsers(appointmentID) {
+    return this.request(`/professionals/appointments/${appointmentID}/pending_invite_users`)
+  }
+
+  // Update a confirmed appointment (description, type only)
   async updateAppointment(appointmentID, data) {
     return this.request(`/professionals/appointments/${appointmentID}/update`, {
       method: 'PATCH',
       body: JSON.stringify(data),
+    })
+  }
+
+  // Send invites for an appointment to selected clients
+  async createInviteForAppointment(appointmentID, clients) {
+    return this.request(`/professionals/appointments/${appointmentID}/invite`, {
+      method: 'POST',
+      body: JSON.stringify({ client: clients }),
     })
   }
 
@@ -343,6 +361,24 @@ class ApiService {
     })
   }
 
+  // Get list of packages for professional
+  async getPackages() {
+    return this.request('/professionals/packages')
+  }
+
+  // Create a new package
+  async createPackage(data) {
+    return this.request('/professionals/packages', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+  }
+
+  // Get package details
+  async getPackageDetails(packageId) {
+    return this.request(`/professionals/packages/${packageId}`)
+  }
+
   // Accept client invite
   async acceptClientInvite(inviteID, appointmentID, type) {
     return this.request(`/clients/invites/${inviteID}/accept`, {
@@ -352,6 +388,16 @@ class ApiService {
         type: type,
       }),
     })
+  }
+
+  // Get client packages
+  async getClientPackages() {
+    return this.request('/clients/packages')
+  }
+
+  // Get client package details
+  async getClientPackageDetails(packageID) {
+    return this.request(`/clients/packages/${packageID}`)
   }
 }
 

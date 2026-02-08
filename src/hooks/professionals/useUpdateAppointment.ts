@@ -2,16 +2,9 @@ import { useState, useCallback } from 'react'
 import { apiService } from '../../services/api'
 import i18n from '../../i18n/config.js'
 
-export interface UpdateAppointmentClient {
-  id: string
-  chat_id: number
-  locale: string
-}
-
 export interface UpdateAppointmentInput {
   description?: string
   type?: string
-  clients?: UpdateAppointmentClient[]
 }
 
 interface UseUpdateAppointmentResult {

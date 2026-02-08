@@ -17,6 +17,7 @@ import BookRoute from './_signedin_client.book/route'
 import ClientAppointmentsRoute from './_signedin_client.appointments/route'
 import ClientInvitesRoute from './_signedin_client.invites/route'
 import ClientPreviousAppointmentsRoute from './_signedin_client.previous-appointments/route'
+import ClientPackagesRoute from './_signedin_client.packages/route'
 import ProfessionalDashboardRoute from './_signedin_professional.dashboard/route'
 import ProfessionalAppointmentsRoute from './_signedin_professional.appointments/route'
 import SetUnavailableRoute from './_signedin_professional.set-unavailable/route'
@@ -24,6 +25,7 @@ import CreateGroupVisitRoute from './_signedin_professional.create-group-visit/r
 import TimetableRoute from './_signedin_professional.timetable.$date/route'
 import SelectClientRoute from './_signedin_professional.previous-appointments.select-client/route'
 import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments/route'
+import PackagesRoute from './_signedin_professional.packages/route'
 
 declare global {
   interface Window {
@@ -202,6 +204,7 @@ function AppRouterContent() {
       <Route path="/client/appointments" element={<ClientAppointmentsRoute />} />
       <Route path="/client/invites" element={<ClientInvitesRoute />} />
       <Route path="/client/previous-appointments" element={<ClientPreviousAppointmentsRoute />} />
+      <Route path="/client/packages" element={<ClientPackagesRoute />} />
       
       {/* Professional routes */}
       <Route path="/professional/dashboard" element={<ProfessionalDashboardRoute />} />
@@ -211,6 +214,7 @@ function AppRouterContent() {
       <Route path="/professional/timetable/:date" element={<TimetableRoute />} />
       <Route path="/professional/previous-appointments/select-client" element={<SelectClientRoute />} />
       <Route path="/professional/previous-appointments" element={<PreviousAppointmentsRoute />} />
+      <Route path="/professional/packages" element={<PackagesRoute />} />
       
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/loading" replace />} />

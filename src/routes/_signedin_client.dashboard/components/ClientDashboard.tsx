@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import { CalendarPlus, Users, Calendar, Mail, History } from 'lucide-react'
+import { CalendarPlus, Users, Calendar, Mail, History, Package } from 'lucide-react'
 import LanguageSelector from '../../../components/LanguageSelector'
+import logo from '../../../assets/logo.png'
 import './ClientDashboard.css'
 
 interface ClientDashboardProps {
@@ -10,7 +11,9 @@ interface ClientDashboardProps {
   onViewProfessionals: () => void
   onViewInvites: () => void
   onViewPreviousAppointments: () => void
+  onViewPackages: () => void
   onLocaleChange?: (locale: string) => Promise<void>
+  invitesCount?: number
 }
 
 export default function ClientDashboard({ 
@@ -20,16 +23,28 @@ export default function ClientDashboard({
   onViewProfessionals,
   onViewInvites,
   onViewPreviousAppointments,
-  onLocaleChange
+  onViewPackages,
+  onLocaleChange,
+  invitesCount = 0
 }: ClientDashboardProps) {
   const { t } = useTranslation()
   
   return (
     <div className="dashboard-container">
       <div className="dashboard-wrapper">
+        <button 
+          className="notification-icon-button" 
+          onClick={onViewInvites}
+          title={t('client.dashboard.invites')}
+        >
+          <Mail size={24} />
+          {invitesCount > 0 && (
+            <span className="notification-badge">{invitesCount > 99 ? '99+' : invitesCount}</span>
+          )}
+        </button>
         <LanguageSelector onLocaleChange={onLocaleChange} />
         <header className="dashboard-header">
-          <h1>👋 {t('client.dashboard.welcome', { name: user?.first_name || '' })}</h1>
+          <img src={logo} alt="Logo" className="dashboard-logo" />
         </header>
         <div className="dashboard-content">
           <div className="dashboard-actions">
@@ -56,17 +71,17 @@ export default function ClientDashboard({
             </button>
             <button
               className="btn btn-secondary btn-large"
-              onClick={onViewInvites}
-            >
-              <Mail size={20} />
-              {t('client.dashboard.invites')}
-            </button>
-            <button
-              className="btn btn-secondary btn-large"
               onClick={onViewPreviousAppointments}
             >
               <History size={20} />
               {t('client.dashboard.previousAppointments')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onViewPackages}
+            >
+              <Package size={20} />
+              {t('client.dashboard.packages')}
             </button>
           </div>
         </div>

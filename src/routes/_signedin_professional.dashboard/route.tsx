@@ -31,6 +31,10 @@ export default function ProfessionalDashboardRoute() {
     navigate('/professional/create-group-visit')
   }
 
+  const handleViewPackages = () => {
+    navigate('/professional/packages')
+  }
+
   const handleLocaleChange = async (locale: string) => {
     await apiService.updateProfessionalLocale(locale)
   }
@@ -43,6 +47,7 @@ export default function ProfessionalDashboardRoute() {
       onViewTimetable={handleViewTimetable}
       onViewPreviousAppointments={handleViewPreviousAppointments}
       onCreateGroupVisit={handleCreateGroupVisit}
+      onViewPackages={handleViewPackages}
       onLocaleChange={handleLocaleChange}
     />
   )

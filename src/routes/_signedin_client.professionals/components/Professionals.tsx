@@ -1,18 +1,34 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { UserPlus, UserMinus, Users, Star, ChevronLeft, ChevronRight, Loader2, AlertCircle } from 'lucide-react'
+import { UserPlus, UserMinus, Users, Star, ChevronLeft, ChevronRight, Loader2, AlertCircle, Calendar } from 'lucide-react'
 import { useProfessionals } from '../hooks/useProfessionals'
 import { useMySubscriptions } from '../hooks/useMySubscriptions'
+import ProfessionalTimetableModal from './ProfessionalTimetableModal'
 import './Professionals.css'
 
 type Tab = 'all' | 'subscriptions'
 
 export default function Professionals() {
   const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState<Tab>('all')
+  const [activeTab, setActiveTab] = useState<Tab>('subscriptions')
+  const [timetableModalOpen, setTimetableModalOpen] = useState(false)
+  const [selectedProfessional, setSelectedProfessional] = useState<{ id: string; name: string } | null>(null)
 
   const allProfessionals = useProfessionals(15, activeTab === 'all')
   const mySubscriptions = useMySubscriptions(15, activeTab === 'subscriptions')
+
+  const handleViewTimetable = (professionalID: string, firstName: string, lastName: string) => {
+    setSelectedProfessional({
+      id: professionalID,
+      name: `${firstName} ${lastName}`,
+    })
+    setTimetableModalOpen(true)
+  }
+
+  const handleCloseTimetableModal = () => {
+    setTimetableModalOpen(false)
+    setSelectedProfessional(null)
+  }
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab)
@@ -146,15 +162,24 @@ export default function Professionals() {
               <div className="coach-info">
                 <span className="coach-name">{prof.first_name} {prof.last_name}</span>
               </div>
-              <button
-                className="btn btn-unsubscribe"
-                onClick={() => mySubscriptions.handleUnsubscribe(prof.id)}
-                disabled={mySubscriptions.unsubscribingIds.has(prof.id)}
-              >
-                {mySubscriptions.unsubscribingIds.has(prof.id)
-                  ? <><Loader2 size={16} className="spinner" /> {t('client.professionals.subscriptions.unsubscribing')}</>
-                  : <><UserMinus size={16} /> {t('client.professionals.subscriptions.unsubscribe')}</>}
-              </button>
+              <div className="coach-actions">
+                <button
+                  className="btn btn-secondary btn-small"
+                  onClick={() => handleViewTimetable(prof.id, prof.first_name, prof.last_name)}
+                  title={t('client.professionals.viewTimetable')}
+                >
+                  <Calendar size={16} />
+                </button>
+                <button
+                  className="btn btn-unsubscribe"
+                  onClick={() => mySubscriptions.handleUnsubscribe(prof.id)}
+                  disabled={mySubscriptions.unsubscribingIds.has(prof.id)}
+                >
+                  {mySubscriptions.unsubscribingIds.has(prof.id)
+                    ? <><Loader2 size={16} className="spinner" /> {t('client.professionals.subscriptions.unsubscribing')}</>
+                    : <><UserMinus size={16} /> {t('client.professionals.subscriptions.unsubscribe')}</>}
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -210,6 +235,16 @@ export default function Professionals() {
         <div className="coaches-content">
           {activeTab === 'all' ? renderAllProfessionals() : renderMySubscriptions()}
         </div>
+
+        {/* Professional Timetable Modal */}
+        {selectedProfessional && (
+          <ProfessionalTimetableModal
+            professionalID={selectedProfessional.id}
+            professionalName={selectedProfessional.name}
+            isOpen={timetableModalOpen}
+            onClose={handleCloseTimetableModal}
+          />
+        )}
       </div>
     </div>
   )

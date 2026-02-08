@@ -1152,6 +1152,90 @@ body.dark .client-item {
   font-weight: 500;
 }
 
+.type-suggestion-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.type-suggestion-interactive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #f59e0b;
+  font-weight: 500;
+}
+
+.type-suggestion-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.type-suggestion-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-suggestion-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.btn-accept {
+  color: #10b981;
+}
+
+.btn-accept:hover {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.btn-dismiss {
+  color: #ef4444;
+}
+
+.btn-dismiss:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.type-suggestion-accepted {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-top: 12px;
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.12);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #10b981;
+  font-weight: 500;
+}
+
 .edit-validation-error {
   color: #e53e3e;
   font-size: 13px;
@@ -1189,6 +1273,40 @@ body.dark .type-auto-update {
   background: rgba(167, 139, 250, 0.08);
   border-color: rgba(167, 139, 250, 0.15);
   color: #a78bfa;
+}
+
+body.dark .type-suggestion-banner {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+body.dark .type-suggestion-interactive {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+body.dark .btn-accept {
+  color: #34d399;
+}
+
+body.dark .btn-accept:hover {
+  background: rgba(52, 211, 153, 0.15);
+}
+
+body.dark .btn-dismiss {
+  color: #f87171;
+}
+
+body.dark .btn-dismiss:hover {
+  background: rgba(248, 113, 113, 0.15);
+}
+
+body.dark .type-suggestion-accepted {
+  background: rgba(52, 211, 153, 0.08);
+  border-color: rgba(52, 211, 153, 0.15);
+  color: #34d399;
 }
 
 body.dark .edit-validation-error {
