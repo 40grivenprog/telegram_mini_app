@@ -6,6 +6,8 @@
     "save": "Сохранить",
     "delete": "Удалить",
     "edit": "Редактировать",
+    "accept": "Принять",
+    "dismiss": "Отклонить",
     "loading": "Загрузка...",
     "error": "Ошибка",
     "success": "Успешно",
@@ -13,6 +15,7 @@
     "time": "Время",
     "professional": "Профессионал",
     "client": "Клиент",
+    "clients": "Клиенты",
     "appointment": "Запись",
     "appointments": "Записи",
     "create": "Создать",
@@ -36,10 +39,16 @@
     "cancelReasonPrompt": "Укажите причину отмены:",
     "cancelReasonPlaceholder": "Введите причину отмены...",
     "cancelReasonRequired": "Пожалуйста, укажите причину отмены",
+    "defaultCancelReason": "Запись была создана по ошибке",
+    "clientDefaultCancelReason": "буду занят в это время",
+    "viewDetails": "Просмотр деталей",
+    "appointmentDetails": "Детали записи",
     "appointmentCancelled": "Запись успешно отменена",
     "appointmentConfirmed": "Запись успешно подтверждена",
+    "appointmentClosed": "Закрыто",
     "appointmentCreated": "Бронирование успешно создано!",
     "unavailableCreated": "Недоступный период успешно создан!",
+    "groupVisitCreated": "Групповой визит успешно создан!",
     "noAppointments": "Записей не найдено",
     "noClients": "Клиентов не найдено",
     "roles": {
@@ -66,45 +75,119 @@
     },
     "dashboard": {
       "title": "Панель клиента",
-      "welcome": "С возвращением, {{name}}!",
+      "welcome": "Привет, {{name}}!",
       "bookAppointment": "Записаться",
-      "pendingAppointments": "Ожидающие записи",
+      "professionals": "Тренеры",
+      "appointments": "Записи",
+      "invites": "Приглашения",
+      "previousAppointments": "История посещений",
+      "packages": "Пакеты",
+      "pendingAppointments": "Ожидающие",
       "upcomingAppointments": "Предстоящие записи",
       "myAppointments": "Мои записи"
     },
-    "book": {
-      "selectProfessional": {
-        "title": "Выберите профессионала",
-        "loading": "Загрузка профессионалов...",
-        "noProfessionals": "Нет доступных профессионалов",
-        "tryAgain": "Попробовать снова",
-        "page": "Страница",
-        "previous": "← Назад",
-        "next": "Вперед →"
+    "invites": {
+      "title": "Приглашения",
+      "newInvite": "Новое приглашение",
+      "noInvites": "Нет приглашений",
+      "inviteFrom": "Новое приглашение от {{professionalName}}",
+      "invitedYou": "{{professionalName}} пригласил вас на {{typeDisplay}}",
+      "toVisit": "на посещение",
+      "training": "тренировки",
+      "inviteDetails": "Детали приглашения",
+      "type": "Тип",
+      "startTime": "Время начала",
+      "endTime": "Время окончания",
+      "typeSplit": "cплит тренировку",
+      "typeGroup": "групповую тренировку",
+      "typeSplitSingle": "cплит тренировкa",
+      "typeGroupSingle": "групповая тренировкa",
+      "typePersonal": "персональную тренировку",
+      "confirm": "Подтвердить",
+      "dismiss": "Отклонить",
+      "cancel": "Отмена",
+      "inviteAccepted": "Приглашение принято!",
+      "inviteDismissed": "Приглашение отклонено",
+      "acceptError": "Не удалось принять приглашение",
+      "dismissError": "Не удалось отклонить приглашение",
+      "inviteAlreadyConfirmedOrUnavailable": "Этот визит уже был подтвержден или недоступен"
+    },
+    "professionals": {
+      "title": "Тренеры",
+      "tabs": {
+        "all": "Все тренеры",
+        "subscriptions": "Мои подписки"
       },
-      "selectDate": {
-        "title": "Выберите дату"
+      "all": {
+        "title": "Все тренеры",
+        "loading": "Загрузка тренеров...",
+        "noProfessionals": "Нет доступных тренеров",
+        "subscribe": "Подписаться",
+        "subscribing": "Подписка..."
       },
-      "selectTime": {
-        "title": "Выберите время",
-        "loading": "Загрузка доступного времени...",
-        "noSlots": "Нет доступного времени на эту дату",
-        "dateLabel": "Дата",
-        "date": "Дата"
+      "subscriptions": {
+        "title": "Мои подписки",
+        "loading": "Загрузка подписок...",
+        "noSubscriptions": "У вас пока нет подписок. Подпишитесь на тренеров, чтобы видеть их здесь.",
+        "unsubscribe": "Отписаться",
+        "unsubscribing": "Отписка...",
+        "error": {
+          "loadFailed": "Не удалось загрузить подписки"
+        }
       },
-      "confirm": {
-        "title": "Подтверждение бронирования",
-        "professional": "Профессионал",
-        "date": "Дата",
-        "time": "Время"
+      "viewTimetable": "Посмотреть расписание",
+      "timetable": {
+        "title": "Расписание {{name}}"
       }
+    },
+    "book": {
+      "title": "Записаться",
+      "selectCoach": "Тренер",
+      "chooseCoach": "Выберите тренера...",
+      "noCoaches": "Нет подписок на тренеров. Сначала подпишитесь на тренера.",
+      "availableSlots": "Доступное время",
+      "noSlots": "Нет доступного времени на эту дату",
+      "confirmBooking": "Подтвердить запись"
     },
     "appointments": {
       "title": "Мои записи",
-      "pending": "Ожидающие записи",
+      "pending": "Ожидающие",
+      "confirmed": "Подтвержденные",
       "upcoming": "Предстоящие записи",
       "noAppointments": "Нет записей",
-      "cancel": "Отменить запись"
+      "cancel": "Отменить запись",
+      "types": {
+        "personal": "Персональная тренировка",
+        "split": "Сплит тренировка",
+        "group": "Групповая тренировка",
+        "unavailable": "Недоступное время"
+      },
+      "pendingTab": {
+        "loading": "Загрузка ожидающих записей...",
+        "noAppointments": "Нет ожидающих записей"
+      },
+      "confirmedTab": {
+        "loading": "Загрузка подтвержденных записей...",
+        "noAppointments": "Нет подтвержденных записей"
+      }
+    },
+    "previousAppointments": {
+      "title": "История посещений",
+      "loading": "Загрузка истории посещений...",
+      "noAppointments": "История посещений не найдена"
+    },
+    "packages": {
+      "title": "Мои пакеты",
+      "loading": "Загрузка пакетов...",
+      "noPackages": "Пакеты не найдены",
+      "professional": "Профессионал",
+      "issuedAt": "Выдан",
+      "expiresAt": "Истекает",
+      "appointments": "Занятия",
+      "packageDetails": "Детали пакета",
+      "loadingDetails": "Загрузка деталей пакета...",
+      "appointmentsList": "Список занятий",
+      "noAppointmentsInPackage": "В этом пакете пока нет занятий"
     }
   },
   "professional": {
@@ -124,23 +207,42 @@
     "dashboard": {
       "title": "Панель профессионала",
       "welcome": "С возвращением, {{name}}!",
-      "pendingAppointments": "Ожидающие записи",
-      "upcomingAppointments": "Предстоящие записи",
-      "myAppointments": "Мои записи",
+      "appointments": "Записи",
       "setUnavailable": "Установить недоступность",
       "timetable": "Расписание",
-      "previousAppointments": "Прошедшие записи"
+      "previousAppointments": "История посещений",
+      "createGroupVisit": "Создать групповой визит",
+      "packages": "Пакеты"
     },
     "appointments": {
       "title": "Мои записи",
-      "pending": "Ожидающие записи",
+      "pending": "Ожидающие",
+      "confirmed": "Подтвержденные",
       "upcoming": "Предстоящие записи",
-      "noAppointments": "Нет записей"
-    },
-    "setUnavailable": {
-      "selectDate": {
-        "title": "Выберите дату"
+      "noAppointments": "Нет записей",
+      "type": "Тип",
+      "clientsCount": "клиентов",
+      "types": {
+        "personal": "Персональная тренировка",
+        "split": "Сплит тренировка",
+        "group": "Групповая тренировка",
+        "unavailable": "Недоступное время"
       },
+      "pendingTab": {
+        "loading": "Загрузка ожидающих записей...",
+        "noAppointments": "Нет ожидающих записей"
+      },
+      "confirmedTab": {
+        "loading": "Загрузка подтвержденных записей...",
+        "noAppointments": "Нет подтвержденных записей"
+      },
+      "pendingInviteUsers": "Ожидающие подтверждения",
+      "noPendingInviteUsers": "Нет пользователей, ожидающих подтверждения"
+    },
+    
+    "setUnavailable": {
+      "title": "Установить недоступность",
+      "predefinedDescription": "Я буду занят в это время",
       "selectTime": {
         "titleStart": "Выберите начальное время",
         "titleEnd": "Выберите конечное время",
@@ -160,6 +262,43 @@
         "descriptionRequired": "Пожалуйста, введите описание"
       }
     },
+    "createGroupVisit": {
+      "title": "Создать групповой визит",
+      "selectDate": {
+        "title": "Выберите дату для группового визита"
+      },
+      "selectTime": {
+        "titleStart": "Выберите начальное время",
+        "titleEnd": "Выберите конечное время",
+        "loading": "Загрузка доступного времени...",
+        "noSlots": "Нет доступного времени на эту дату",
+        "noEndTimes": "Нет доступного времени для выбора конечного времени",
+        "backToStart": "Назад к выбору начального времени",
+        "dateLabel": "Дата",
+        "startTimeLabel": "Начальное время"
+      },
+      "description": {
+        "title": "Введите описание группового визита",
+        "date": "Дата",
+        "time": "Время",
+        "type": "Тип",
+        "typeGroup": "Групповой",
+        "typeSplit": "Сплит",
+        "clients": "Клиенты",
+        "selectAll": "Выбрать всех",
+        "noSubscriptions": "Нет доступных подписок",
+        "selectClientsRequired": "Пожалуйста, выберите хотя бы одного клиента или выберите всех",
+        "description": "Описание группового визита",
+        "descriptionPlaceholder": "Например: 'Групповая тренировка', 'Йога класс', 'Фитнес группа'...",
+        "descriptionRequired": "Пожалуйста, введите описание",
+        "predefinedGroup": "Идеальная возможность работать вместе в большой группе!",
+        "predefinedSplit": "Идеальная возможность работать с кем-то в парах",
+        "splitNeedTwoClients": "Сплит тренировка требует ровно 2 клиентов",
+        "splitMaxTwoClients": "Сплит тренировка позволяет максимум 2 клиентов",
+        "splitCannotSelectAll": "Сплит тренировка не может использовать 'Выбрать всех'. Пожалуйста, выберите ровно 2 клиентов",
+        "groupNeedMoreThanTwoClients": "Групповая тренировка требует более 2 клиентов. Выберите минимум 3 клиентов или используйте 'Выбрать всех'"
+      }
+    },
     "timetable": {
       "title": "Расписание",
       "loading": "Загрузка расписания...",
@@ -168,18 +307,87 @@
       "cancelSlot": "Отменить слот #{{number}}"
     },
     "previousAppointments": {
+      "title": "История посещений",
+      "loading": "Загрузка истории посещений...",
+      "noAppointments": "История посещений не найдена",
+      "filters": {
+        "toggle": "Фильтры",
+        "byClient": "Клиент",
+        "allClients": "Все клиенты",
+        "dateFrom": "С",
+        "dateTo": "По",
+        "selectDate": "Выберите дату...",
+        "active": "Фильтры применены",
+        "clearAll": "Сбросить все"
+      },
       "selectClient": {
         "title": "Выберите клиента",
         "subtitle": "Выберите клиента, чтобы посмотреть его прошлые записи:",
-        "loading": "Загрузка клиентов..."
+        "loading": "Загрузка клиентов...",
+        "allClients": "Все клиенты"
       },
       "byClient": {
-        "title": "Прошедшие записи",
+        "title": "История посещений",
         "month": "Месяц",
         "noAppointments": "Нет записей для этого клиента",
         "emptyMonth": "Нет записей за этот месяц.",
         "clientLabel": "Клиент: {{name}}"
       }
+    },
+    "editAppointment": {
+      "title": "Редактировать запись",
+      "editButton": "Редактировать",
+      "saveButton": "Сохранить изменения",
+      "saving": "Сохранение...",
+      "cancelEdit": "Отменить редактирование",
+      "description": "Описание",
+      "descriptionPlaceholder": "Введите описание записи...",
+      "type": "Тип записи",
+      "suggestedType": "Рекомендуемый: {{type}} ({{count}} клиентов)",
+      "inviteUsers": "Пригласить пользователей",
+      "noMissingUsers": "Нет дополнительных пользователей для приглашения",
+      "loadingMissingUsers": "Загрузка доступных пользователей...",
+      "timeChangeWarning": "Если вы хотите изменить время записи, вам нужно отменить её и создать новую. Все приглашения для ваших клиентов будут удалены, а клиенты, которые уже подтвердили запись, потеряют её.",
+      "personalNeedOneClient": "Персональная тренировка требует ровно 1 клиента",
+      "splitNeedTwoClients": "Сплит тренировка требует ровно 2 клиентов",
+      "groupNeedThreeClients": "Групповая тренировка требует минимум 3 клиентов",
+      "updateSuccess": "Запись успешно обновлена",
+      "sendInvite": "Отправить приглашение",
+      "sendingInvite": "Отправка...",
+      "inviteSuccess": "Приглашения успешно отправлены"
+    },
+    "packages": {
+      "title": "Пакеты",
+      "loading": "Загрузка пакетов...",
+      "noPackages": "Пакеты не найдены",
+      "createPackage": "Создать пакет",
+      "selectClient": "Выберите клиента",
+      "noClients": "Нет подписанных клиентов",
+      "issuedAt": "Дата выдачи",
+      "expiresAt": "Действует до",
+      "appointmentsNumber": "Количество занятий",
+      "appointments": "Занятия",
+      "packageDetails": "Детали пакета",
+      "loadingDetails": "Загрузка деталей пакета...",
+      "appointmentsList": "Список занятий",
+      "noAppointmentsInPackage": "В этом пакете пока нет занятий"
+    },
+    "editPreviousAppointment": {
+      "title": "Редактировать прошлую запись",
+      "editButton": "Редактировать",
+      "saveButton": "Сохранить изменения",
+      "saving": "Сохранение...",
+      "cancelEdit": "Отменить редактирование",
+      "existingClients": "Текущие клиенты",
+      "willBeRemoved": "будет удалён",
+      "addClients": "Добавить клиентов",
+      "noMissingClients": "Нет дополнительных клиентов для добавления",
+      "loadingMissingClients": "Загрузка доступных клиентов...",
+      "suggestedType": "Рекомендуемый: {{type}} ({{count}} клиентов)",
+      "typeSuggestionAccepted": "Тип будет изменён на {{type}}",
+      "typeAutoUpdate": "Тип будет обновлён на: {{type}} ({{count}} клиентов)",
+      "needAtLeastOneClient": "В записи должен быть хотя бы 1 клиент",
+      "updateSuccess": "Прошлая запись успешно обновлена"
     }
   },
   "success": {
@@ -200,6 +408,15 @@
     "createAppointmentFailed": "Не удалось создать бронирование",
     "cancelAppointmentFailed": "Не удалось отменить бронирование",
     "confirmAppointmentFailed": "Не удалось подтвердить бронирование",
-    "createUnavailableFailed": "Не удалось создать недоступный период"
+    "createUnavailableFailed": "Не удалось создать недоступный период",
+    "createGroupVisitFailed": "Не удалось создать групповой визит",
+    "updateAppointmentFailed": "Не удалось обновить запись",
+    "updatePreviousAppointmentFailed": "Не удалось обновить прошлую запись",
+    "loadMissingInviteUsersFailed": "Не удалось загрузить доступных пользователей",
+    "loadMissingClientsFailed": "Не удалось загрузить доступных клиентов",
+    "loadPackagesFailed": "Не удалось загрузить пакеты",
+    "createPackageFailed": "Не удалось создать пакет",
+    "loadPackageDetailsFailed": "Не удалось загрузить детали пакета",
+    "inviteForAppointmentFailed": "Не удалось отправить приглашения"
   }
 }

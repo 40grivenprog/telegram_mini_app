@@ -13,7 +13,6 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
   const { t, i18n } = useTranslation()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -33,7 +32,6 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         chat_id: chatID,
-        phone_number: phoneNumber.trim() || null,
         locale: i18n.language || 'en',
       }
 
@@ -73,16 +71,6 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
               onChange={(e) => setLastName(e.target.value)}
               required
               placeholder={t('client.registration.lastName')}
-              disabled={loading}
-            />
-          </div>
-          <div className="form-group">
-            <label>{t('client.registration.phone')}</label>
-            <input
-              type="tel"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder={t('client.registration.phone')}
               disabled={loading}
             />
           </div>

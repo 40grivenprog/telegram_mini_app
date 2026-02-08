@@ -6,13 +6,17 @@
     "save": "Zapisz",
     "delete": "Usuń",
     "edit": "Edytuj",
+    "accept": "Zaakceptuj",
+    "dismiss": "Odrzuć",
     "loading": "Ładowanie...",
     "error": "Błąd",
     "success": "Sukces",
     "date": "Data",
     "time": "Czas",
     "professional": "Profesjonalista",
+    "coach": "Trener",
     "client": "Klient",
+    "clients": "Klienci",
     "appointment": "Wizyta",
     "appointments": "Wizyty",
     "create": "Utwórz",
@@ -36,10 +40,15 @@
     "cancelReasonPrompt": "Podaj powód anulowania:",
     "cancelReasonPlaceholder": "Wpisz powód anulowania...",
     "cancelReasonRequired": "Podaj powód anulowania",
+    "defaultCancelReason": "Wizyta została utworzona przez pomyłkę",
+    "viewDetails": "Zobacz szczegóły",
+    "appointmentDetails": "Szczegóły wizyty",
     "appointmentCancelled": "Wizyta została anulowana",
     "appointmentConfirmed": "Wizyta została potwierdzona",
+    "appointmentClosed": "Zamknięte",
     "appointmentCreated": "Wizyta została utworzona!",
     "unavailableCreated": "Okres niedostępności został utworzony!",
+    "groupVisitCreated": "Wizyta grupowa została utworzona!",
     "noAppointments": "Brak wizyt",
     "noClients": "Brak klientów",
     "roles": {
@@ -70,45 +79,118 @@
     },
     "dashboard": {
       "title": "Panel klienta",
-      "welcome": "Witaj ponownie, {{name}}!",
+      "welcome": "Cześć, {{name}}!",
       "bookAppointment": "Umów wizytę",
-      "pendingAppointments": "Oczekujące wizyty",
+      "professionals": "Trenerzy",
+      "appointments": "Wizyty",
+      "invites": "Zaproszenia",
+      "previousAppointments": "Historia wizyt",
+      "packages": "Pakiety",
+      "pendingAppointments": "Oczekujące",
       "upcomingAppointments": "Nadchodzące wizyty",
       "myAppointments": "Moje wizyty"
     },
-    "book": {
-      "selectProfessional": {
-        "title": "Wybierz profesjonalistę",
-        "loading": "Ładowanie profesjonalistów...",
-        "noProfessionals": "Brak dostępnych profesjonalistów",
-        "tryAgain": "Spróbuj ponownie",
-        "page": "Strona",
-        "previous": "← Poprzednia",
-        "next": "Następna →"
+    "invites": {
+      "title": "Zaproszenia",
+      "newInvite": "Nowe zaproszenie",
+      "noInvites": "Brak zaproszeń",
+      "inviteFrom": "Nowe zaproszenie od {{professionalName}}",
+      "toVisit": "na wizytę",
+      "training": "treningu",
+      "invitedYou": "{{professionalName}} zaprosił Cię na {{typeDisplay}}",
+      "inviteDetails": "Szczegóły zaproszenia",
+      "type": "Typ",
+      "startTime": "Godzina rozpoczęcia",
+      "endTime": "Godzina zakończenia",
+      "typeSplit": "trening split",
+      "typeGroup": "trening grupowy",
+      "typePersonal": "trening personalny",
+      "confirm": "Potwierdź",
+      "dismiss": "Odrzuć",
+      "cancel": "Anuluj",
+      "inviteAccepted": "Zaproszenie zaakceptowane!",
+      "inviteDismissed": "Zaproszenie odrzucone",
+      "acceptError": "Nie udało się zaakceptować zaproszenia",
+      "dismissError": "Nie udało się odrzucić zaproszenia",
+      "checkNotification": "Sprawdź powiadomienia",
+      "inviteAlreadyConfirmedOrUnavailable": "Ta wizyta została już potwierdzona lub jest już niedostępna"
+    },
+    "professionals": {
+      "title": "Trenerzy",
+      "tabs": {
+        "all": "Wszyscy trenerzy",
+        "subscriptions": "Moje subskrypcje"
       },
-      "selectDate": {
-        "title": "Wybierz datę"
+      "all": {
+        "title": "Wszyscy trenerzy",
+        "loading": "Ładowanie trenerów...",
+        "noProfessionals": "Brak dostępnych trenerów",
+        "subscribe": "Subskrybuj",
+        "subscribing": "Subskrybowanie..."
       },
-      "selectTime": {
-        "title": "Wybierz czas",
-        "loading": "Ładowanie dostępnego czasu...",
-        "noSlots": "Brak dostępnych terminów na ten dzień",
-        "dateLabel": "Data",
-        "date": "Data"
+      "subscriptions": {
+        "title": "Moje subskrypcje",
+        "loading": "Ładowanie subskrypcji...",
+        "noSubscriptions": "Nie masz jeszcze żadnych subskrypcji. Subskrybuj trenerów, aby zobaczyć ich tutaj.",
+        "unsubscribe": "Anuluj subskrypcję",
+        "unsubscribing": "Anulowanie subskrypcji...",
+        "error": {
+          "loadFailed": "Nie udało się załadować subskrypcji"
+        }
       },
-      "confirm": {
-        "title": "Potwierdzenie rezerwacji",
-        "professional": "Profesjonalista",
-        "date": "Data",
-        "time": "Czas"
+      "viewTimetable": "Zobacz harmonogram",
+      "timetable": {
+        "title": "Harmonogram {{name}}"
       }
+    },
+    "book": {
+      "title": "Umów wizytę",
+      "selectCoach": "Trener",
+      "chooseCoach": "Wybierz trenera...",
+      "noCoaches": "Brak subskrypcji trenerów. Najpierw zasubskrybuj trenera.",
+      "availableSlots": "Dostępne terminy",
+      "noSlots": "Brak dostępnych terminów na ten dzień",
+      "confirmBooking": "Potwierdź rezerwację"
     },
     "appointments": {
       "title": "Moje wizyty",
-      "pending": "Oczekujące wizyty",
+      "pending": "Oczekujące",
+      "confirmed": "Potwierdzone",
       "upcoming": "Nadchodzące wizyty",
       "noAppointments": "Brak wizyt",
-      "cancel": "Anuluj wizytę"
+      "cancel": "Anuluj wizytę",
+      "types": {
+        "personal": "Trening personalny",
+        "split": "Trening split",
+        "group": "Trening grupowy",
+        "unavailable": "Niedostępne sloty"
+      },
+      "pendingTab": {
+        "loading": "Ładowanie oczekujących wizyt...",
+        "noAppointments": "Brak oczekujących wizyt"
+      },
+      "confirmedTab": {
+        "loading": "Ładowanie potwierdzonych wizyt...",
+        "noAppointments": "Brak potwierdzonych wizyt"
+      }
+    },
+    "previousAppointments": {
+      "title": "Historia wizyt",
+      "loading": "Ładowanie historii wizyt...",
+      "noAppointments": "Nie znaleziono historii wizyt"
+    },
+    "packages": {
+      "title": "Moje pakiety",
+      "loading": "Ładowanie pakietów...",
+      "noPackages": "Nie znaleziono pakietów",
+      "professional": "Profesjonalista",
+      "issuedAt": "Wydano",
+      "expiresAt": "Wygasa",
+      "appointments": "Wizyty",
+      "packageDetails": "Szczegóły pakietu",
+      "loadingDetails": "Ładowanie szczegółów pakietu...",
+      "appointmentsList": "Lista wizyt",
+      "noAppointmentsInPackage": "W tym pakiecie nie ma jeszcze wizyt"
     }
   },
   "professional": {
@@ -128,23 +210,42 @@
     "dashboard": {
       "title": "Panel profesjonalisty",
       "welcome": "Witaj ponownie, {{name}}!",
-      "pendingAppointments": "Oczekujące wizyty",
-      "upcomingAppointments": "Nadchodzące wizyty",
-      "myAppointments": "Moje wizyty",
+      "appointments": "Wizyty",
       "setUnavailable": "Ustaw niedostępność",
       "timetable": "Harmonogram",
-      "previousAppointments": "Poprzednie wizyty"
+      "previousAppointments": "Historia wizyt",
+      "createGroupVisit": "Utwórz wizytę grupową",
+      "packages": "Pakiety"
     },
     "appointments": {
       "title": "Moje wizyty",
-      "pending": "Oczekujące wizyty",
+      "pending": "Oczekujące",
+      "confirmed": "Potwierdzone",
       "upcoming": "Nadchodzące wizyty",
-      "noAppointments": "Brak wizyt"
-    },
-    "setUnavailable": {
-      "selectDate": {
-        "title": "Wybierz datę"
+      "noAppointments": "Brak wizyt",
+      "type": "Typ",
+      "clientsCount": "klientów",
+      "types": {
+        "personal": "Trening personalny",
+        "split": "Trening split",
+        "group": "Trening grupowy",
+        "unavailable": "Niedostępny czas"
       },
+      "pendingTab": {
+        "loading": "Ładowanie oczekujących wizyt...",
+        "noAppointments": "Brak oczekujących wizyt"
+      },
+      "confirmedTab": {
+        "loading": "Ładowanie potwierdzonych wizyt...",
+        "noAppointments": "Brak potwierdzonych wizyt"
+      },
+      "pendingInviteUsers": "Oczekujący na potwierdzenie",
+      "noPendingInviteUsers": "Brak użytkowników oczekujących na potwierdzenie"
+    },
+    
+    "setUnavailable": {
+      "title": "Ustaw niedostępność",
+      "predefinedDescription": "Będę zajęty w tym czasie",
       "selectTime": {
         "titleStart": "Wybierz godzinę rozpoczęcia",
         "titleEnd": "Wybierz godzinę zakończenia",
@@ -164,6 +265,42 @@
         "descriptionRequired": "Proszę wprowadzić opis"
       }
     },
+    "createGroupVisit": {
+      "selectDate": {
+        "title": "Wybierz datę wizyty grupowej"
+      },
+      "selectTime": {
+        "titleStart": "Wybierz godzinę rozpoczęcia",
+        "titleEnd": "Wybierz godzinę zakończenia",
+        "loading": "Ładowanie dostępnego czasu...",
+        "noSlots": "Brak dostępnych terminów na ten dzień",
+        "noEndTimes": "Brak dostępnych godzin zakończenia",
+        "backToStart": "Wróć do wyboru godziny rozpoczęcia",
+        "dateLabel": "Data",
+        "startTimeLabel": "Godzina rozpoczęcia"
+      },
+      "description": {
+        "title": "Wprowadź opis wizyty grupowej",
+        "date": "Data",
+        "time": "Czas",
+        "type": "Typ",
+        "typeGroup": "Grupowy",
+        "typeSplit": "Split",
+        "clients": "Klienci",
+        "selectAll": "Wybierz wszystkich",
+        "noSubscriptions": "Brak dostępnych subskrypcji",
+        "selectClientsRequired": "Proszę wybrać przynajmniej jednego klienta lub wybrać wszystkich",
+        "description": "Opis wizyty grupowej",
+        "descriptionPlaceholder": "Np. 'Trening grupowy', 'Klasa jogi', 'Grupa fitness'...",
+        "descriptionRequired": "Proszę wprowadzić opis",
+        "predefinedGroup": "Idealna możliwość wspólnej pracy w dużej grupie!",
+        "predefinedSplit": "Idealna możliwość pracy z kimś w parach",
+        "splitNeedTwoClients": "Trening split wymaga dokładnie 2 klientów",
+        "splitMaxTwoClients": "Trening split pozwala na maksymalnie 2 klientów",
+        "splitCannotSelectAll": "Trening split nie może używać 'Wybierz wszystkich'. Proszę wybrać dokładnie 2 klientów",
+        "groupNeedMoreThanTwoClients": "Trening grupowy wymaga więcej niż 2 klientów. Wybierz minimum 3 klientów lub użyj 'Wybierz wszystkich'"
+      }
+    },
     "timetable": {
       "title": "Harmonogram",
       "loading": "Ładowanie harmonogramu...",
@@ -172,18 +309,87 @@
       "cancelSlot": "Anuluj slot #{{number}}"
     },
     "previousAppointments": {
+      "title": "Historia wizyt",
+      "loading": "Ładowanie historii wizyt...",
+      "noAppointments": "Nie znaleziono historii wizyt",
+      "filters": {
+        "toggle": "Filtry",
+        "byClient": "Klient",
+        "allClients": "Wszyscy klienci",
+        "dateFrom": "Od",
+        "dateTo": "Do",
+        "selectDate": "Wybierz datę...",
+        "active": "Filtry zastosowane",
+        "clearAll": "Wyczyść wszystko"
+      },
       "selectClient": {
         "title": "Wybierz klienta",
         "subtitle": "Wybierz klienta, aby zobaczyć jego poprzednie wizyty:",
-        "loading": "Ładowanie klientów..."
+        "loading": "Ładowanie klientów...",
+        "allClients": "Wszyscy klienci"
       },
       "byClient": {
-        "title": "Poprzednie wizyty",
+        "title": "Historia wizyt",
         "month": "Miesiąc",
         "noAppointments": "Brak wizyt dla tego klienta",
         "emptyMonth": "Brak wizyt w tym miesiącu.",
         "clientLabel": "Klient: {{name}}"
       }
+    },
+    "editAppointment": {
+      "title": "Edytuj wizytę",
+      "editButton": "Edytuj",
+      "saveButton": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "cancelEdit": "Anuluj edycję",
+      "description": "Opis",
+      "descriptionPlaceholder": "Wprowadź opis wizyty...",
+      "type": "Typ wizyty",
+      "suggestedType": "Sugerowany: {{type}} ({{count}} klientów)",
+      "inviteUsers": "Zaproś użytkowników",
+      "noMissingUsers": "Brak dodatkowych użytkowników do zaproszenia",
+      "loadingMissingUsers": "Ładowanie dostępnych użytkowników...",
+      "timeChangeWarning": "Jeśli chcesz zmienić czas wizyty, musisz ją anulować i utworzyć nową. Wszystkie zaproszenia dla Twoich klientów zostaną usunięte, a klienci, którzy już potwierdzili wizytę, stracą ją.",
+      "personalNeedOneClient": "Trening personalny wymaga dokładnie 1 klienta",
+      "splitNeedTwoClients": "Trening split wymaga dokładnie 2 klientów",
+      "groupNeedThreeClients": "Trening grupowy wymaga minimum 3 klientów",
+      "updateSuccess": "Wizyta została zaktualizowana",
+      "sendInvite": "Wyślij zaproszenie",
+      "sendingInvite": "Wysyłanie...",
+      "inviteSuccess": "Zaproszenia wysłane pomyślnie"
+    },
+    "packages": {
+      "title": "Pakiety",
+      "loading": "Ładowanie pakietów...",
+      "noPackages": "Nie znaleziono pakietów",
+      "createPackage": "Utwórz pakiet",
+      "selectClient": "Wybierz klienta",
+      "noClients": "Brak subskrybowanych klientów",
+      "issuedAt": "Data wystawienia",
+      "expiresAt": "Ważny do",
+      "appointmentsNumber": "Liczba wizyt",
+      "appointments": "Wizyty",
+      "packageDetails": "Szczegóły pakietu",
+      "loadingDetails": "Ładowanie szczegółów pakietu...",
+      "appointmentsList": "Lista wizyt",
+      "noAppointmentsInPackage": "Brak wizyt w tym pakiecie"
+    },
+    "editPreviousAppointment": {
+      "title": "Edytuj poprzednią wizytę",
+      "editButton": "Edytuj",
+      "saveButton": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "cancelEdit": "Anuluj edycję",
+      "existingClients": "Obecni klienci",
+      "willBeRemoved": "zostanie usunięty",
+      "addClients": "Dodaj klientów",
+      "noMissingClients": "Brak dodatkowych klientów do dodania",
+      "loadingMissingClients": "Ładowanie dostępnych klientów...",
+      "suggestedType": "Sugerowany: {{type}} ({{count}} klientów)",
+      "typeSuggestionAccepted": "Typ zostanie zmieniony na {{type}}",
+      "typeAutoUpdate": "Typ zostanie zaktualizowany na: {{type}} ({{count}} klientów)",
+      "needAtLeastOneClient": "Wizyta musi mieć co najmniej 1 klienta",
+      "updateSuccess": "Poprzednia wizyta została zaktualizowana"
     }
   },
   "success": {
@@ -204,6 +410,15 @@
     "createAppointmentFailed": "Nie udało się utworzyć wizyty",
     "cancelAppointmentFailed": "Nie udało się anulować wizyty",
     "confirmAppointmentFailed": "Nie udało się potwierdzić wizyty",
-    "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności"
+    "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności",
+    "createGroupVisitFailed": "Nie udało się utworzyć wizyty grupowej",
+    "updateAppointmentFailed": "Nie udało się zaktualizować wizyty",
+    "updatePreviousAppointmentFailed": "Nie udało się zaktualizować poprzedniej wizyty",
+    "loadMissingInviteUsersFailed": "Nie udało się załadować dostępnych użytkowników",
+    "loadMissingClientsFailed": "Nie udało się załadować dostępnych klientów",
+    "loadPackagesFailed": "Nie udało się załadować pakietów",
+    "createPackageFailed": "Nie udało się utworzyć pakietu",
+    "loadPackageDetailsFailed": "Nie udało się załadować szczegółów pakietu",
+    "inviteForAppointmentFailed": "Nie udało się wysłać zaproszeń"
   }
 }

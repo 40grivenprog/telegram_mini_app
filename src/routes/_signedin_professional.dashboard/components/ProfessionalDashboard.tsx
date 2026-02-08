@@ -1,67 +1,85 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Users, Calendar, CalendarX, History, Package } from 'lucide-react'
 import LanguageSelector from '../../../components/LanguageSelector'
+import logo from '../../../assets/logo.png'
 import './ProfessionalDashboard.css'
 
 interface ProfessionalDashboardProps {
   user: any
-  onViewPendingAppointments: () => void
-  onViewUpcomingAppointments: () => void
+  onViewAppointments: () => void
   onSetUnavailable: () => void
   onViewTimetable: () => void
   onViewPreviousAppointments: () => void
+  onCreateGroupVisit: () => void
+  onViewPackages: () => void
   onLocaleChange?: (locale: string) => Promise<void>
 }
 
 export default function ProfessionalDashboard({
   user,
-  onViewPendingAppointments,
-  onViewUpcomingAppointments,
+  onViewAppointments,
   onSetUnavailable,
   onViewTimetable,
   onViewPreviousAppointments,
+  onCreateGroupVisit,
+  onViewPackages,
   onLocaleChange
 }: ProfessionalDashboardProps) {
   const { t } = useTranslation()
 
   return (
-    <div className="container">
-      <LanguageSelector onLocaleChange={onLocaleChange} />
-      <header className="header">
-        <h1>👋 {t('professional.dashboard.welcome', { name: user?.first_name || '' })}</h1>
-      </header>
-      <div className="content">
-        <div className="dashboard-actions">
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewPendingAppointments}
-          >
-            ⏳ {t('professional.dashboard.pendingAppointments')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewUpcomingAppointments}
-          >
-            📋 {t('professional.dashboard.upcomingAppointments')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onSetUnavailable}
-          >
-            🚫 {t('professional.dashboard.setUnavailable')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewTimetable}
-          >
-            📅 {t('professional.dashboard.timetable')}
-          </button>
-          <button
-            className="btn btn-secondary btn-large"
-            onClick={onViewPreviousAppointments}
-          >
-            📜 {t('professional.dashboard.previousAppointments')}
-          </button>
+    <div className="dashboard-container">
+      <div className="dashboard-wrapper">
+        <LanguageSelector onLocaleChange={onLocaleChange} />
+        <header className="dashboard-header">
+          <img src={logo} alt="Logo" className="dashboard-logo" />
+        </header>
+        <div className="dashboard-content">
+          <div className="dashboard-actions">
+            <button
+              className="btn btn-primary btn-large"
+              onClick={onCreateGroupVisit}
+            >
+              <Users size={20} />
+              {t('professional.dashboard.createGroupVisit')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onViewAppointments}
+            >
+              <Calendar size={20} />
+              {t('professional.dashboard.appointments')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onSetUnavailable}
+            >
+              <CalendarX size={20} />
+              {t('professional.dashboard.setUnavailable')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onViewTimetable}
+            >
+              <Calendar size={20} />
+              {t('professional.dashboard.timetable')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onViewPreviousAppointments}
+            >
+              <History size={20} />
+              {t('professional.dashboard.previousAppointments')}
+            </button>
+            <button
+              className="btn btn-secondary btn-large"
+              onClick={onViewPackages}
+            >
+              <Package size={20} />
+              {t('professional.dashboard.packages')}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ declare global {
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'ru', name: 'Русский', flag: '🇭🇳' },
   { code: 'uk', name: 'Українська', flag: '🇺🇦' },
   { code: 'pl', name: 'Polski', flag: '🇵🇱' },
 ]

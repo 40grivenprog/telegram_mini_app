@@ -6,6 +6,8 @@ export interface TimetableAppointment {
   id: string
   start_time: string
   end_time: string
+  type: string
+  clients: string[]
   description: string
 }
 

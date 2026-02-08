@@ -2,17 +2,12 @@ import { useState, useEffect, useCallback } from 'react'
 import { apiService } from '../../../services/api'
 import i18n from '../../../i18n/config.js'
 
-export interface ProfessionalAppointmentClient {
-  first_name: string
-  last_name: string
-}
-
 export interface GetProfessionalAppointmentsResponseItem {
   id: string
   start_time: string
   end_time: string
-  description?: string
-  client?: ProfessionalAppointmentClient
+  type: string
+  clients: string[]
 }
 
 export interface PaginationResponse {
@@ -36,7 +31,7 @@ interface UseProfessionalAppointmentsResult {
   refetch: () => void
 }
 
-export function useProfessionalAppointments(status: string = '', pageSize: number = 15): UseProfessionalAppointmentsResult {
+export function useProfessionalAppointments(status: string = '', pageSize: number = 15, enabled: boolean = true): UseProfessionalAppointmentsResult {
   const [appointments, setAppointments] = useState<GetProfessionalAppointmentsResponseItem[]>([])
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState<PaginationResponse | null>(null)
@@ -54,6 +49,7 @@ export function useProfessionalAppointments(status: string = '', pageSize: numbe
     try {
       const data = await apiService.getProfessionalAppointments(status, page, pageSize) as GetProfessionalAppointmentsResponse
       setAppointments(data.appointments || [])
+      console.log("data.appointments", data.appointments)
       setPagination(data.pagination)
     } catch (err: any) {
       setError(err.message || i18n.t('error.loadAppointmentsFailed'))
@@ -65,8 +61,10 @@ export function useProfessionalAppointments(status: string = '', pageSize: numbe
   }, [status, page, pageSize])
 
   useEffect(() => {
-    loadAppointments()
-  }, [loadAppointments])
+    if (enabled) {
+      loadAppointments()
+    }
+  }, [loadAppointments, enabled])
 
   return {
     appointments,

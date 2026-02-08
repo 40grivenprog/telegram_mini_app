@@ -1,0 +1,39 @@
+name: Deploy Telegram Mini App
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        # If telegram_mini_app is a subdirectory, use: cache-dependency-path: telegram_mini_app/package-lock.json
+        # If telegram_mini_app is the repo root, use: cache-dependency-path: package-lock.json
+        cache-dependency-path: package-lock.json
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      env:
+        VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL_DEV || secrets.VITE_API_BASE_URL_DEV }}
+      run: npm run build
+
+    - name: Deploy to Firebase
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: |
+        npm install -g firebase-tools
+        firebase deploy --only hosting --token $FIREBASE_TOKEN

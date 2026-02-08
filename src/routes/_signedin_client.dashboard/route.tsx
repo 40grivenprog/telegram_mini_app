@@ -2,24 +2,38 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
 import { apiService } from '../../services/api'
+import { useClientInvites } from '../_signedin_client.invites/hooks/useClientInvites'
 import ClientDashboard from './components/ClientDashboard'
 
 export default function ClientDashboardRoute() {
   const navigate = useNavigate()
   const { user } = useUser()
+  const { invites } = useClientInvites()
 
   if (!user) return null
 
   const handleBookAppointment = () => {
-    navigate('/client/book/select-professional')
+    navigate('/client/book')
   }
 
-  const handleViewPendingAppointments = () => {
-    navigate('/client/appointments/pending')
+  const handleViewAppointments = () => {
+    navigate('/client/appointments')
   }
 
-  const handleViewUpcomingAppointments = () => {
-    navigate('/client/appointments/upcoming')
+  const handleViewProfessionals = () => {
+    navigate('/client/professionals')
+  }
+
+  const handleViewInvites = () => {
+    navigate('/client/invites')
+  }
+
+  const handleViewPreviousAppointments = () => {
+    navigate('/client/previous-appointments')
+  }
+
+  const handleViewPackages = () => {
+    navigate('/client/packages')
   }
 
   const handleLocaleChange = async (locale: string) => {
@@ -30,9 +44,13 @@ export default function ClientDashboardRoute() {
     <ClientDashboard 
       user={user} 
       onBookAppointment={handleBookAppointment}
-      onViewPendingAppointments={handleViewPendingAppointments}
-      onViewUpcomingAppointments={handleViewUpcomingAppointments}
+      onViewAppointments={handleViewAppointments}
+      onViewProfessionals={handleViewProfessionals}
+      onViewInvites={handleViewInvites}
+      onViewPreviousAppointments={handleViewPreviousAppointments}
+      onViewPackages={handleViewPackages}
       onLocaleChange={handleLocaleChange}
+      invitesCount={invites.length}
     />
   )
 }

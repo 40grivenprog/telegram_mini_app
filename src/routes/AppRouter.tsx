@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-
 import { useTelegram } from '../hooks/useTelegram'
 import { apiService } from '../services/api'
 import { UserProvider, useUser } from '../contexts/UserContext'
+import { getQueryParam } from '../utils/urlParams'
 import LoadingRoute from './loading/route'
 import ErrorRoute from './error/route'
 import RoleSelectionRoute from './role_selection/route'
@@ -11,19 +12,20 @@ import ClientRegistrationRoute from './client.registration/route'
 import ProfessionalSignInRoute from './professional.signin/route'
 import SuccessRoute from './success/route'
 import ClientDashboardRoute from './_signedin_client.dashboard/route'
-import SelectProfessionalRoute from './_signedin_client.book.select-professional/route'
-import SelectDateRoute from './_signedin_client.book.select-date.$professionalID/route'
-import SelectTimeRoute from './_signedin_client.book.select-time.$professionalID.$date/route'
-import ConfirmAppointmentRoute from './_signedin_client.book.confirm/route'
+import ProfessionalsRoute from './_signedin_client.professionals/route'
+import BookRoute from './_signedin_client.book/route'
 import ClientAppointmentsRoute from './_signedin_client.appointments/route'
+import ClientInvitesRoute from './_signedin_client.invites/route'
+import ClientPreviousAppointmentsRoute from './_signedin_client.previous-appointments/route'
+import ClientPackagesRoute from './_signedin_client.packages/route'
 import ProfessionalDashboardRoute from './_signedin_professional.dashboard/route'
 import ProfessionalAppointmentsRoute from './_signedin_professional.appointments/route'
-import SelectUnavailableDateRoute from './_signedin_professional.set-unavailable.select-date/route'
-import SelectUnavailableTimeRoute from './_signedin_professional.set-unavailable.select-time.$date/route'
-import UnavailableDescriptionRoute from './_signedin_professional.set-unavailable.description/route'
+import SetUnavailableRoute from './_signedin_professional.set-unavailable/route'
+import CreateGroupVisitRoute from './_signedin_professional.create-group-visit/route'
 import TimetableRoute from './_signedin_professional.timetable.$date/route'
 import SelectClientRoute from './_signedin_professional.previous-appointments.select-client/route'
-import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments.$clientID.$month/route'
+import PreviousAppointmentsRoute from './_signedin_professional.previous-appointments/route'
+import PackagesRoute from './_signedin_professional.packages/route'
 
 declare global {
   interface Window {
@@ -55,6 +57,10 @@ function AppRouterContent() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  // Read appointment_id and invite_id from query parameters
+  const appointmentID = getQueryParam('appointment_id')
+  const inviteID = getQueryParam('invite_id')
+
   // Fetch user on mount (only once)
   useEffect(() => {
     if (!initialized || !chatID) {
@@ -62,9 +68,23 @@ function AppRouterContent() {
       return
     }
 
-    // If user already loaded, don't fetch again
+    // If user already loaded, check if we need to navigate to appointments with appointment_id or invites with invite_id
     if (user !== null) {
       setIsLoading(false)
+      // If user is professional and appointment_id is in query, navigate to appointments
+      if (user.role === 'professional' && appointmentID) {
+        navigate('/professional/appointments', { 
+          replace: true,
+          state: { appointmentID }
+        })
+      }
+      // If user is client and invite_id is in query, navigate to invites
+      else if (user.role === 'client' && inviteID) {
+        navigate('/client/invites', { 
+          replace: true,
+          state: { inviteID }
+        })
+      }
       return
     }
 
@@ -92,9 +112,25 @@ function AppRouterContent() {
           }
           // Redirect based on role
           if (userData.user.role === 'client') {
-            navigate('/client/dashboard', { replace: true })
+            // If invite_id is in query params, navigate to invites with it
+            if (inviteID) {
+              navigate('/client/invites', { 
+                replace: true,
+                state: { inviteID }
+              })
+            } else {
+              navigate('/client/dashboard', { replace: true })
+            }
           } else if (userData.user.role === 'professional') {
-            navigate('/professional/dashboard', { replace: true })
+            // If appointment_id is in query params, navigate to appointments with it
+            if (appointmentID) {
+              navigate('/professional/appointments', { 
+                replace: true,
+                state: { appointmentID }
+              })
+            } else {
+              navigate('/professional/dashboard', { replace: true })
+            }
           } else {
             navigate('/success', { replace: true })
           }
@@ -115,11 +151,11 @@ function AppRouterContent() {
     }
 
     fetchUser()
-  }, [initialized, chatID, navigate, setUser, user, location.pathname])
+  }, [initialized, chatID, navigate, setUser, user, location.pathname, appointmentID, inviteID])
 
   // Setup Telegram Back Button
   useEffect(() => {
-    const tg = window.Telegram?.WebApp
+    const tg = (window as any).Telegram?.WebApp
     if (!tg) return
 
     const hideRoutes = ['/role-selection', '/client/dashboard', '/professional/dashboard', '/loading', '/success', '/error', '/']
@@ -132,14 +168,20 @@ function AppRouterContent() {
 
     tg.BackButton.show()
     const handleBack = () => {
-      navigate(-1)
+      if (location.pathname === '/professional/appointments') {
+        navigate('/professional/dashboard', { replace: false })
+      } else if (location.pathname === '/client/invites') {
+        navigate('/client/dashboard', { replace: false })
+      } else {
+        navigate(-1)
+      }
     }
     tg.BackButton.onClick(handleBack)
 
     return () => {
       tg.BackButton.offClick(handleBack)
     }
-  }, [location.pathname, navigate])
+  }, [location.pathname, location.search, navigate])
 
   // Show loading only if we're on loading route or initializing
   if (isLoading && (location.pathname === '/loading' || location.pathname === '/')) {
@@ -157,21 +199,22 @@ function AppRouterContent() {
       
       {/* Client routes */}
       <Route path="/client/dashboard" element={<ClientDashboardRoute />} />
-      <Route path="/client/book/select-professional" element={<SelectProfessionalRoute />} />
-      <Route path="/client/book/select-date/:professionalID" element={<SelectDateRoute />} />
-      <Route path="/client/book/select-time/:professionalID/:date" element={<SelectTimeRoute />} />
-      <Route path="/client/book/confirm" element={<ConfirmAppointmentRoute />} />
-      <Route path="/client/appointments/:status" element={<ClientAppointmentsRoute />} />
+      <Route path="/client/professionals" element={<ProfessionalsRoute />} />
+      <Route path="/client/book" element={<BookRoute />} />
+      <Route path="/client/appointments" element={<ClientAppointmentsRoute />} />
+      <Route path="/client/invites" element={<ClientInvitesRoute />} />
+      <Route path="/client/previous-appointments" element={<ClientPreviousAppointmentsRoute />} />
+      <Route path="/client/packages" element={<ClientPackagesRoute />} />
       
       {/* Professional routes */}
       <Route path="/professional/dashboard" element={<ProfessionalDashboardRoute />} />
-      <Route path="/professional/appointments/:status" element={<ProfessionalAppointmentsRoute />} />
-      <Route path="/professional/set-unavailable/select-date" element={<SelectUnavailableDateRoute />} />
-      <Route path="/professional/set-unavailable/select-time/:date" element={<SelectUnavailableTimeRoute />} />
-      <Route path="/professional/set-unavailable/description" element={<UnavailableDescriptionRoute />} />
+      <Route path="/professional/appointments" element={<ProfessionalAppointmentsRoute />} />
+      <Route path="/professional/set-unavailable" element={<SetUnavailableRoute />} />
+      <Route path="/professional/create-group-visit" element={<CreateGroupVisitRoute />} />
       <Route path="/professional/timetable/:date" element={<TimetableRoute />} />
       <Route path="/professional/previous-appointments/select-client" element={<SelectClientRoute />} />
-      <Route path="/professional/previous-appointments/:clientID/:month" element={<PreviousAppointmentsRoute />} />
+      <Route path="/professional/previous-appointments" element={<PreviousAppointmentsRoute />} />
+      <Route path="/professional/packages" element={<PackagesRoute />} />
       
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/loading" replace />} />

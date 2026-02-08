@@ -6,13 +6,17 @@
     "save": "Save",
     "delete": "Delete",
     "edit": "Edit",
+    "accept": "Accept",
+    "dismiss": "Dismiss",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
     "date": "Date",
     "time": "Time",
     "professional": "Professional",
+    "coach": "Coach",
     "client": "Client",
+    "clients": "Clients",
     "appointment": "Appointment",
     "appointments": "Appointments",
     "create": "Create",
@@ -36,10 +40,16 @@
     "cancelReasonPrompt": "Please provide a reason for cancellation:",
     "cancelReasonPlaceholder": "Enter cancellation reason...",
     "cancelReasonRequired": "Please provide a cancellation reason",
+    "defaultCancelReason": "Appointment was created by mistake",
+    "clientDefaultCancelReason": "I'll be busy at this time",
+    "viewDetails": "View Details",
+    "appointmentDetails": "Appointment Details",
     "appointmentCancelled": "Appointment canceled successfully",
     "appointmentConfirmed": "Appointment confirmed successfully",
+    "appointmentClosed": "Closed",
     "appointmentCreated": "Appointment created successfully!",
     "unavailableCreated": "Unavailable period created successfully!",
+    "groupVisitCreated": "Group visit created successfully!",
     "noAppointments": "No appointments found",
     "noClients": "No clients found",
     "roles": {
@@ -70,45 +80,113 @@
     },
     "dashboard": {
       "title": "Client Dashboard",
-      "welcome": "Welcome back, {{name}}!",
+      "welcome": "Hello, {{name}}!",
       "bookAppointment": "Book Appointment",
-      "pendingAppointments": "Pending Appointments",
+      "professionals": "Coaches",
+      "appointments": "Appointments",
+      "invites": "Invites",
+      "previousAppointments": "Appointments history",
+      "packages": "Packages",
+      "pendingAppointments": "Pending",
       "upcomingAppointments": "Upcoming Appointments",
       "myAppointments": "My Appointments"
     },
-    "book": {
-      "selectProfessional": {
-        "title": "Select Professional",
-        "loading": "Loading professionals...",
-        "noProfessionals": "No available professionals",
-        "tryAgain": "Try again",
-        "page": "Page",
-        "previous": "← Previous",
-        "next": "Next →"
+    "invites": {
+      "title": "Invites",
+      "newInvite": "New Invite",
+      "noInvites": "No invites available",
+      "inviteFrom": "New invite from {{professionalName}}",
+      "toVisit": "to visit",
+      "training": "training",
+      "invitedYou": "{{professionalName}} invited you to {{typeDisplay}}",
+      "inviteDetails": "Invite Details",
+      "type": "Type",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "typeSplit": "split training",
+      "typeGroup": "group training",
+      "typeSplitSingle": "split training",
+      "typeGroupSingle": "group training",
+      "typePersonal": "personal training",
+      "confirm": "Confirm",
+      "dismiss": "Dismiss",
+      "cancel": "Cancel",
+      "inviteAccepted": "Invite accepted successfully!",
+      "inviteDismissed": "Invite dismissed",
+      "acceptError": "Failed to accept invite",
+      "dismissError": "Failed to dismiss invite",
+      "inviteAlreadyConfirmedOrUnavailable": "This visit was already confirmed or unavailable anymore"
+    },
+    "professionals": {
+      "title": "Coaches",
+      "tabs": {
+        "all": "All Coaches",
+        "subscriptions": "My Subscriptions"
       },
-      "selectDate": {
-        "title": "Select Date"
+      "all": {
+        "title": "All Coaches",
+        "loading": "Loading coaches...",
+        "noProfessionals": "No available coaches",
+        "subscribe": "Subscribe",
+        "subscribing": "Subscribing..."
       },
-      "selectTime": {
-        "title": "Select Time",
-        "loading": "Loading available time...",
-        "noSlots": "No available time slots for this date",
-        "dateLabel": "Date",
-        "date": "Date"
+      "subscriptions": {
+        "title": "My Subscriptions",
+        "loading": "Loading subscriptions...",
+        "noSubscriptions": "You don't have any subscriptions yet. Subscribe to coaches to see them here.",
+        "unsubscribe": "Unsubscribe",
+        "unsubscribing": "Unsubscribing...",
+        "error": {
+          "loadFailed": "Failed to load subscriptions"
+        }
       },
-      "confirm": {
-        "title": "Confirm Booking",
-        "professional": "Professional",
-        "date": "Date",
-        "time": "Time"
+      "viewTimetable": "View Timetable",
+      "timetable": {
+        "title": "{{name}}'s Timetable"
       }
+    },
+    "book": {
+      "title": "Book Appointment",
+      "selectCoach": "Coach",
+      "chooseCoach": "Select a coach...",
+      "noCoaches": "No subscribed coaches. Subscribe to a coach first.",
+      "availableSlots": "Available Slots",
+      "noSlots": "No available slots for this date",
+      "confirmBooking": "Confirm Booking"
     },
     "appointments": {
       "title": "My Appointments",
-      "pending": "Pending Appointments",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
       "upcoming": "Upcoming Appointments",
       "noAppointments": "No appointments",
-      "cancel": "Cancel Appointment"
+      "cancel": "Cancel Appointment",
+      "pendingTab": {
+        "loading": "Loading pending appointments...",
+        "noAppointments": "No pending appointments"
+      },
+      "confirmedTab": {
+        "loading": "Loading confirmed appointments...",
+        "noAppointments": "No confirmed appointments"
+      }
+    },
+    "previousAppointments": {
+      "title": "Appointments history",
+      "loading": "Loading previous appointments...",
+      "noAppointments": "No previous appointments found"
+    },
+    "packages": {
+      "title": "My Packages",
+      "loading": "Loading packages...",
+      "noPackages": "No packages found",
+      "professional": "Professional",
+      "issuedAt": "Issued at",
+      "expiresAt": "Expires at",
+      "appointments": "Appointments",
+      "packageDetails": "Package Details",
+      "loadingDetails": "Loading package details...",
+      "appointmentsList": "Appointments list",
+      "noAppointmentsInPackage": "No appointments in this package yet"
     }
   },
   "professional": {
@@ -128,23 +206,41 @@
     "dashboard": {
       "title": "Professional Dashboard",
       "welcome": "Welcome back, {{name}}!",
-      "pendingAppointments": "Pending Appointments",
-      "upcomingAppointments": "Upcoming Appointments",
-      "myAppointments": "My Appointments",
+      "appointments": "Appointments",
       "setUnavailable": "Set Unavailable",
       "timetable": "Timetable",
-      "previousAppointments": "Previous Appointments"
+      "previousAppointments": "Appointments history",
+      "createGroupVisit": "Create Group Visit",
+      "packages": "Packages"
     },
     "appointments": {
       "title": "My Appointments",
-      "pending": "Pending Appointments",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
       "upcoming": "Upcoming Appointments",
-      "noAppointments": "No appointments"
+      "noAppointments": "No appointments",
+      "type": "Type",
+      "clientsCount": "clients",
+      "types": {
+        "personal": "Personal Training",
+        "split": "Split Training",
+        "group": "Group Training",
+        "unavailable": "Unavailable slot"
+      },
+      "pendingTab": {
+        "loading": "Loading pending appointments...",
+        "noAppointments": "No pending appointments"
+      },
+      "confirmedTab": {
+        "loading": "Loading confirmed appointments...",
+        "noAppointments": "No confirmed appointments"
+      },
+      "pendingInviteUsers": "Pending Invite Users",
+      "noPendingInviteUsers": "No users waiting for confirmation"
     },
     "setUnavailable": {
-      "selectDate": {
-        "title": "Select Date"
-      },
+      "title": "Set Unavailable",
+      "predefinedDescription": "I will be busy during this period",
       "selectTime": {
         "titleStart": "Select start time",
         "titleEnd": "Select end time",
@@ -164,6 +260,43 @@
         "descriptionRequired": "Please enter description"
       }
     },
+    "createGroupVisit": {
+      "title": "Create Group Visit",
+      "selectDate": {
+        "title": "Select Date for Group Visit"
+      },
+      "selectTime": {
+        "titleStart": "Select start time",
+        "titleEnd": "Select end time",
+        "loading": "Loading available time...",
+        "noSlots": "No available time slots for this date",
+        "noEndTimes": "No available time slots for end time",
+        "backToStart": "Back to start time selection",
+        "dateLabel": "Date",
+        "startTimeLabel": "Start time"
+      },
+      "description": {
+        "title": "Enter Group Visit Description",
+        "date": "Date",
+        "time": "Time",
+        "type": "Type",
+        "typeGroup": "Group",
+        "typeSplit": "Split",
+        "clients": "Clients",
+        "selectAll": "Select All",
+        "noSubscriptions": "No subscriptions available",
+        "selectClientsRequired": "Please select at least one client or select all",
+        "description": "Group visit description",
+        "descriptionPlaceholder": "e.g., 'Group training session', 'Yoga class', 'Fitness group'...",
+        "descriptionRequired": "Please enter description",
+        "predefinedGroup": "Ideal possibility to work together in a big group!",
+        "predefinedSplit": "Ideal possibility to work with someone in pairs",
+        "splitNeedTwoClients": "Split training requires exactly 2 clients",
+        "splitMaxTwoClients": "Split training allows maximum 2 clients",
+        "splitCannotSelectAll": "Split training cannot use 'Select All'. Please select exactly 2 clients",
+        "groupNeedMoreThanTwoClients": "Group training requires more than 2 clients. Select at least 3 clients or use 'Select All'"
+      }
+    },
     "timetable": {
       "title": "My Timetable",
       "loading": "Loading timetable...",
@@ -172,18 +305,87 @@
       "cancelSlot": "Cancel Slot #{{number}}"
     },
     "previousAppointments": {
+      "title": "Appointments history",
+      "loading": "Loading previous appointments...",
+      "noAppointments": "No previous appointments found",
+      "filters": {
+        "toggle": "Filters",
+        "byClient": "Client",
+        "allClients": "All Clients",
+        "dateFrom": "From",
+        "dateTo": "To",
+        "selectDate": "Select date...",
+        "active": "Filters applied",
+        "clearAll": "Clear all"
+      },
       "selectClient": {
         "title": "Select a client",
         "subtitle": "Select a client to view their previous appointments:",
-        "loading": "Loading clients..."
+        "loading": "Loading clients...",
+        "allClients": "All Clients"
       },
       "byClient": {
-        "title": "Previous Appointments",
+        "title": "Appointments history",
         "month": "Month",
         "noAppointments": "No appointments for this client",
         "emptyMonth": "No appointments found for this month.",
         "clientLabel": "Client: {{name}}"
       }
+    },
+    "editAppointment": {
+      "title": "Edit Appointment",
+      "editButton": "Edit",
+      "saveButton": "Save Changes",
+      "saving": "Saving...",
+      "cancelEdit": "Cancel Edit",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter appointment description...",
+      "type": "Appointment Type",
+      "suggestedType": "Suggested: {{type}} ({{count}} clients)",
+      "inviteUsers": "Invite Users",
+      "noMissingUsers": "No additional users to invite",
+      "loadingMissingUsers": "Loading available users...",
+      "timeChangeWarning": "If you want to change appointment time, you should cancel it and create a new one. All invites for your clients will be deleted and clients who already confirmed it will lose this appointment.",
+      "personalNeedOneClient": "Personal training requires exactly 1 client",
+      "splitNeedTwoClients": "Split training requires exactly 2 clients",
+      "groupNeedThreeClients": "Group training requires at least 3 clients",
+      "updateSuccess": "Appointment updated successfully",
+      "sendInvite": "Send Invite",
+      "sendingInvite": "Sending...",
+      "inviteSuccess": "Invites sent successfully"
+    },
+    "packages": {
+      "title": "Packages",
+      "loading": "Loading packages...",
+      "noPackages": "No packages found",
+      "createPackage": "Create Package",
+      "selectClient": "Select Client",
+      "noClients": "No subscribed clients found",
+      "issuedAt": "Issued at",
+      "expiresAt": "Expires at",
+      "appointmentsNumber": "Number of appointments",
+      "appointments": "Appointments",
+      "packageDetails": "Package Details",
+      "loadingDetails": "Loading package details...",
+      "appointmentsList": "Appointments list",
+      "noAppointmentsInPackage": "No appointments in this package yet"
+    },
+    "editPreviousAppointment": {
+      "title": "Edit Previous Appointment",
+      "editButton": "Edit",
+      "saveButton": "Save Changes",
+      "saving": "Saving...",
+      "cancelEdit": "Cancel Edit",
+      "existingClients": "Current Clients",
+      "willBeRemoved": "will be removed",
+      "addClients": "Add Clients",
+      "noMissingClients": "No additional clients to add",
+      "loadingMissingClients": "Loading available clients...",
+      "suggestedType": "Suggested: {{type}} ({{count}} clients)",
+      "typeSuggestionAccepted": "Type will be changed to {{type}}",
+      "typeAutoUpdate": "Type will be updated to: {{type}} ({{count}} clients)",
+      "needAtLeastOneClient": "Appointment must have at least 1 client",
+      "updateSuccess": "Previous appointment updated successfully"
     }
   },
   "success": {
@@ -204,6 +406,15 @@
     "createAppointmentFailed": "Failed to create appointment",
     "cancelAppointmentFailed": "Failed to cancel appointment",
     "confirmAppointmentFailed": "Failed to confirm appointment",
-    "createUnavailableFailed": "Failed to create unavailable period"
+    "createUnavailableFailed": "Failed to create unavailable period",
+    "createGroupVisitFailed": "Failed to create group visit",
+    "updateAppointmentFailed": "Failed to update appointment",
+    "updatePreviousAppointmentFailed": "Failed to update previous appointment",
+    "loadMissingInviteUsersFailed": "Failed to load available users",
+    "loadMissingClientsFailed": "Failed to load available clients",
+    "loadPackagesFailed": "Failed to load packages",
+    "createPackageFailed": "Failed to create package",
+    "loadPackageDetailsFailed": "Failed to load package details",
+    "inviteForAppointmentFailed": "Failed to send invites"
   }
 }

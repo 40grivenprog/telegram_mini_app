@@ -1,25 +1,30 @@
 import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useUser } from '../../contexts/UserContext'
-import ProfessionalPendingAppointments from './components/ProfessionalAppointments'
+import Appointments from './components/Appointments'
+
+interface ProfessionalAppointmentsState {
+  appointmentID?: string
+}
 
 export default function ProfessionalAppointmentsRoute() {
   const navigate = useNavigate()
-  const { status } = useParams<{ status: string }>()
+  const location = useLocation()
   const { user } = useUser()
 
   if (!user) return null
 
-  const validStatus = status === 'pending' || status === 'upcoming' ? status : ''
+  const state = location.state as ProfessionalAppointmentsState | null
+  const appointmentID = state?.appointmentID
 
   const handleBack = () => {
     navigate('/professional/dashboard')
   }
 
   return (
-    <ProfessionalPendingAppointments
-      status={validStatus}
+    <Appointments
       onBack={handleBack}
+      initialAppointmentID={appointmentID}
     />
   )
 }

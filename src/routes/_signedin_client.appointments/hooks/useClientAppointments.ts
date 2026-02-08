@@ -10,6 +10,7 @@ export interface ClientAppointmentProfessional {
 
 export interface ClientAppointment {
   id: string
+  type?: string
   start_time: string
   end_time: string
   description?: string
@@ -37,7 +38,7 @@ interface UseClientAppointmentsResult {
   refetch: () => void
 }
 
-export function useClientAppointments(status: string = '', pageSize: number = 15): UseClientAppointmentsResult {
+export function useClientAppointments(status: string = '', pageSize: number = 15, enabled: boolean = true): UseClientAppointmentsResult {
   const [appointments, setAppointments] = useState<ClientAppointment[]>([])
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState<PaginationResponse | null>(null)
@@ -50,6 +51,7 @@ export function useClientAppointments(status: string = '', pageSize: number = 15
   }, [status])
 
   const loadAppointments = useCallback(async () => {
+    if (!enabled) return
     setLoading(true)
     setError(null)
     try {
@@ -63,11 +65,13 @@ export function useClientAppointments(status: string = '', pageSize: number = 15
     } finally {
       setLoading(false)
     }
-  }, [status, page, pageSize])
+  }, [status, page, pageSize, enabled])
 
   useEffect(() => {
-    loadAppointments()
-  }, [loadAppointments])
+    if (enabled) {
+      loadAppointments()
+    }
+  }, [loadAppointments, enabled])
 
   return {
     appointments,
