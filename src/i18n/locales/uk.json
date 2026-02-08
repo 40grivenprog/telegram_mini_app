@@ -400,8 +400,8 @@
   },
   "error": {
     "title": "Помилка",
-    "userCheckError": "Помилка при перевірці користувача",
-    "generic": "Сталася помилка",
+    "userCheckError": "Помилка при перевірці користувача. API URL: {{apiUrl}}",
+    "generic": "Сталася помилка. API URL: {{apiUrl}}",
     "loadAppointmentsFailed": "Не вдалося завантажити записи",
     "loadProfessionalsFailed": "Не вдалося завантажити список професіоналів",
     "loadTimetableFailed": "Не вдалося завантажити розклад",

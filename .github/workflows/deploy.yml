@@ -35,3 +35,14 @@ jobs:
       run: |
         npm install -g firebase-tools
         firebase deploy --only hosting --token $FIREBASE_TOKEN
+
+    - name: Display App URL
+      run: |
+        echo "🚀 Deployment successful!"
+        echo "App URL: https://telegram-mini-app-15131.web.app"
+        echo "Alternative URL: https://telegram-mini-app-15131.firebaseapp.com"
+        echo ""
+        echo "📊 View logs:"
+        echo "  - GitHub Actions: https://github.com/${{ github.repository }}/actions"
+        echo "  - Firebase Console: https://console.firebase.google.com/project/telegram-mini-app-15131/hosting"
+        echo "  - Google Cloud Logs: https://console.cloud.google.com/logs/query?project=telegram-mini-app-15131"

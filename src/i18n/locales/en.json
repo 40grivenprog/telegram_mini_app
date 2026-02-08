@@ -396,8 +396,8 @@
   },
   "error": {
     "title": "Error",
-    "userCheckError": "Error checking user",
-    "generic": "An error occurred",
+    "userCheckError": "Error checking user. API URL: {{apiUrl}}",
+    "generic": "An error occurred. API URL: {{apiUrl}}",
     "loadAppointmentsFailed": "Failed to load appointments",
     "loadProfessionalsFailed": "Failed to load professionals",
     "loadTimetableFailed": "Failed to load timetable",
