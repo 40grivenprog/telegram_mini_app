@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Clock, Loader2, AlertCircle, CalendarPlus, Users, Calendar, Check } from 'lucide-react'
@@ -28,6 +28,13 @@ export default function BookAppointment() {
     selectedSlot,
     setSelectedSlot,
   } = useBooking()
+
+  // Auto-select coach if there's only one
+  useEffect(() => {
+    if (!coachesLoading && coaches.length === 1 && !selectedCoach) {
+      setSelectedCoach(coaches[0])
+    }
+  }, [coachesLoading, coaches, selectedCoach, setSelectedCoach])
 
   const dates = generateAvailableDates(currentMonth)
   const today = new Date()

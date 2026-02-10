@@ -5,6 +5,12 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
   ? `${import.meta.env.VITE_API_BASE_URL}/api`
   : '/api' // Use relative path to leverage Vite proxy
 
+// Log API URL for debugging (only in development or if explicitly enabled)
+if (import.meta.env.DEV || import.meta.env.VITE_DEBUG_API_URL) {
+  console.log('API Base URL:', API_BASE_URL)
+  console.log('VITE_API_BASE_URL env:', import.meta.env.VITE_API_BASE_URL || 'not set')
+}
+
 class ApiService {
   constructor() {
     this.baseURL = API_BASE_URL
