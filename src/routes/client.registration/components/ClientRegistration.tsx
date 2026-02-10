@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { UserPlus, ArrowLeft, User, Loader2 } from 'lucide-react'
 import { apiService } from '../../../services/api'
+import LanguageSelector from '../../../components/LanguageSelector'
 import './ClientRegistration.css'
 
 interface ClientRegistrationProps {
@@ -18,7 +20,7 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!firstName.trim() || !lastName.trim()) {
       setError(t('client.registration.error.requiredFields'))
       return
@@ -45,7 +47,8 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
   }
 
   return (
-    <div className="container">
+    <div className="registration-container">
+      <LanguageSelector />
       <header className="header">
         <h1>{t('client.registration.title')}</h1>
       </header>
@@ -53,7 +56,10 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit} className="registration-form">
           <div className="form-group">
-            <label>{t('client.registration.firstName')} *</label>
+            <label>
+              <User size={14} />
+              {t('client.registration.firstName')}
+            </label>
             <input
               type="text"
               value={firstName}
@@ -64,7 +70,10 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
             />
           </div>
           <div className="form-group">
-            <label>{t('client.registration.lastName')} *</label>
+            <label>
+              <User size={14} />
+              {t('client.registration.lastName')}
+            </label>
             <input
               type="text"
               value={lastName}
@@ -76,7 +85,11 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
           </div>
           <div className="form-actions">
             <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? t('client.registration.registering') : t('client.registration.register')}
+              {loading ? (
+                <><Loader2 size={16} className="spinner" /> {t('client.registration.registering')}</>
+              ) : (
+                <><UserPlus size={16} /> {t('client.registration.register')}</>
+              )}
             </button>
             <button
               type="button"
@@ -84,6 +97,7 @@ export default function ClientRegistration({ chatID, onSuccess, onCancel }: Clie
               onClick={onCancel}
               disabled={loading}
             >
+              <ArrowLeft size={16} />
               {t('common.back')}
             </button>
           </div>

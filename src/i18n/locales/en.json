@@ -62,7 +62,7 @@
     "title": "Choose your role",
     "subtitle": "Please choose how you want to continue:",
     "client": "I'm a client",
-    "professional": "I'm a professional"
+    "professional": "I'm a coach"
   },
   "client": {
     "registration": {
@@ -406,6 +406,7 @@
     "createAppointmentFailed": "Failed to create appointment",
     "cancelAppointmentFailed": "Failed to cancel appointment",
     "confirmAppointmentFailed": "Failed to confirm appointment",
+    "appointmentTimeConflict": "You already have an appointment for this time. Please cancel it first or wait for approval.",
     "createUnavailableFailed": "Failed to create unavailable period",
     "createGroupVisitFailed": "Failed to create group visit",
     "updateAppointmentFailed": "Failed to update appointment",

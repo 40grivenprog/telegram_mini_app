@@ -61,7 +61,7 @@
     "title": "Wybierz swoją rolę",
     "subtitle": "Wybierz, jak chcesz kontynuować:",
     "client": "Jestem klientem",
-    "professional": "Jestem profesjonalistą"
+    "professional": "Jestem trenerem"
   },
   "client": {
     "registration": {
@@ -410,6 +410,7 @@
     "createAppointmentFailed": "Nie udało się utworzyć wizyty",
     "cancelAppointmentFailed": "Nie udało się anulować wizyty",
     "confirmAppointmentFailed": "Nie udało się potwierdzić wizyty",
+    "appointmentTimeConflict": "Masz już wizytę w tym czasie. Proszę najpierw ją anulować lub poczekać na zatwierdzenie.",
     "createUnavailableFailed": "Nie udało się utworzyć okresu niedostępności",
     "createGroupVisitFailed": "Nie udało się utworzyć wizyty grupowej",
     "updateAppointmentFailed": "Nie udało się zaktualizować wizyty",

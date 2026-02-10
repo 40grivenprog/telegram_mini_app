@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { LogIn, ArrowLeft, User, Lock, Loader2 } from 'lucide-react'
 import { apiService } from '../../../services/api'
+import LanguageSelector from '../../../components/LanguageSelector'
 import './ProfessionalSignIn.css'
 
 interface ProfessionalSignInProps {
@@ -18,7 +20,7 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!username.trim() || !password.trim()) {
       setError(t('professional.signin.error.requiredFields'))
       return
@@ -45,49 +47,63 @@ export default function ProfessionalSignIn({ chatID, onSuccess, onCancel }: Prof
   }
 
   return (
-    <div className="container">
-      <header className="header">
-        <h1>{t('professional.signin.title')}</h1>
-      </header>
-      <div className="content">
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit} className="registration-form">
-          <div className="form-group">
-            <label>{t('professional.signin.username')} *</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              placeholder={t('professional.signin.username')}
-              disabled={loading}
-            />
-          </div>
-          <div className="form-group">
-            <label>{t('professional.signin.password')} *</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder={t('professional.signin.password')}
-              disabled={loading}
-            />
-          </div>
-          <div className="form-actions">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? t('professional.signin.signingIn') : t('professional.signin.signin')}
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onCancel}
-              disabled={loading}
-            >
-              {t('common.back')}
-            </button>
-          </div>
-        </form>
+    <div className="signin-container">
+      <div className="signin-wrapper">
+        <LanguageSelector />
+        <header className="signin-header">
+          <h1>{t('professional.signin.title')}</h1>
+        </header>
+        <div className="signin-content">
+          {error && <div className="signin-error">{error}</div>}
+          <form onSubmit={handleSubmit} className="signin-form">
+            <div className="signin-form-group">
+              <label>
+                <User size={14} />
+                {t('professional.signin.username')}
+              </label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                placeholder={t('professional.signin.username')}
+                disabled={loading}
+              />
+            </div>
+            <div className="signin-form-group">
+              <label>
+                <Lock size={14} />
+                {t('professional.signin.password')}
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder={t('professional.signin.password')}
+                disabled={loading}
+              />
+            </div>
+            <div className="signin-form-actions">
+              <button type="submit" className="signin-btn signin-btn-primary" disabled={loading}>
+                {loading ? (
+                  <><Loader2 size={16} className="spinner" /> {t('professional.signin.signingIn')}</>
+                ) : (
+                  <><LogIn size={16} /> {t('professional.signin.signin')}</>
+                )}
+              </button>
+              <button
+                type="button"
+                className="signin-btn signin-btn-secondary"
+                onClick={onCancel}
+                disabled={loading}
+              >
+                <ArrowLeft size={16} />
+                {t('common.back')}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   )

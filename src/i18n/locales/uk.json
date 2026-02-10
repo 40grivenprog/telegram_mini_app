@@ -61,7 +61,7 @@
     "title": "Виберіть вашу роль",
     "subtitle": "Будь ласка, оберіть як ви хочете продовжити:",
     "client": "Я клієнт",
-    "professional": "Я професіонал"
+    "professional": "Я тренер"
   },
   "client": {
     "registration": {
@@ -410,6 +410,7 @@
     "createAppointmentFailed": "Не вдалося створити бронювання",
     "cancelAppointmentFailed": "Не вдалося скасувати бронювання",
     "confirmAppointmentFailed": "Не вдалося підтвердити бронювання",
+    "appointmentTimeConflict": "У вас вже є бронювання на цей час. Будь ласка, спочатку скасуйте його або дочекайтеся підтвердження.",
     "createUnavailableFailed": "Не вдалося створити період недоступності",
     "createGroupVisitFailed": "Не вдалося створити груповий візит",
     "updateAppointmentFailed": "Не вдалося оновити запис",

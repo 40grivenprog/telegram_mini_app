@@ -699,8 +699,8 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
                     </div>
                   )}
 
-                  {/* Invite users section - in details view (NOT edit mode) */}
-                  {!isEditMode && activeTab === 'confirmed' && (
+                  {/* Invite users section - in details view (NOT edit mode, NOT personal type, only for confirmed appointments) */}
+                  {!isEditMode && activeTab === 'confirmed' && appointmentDetails.type !== 'personal' && (
                     <div className="detail-section">
                       <h3 className="detail-section-title">
                         <UserPlus size={16} /> {t('professional.editAppointment.inviteUsers')}
@@ -748,6 +748,7 @@ export default function Appointments({ onBack, initialAppointmentID }: Appointme
               )}
 
               {updateError && <div className="error-message">{updateError}</div>}
+              {confirmError && <div className="error-message">{confirmError}</div>}
               
               <div className="modal-actions">
                 {appointmentDetails ? (

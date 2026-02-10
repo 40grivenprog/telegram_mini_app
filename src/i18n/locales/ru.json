@@ -61,7 +61,7 @@
     "title": "Выберите вашу роль",
     "subtitle": "Пожалуйста, выберите как вы хотите продолжить:",
     "client": "Я клиент",
-    "professional": "Я профессионал"
+    "professional": "Я тренер"
   },
   "client": {
     "registration": {
@@ -147,7 +147,7 @@
       "noCoaches": "Нет подписок на тренеров. Сначала подпишитесь на тренера.",
       "availableSlots": "Доступное время",
       "noSlots": "Нет доступного времени на эту дату",
-      "confirmBooking": "Подтвердить запись"
+      "confirmBooking": "Отправить запрос"
     },
     "appointments": {
       "title": "Мои записи",
@@ -407,7 +407,8 @@
     "loadAvailabilityFailed": "Не удалось загрузить доступное время",
     "createAppointmentFailed": "Не удалось создать бронирование",
     "cancelAppointmentFailed": "Не удалось отменить бронирование",
-    "confirmAppointmentFailed": "Не удалось подтвердить бронирование",
+    "confirmAppointmentFailed": "Не удалось отправить запрос",
+    "appointmentTimeConflict": "У вас уже есть бронирование на это время. Пожалуйста, сначала отмените его или дождитесь подтверждения.",
     "createUnavailableFailed": "Не удалось создать недоступный период",
     "createGroupVisitFailed": "Не удалось создать групповой визит",
     "updateAppointmentFailed": "Не удалось обновить запись",

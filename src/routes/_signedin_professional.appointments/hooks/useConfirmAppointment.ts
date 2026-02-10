@@ -24,7 +24,13 @@ export function useConfirmAppointment(): UseConfirmAppointmentResult {
         tg.HapticFeedback.notificationOccurred('success')
       }
     } catch (err: any) {
-      setError(err.message || i18n.t('error.confirmAppointmentFailed'))
+      console.log("ERROR", err)
+      // Handle conflict error (409) - appointment time conflict
+      if (err.status === 409 && err.data?.message) {
+        setError(i18n.t('error.appointmentTimeConflict'))
+      } else {
+        setError(err.message || i18n.t('error.confirmAppointmentFailed'))
+      }
       throw err
     } finally {
       setConfirming(false)
